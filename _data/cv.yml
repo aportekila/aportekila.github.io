@@ -49,6 +49,39 @@
         - Led reinforcement learning research, resulting in a NeurIPS 2024 paper and ongoing preprints.
         - Collaborated with the <a href="https://www.ias.informatik.tu-darmstadt.de/">Intelligent Autonomous Systems</a> group at <a href="https://www.tu-darmstadt.de/">TU Darmstadt</a> under <a href="https://scholar.google.com/citations?user=-kIVAcAAAAAJ">Jan Peters</a>, leading to a submission.
         - Contributed to open-source codebases (e.g., MOMBO, ObjectRL) adopted by the research community.
+    - title: Research and Teaching Assistant
+      institution: ITU Vision Lab
+      department: Artificial Intelligence and Data Engineering
+      location: Istanbul, Turkiye
+      year: 2021 - 2023
+      description:
+        - Conducted research in computer vision and uncertainty quantification, leading to a publication at ICLR 2022.
+    - title: Machine Learning Engineer
+      institution: Vakifbank
+      location: Istanbul, Turkiye
+      department: R\&D and Innovation
+      description:
+        - Developed Siamese CNNs for fraud detection in signature verification.
+        - Achieved 95\% test accuracy on internal data and 88\% on CEDAR benchmark, reducing fraud risk.
+        - Applied various CNNs (MobileNetV2, ResNet50) using Keras/TensorFlow.
+      year: 2020 - 2020
+    - title: Research Intern
+      institution: Istanbul Technical University
+      location: Istanbul, Turkiye
+      department: Artificial Intelligence and Robotics Laboratory (AIRLab)
+      year: 2019 - 2019
+      description:
+        - Built simulated robot manipulation environments in pyBullet for kitchen tasks.
+        - Implemented Deep Deterministic Policy Gradient (DDPG) and Soft Actor-Critic (SAC) for robotic control.
+        - Integrated pyBullet and MoveIt environments for inverse kinematics calculations.
+    - title: Front-End Developer Intern
+      institution: Dogus Technology
+      location: Istanbul, Turkiye
+      year: 2018 - 2018
+      description:
+        - Built front-end web applications (JavaScript, Node.js) and back-office systems.
+        - Designed secure login pages, error-handling flows, and responsive user interfaces.
+        - Built an Arduino-based chatbot integrated with Slack for sensor-user interaction.
         
 - title: Open Source Projects
   type: time_table
