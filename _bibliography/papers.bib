@@ -23,7 +23,7 @@
 	bibtex_show  = {true},
 	abstract     = {Current approaches to model-based offline reinforcement learning often incorporate uncertainty-based reward penalization to address the distributional shift problem. These approaches, commonly known as pessimistic value iteration, use Monte Carlo sampling to estimate the Bellman target to perform temporal difference based policy evaluation. We find out that the randomness caused by this sampling step significantly delays convergence. We present a theoretical result demonstrating the strong dependency of suboptimality on the number of Monte Carlo samples taken per Bellman target calculation. Our main contribution is a deterministic approximation to the Bellman target that uses progressive moment matching, a method developed originally for deterministic variational inference. The resulting algorithm, which we call Moment Matching Offline Model-Based Policy Optimization (MOMBO), propagates the uncertainty of the next state through a nonlinear Q-network in a deterministic fashion by approximating the distributions of hidden layer activations by a normal distribution. We show that it is possible to provide tighter guarantees for the suboptimality of MOMBO than the existing Monte Carlo sampling approaches. We also observe MOMBO to converge faster than these approaches in a large set of benchmark tasks.},
 	code         = {https://github.com/aportekila/MOMBO},
-  google_scholar_id = {FZeaKPoAAAAJ:IjCSPb-OGe4C},
+  google_scholar_id = {IjCSPb-OGe4C},
   video        = {https://neurips.cc/virtual/2024/poster/95381},
 }
 
@@ -39,5 +39,109 @@
 	bibtex_show  = {true},
 	abstract     = {Actor-critic algorithms address the dual goals of reinforcement learning, policy evaluation and improvement, via two separate function approximators. The practicality of this approach comes at the expense of training instability, caused mainly by the destructive effect of the approximation errors of the critic on the actor. We tackle this bottleneck by employing an existing Probably Approximately Correct (PAC) Bayesian bound for the first time as the critic training objective of the Soft Actor-Critic (SAC) algorithm. We further demonstrate that the online learning performance improves significantly when a stochastic actor explores multiple futures by critic-guided random search. We observe our resulting algorithm to compare favorably to the state of the art on multiple classical control and locomotion tasks in both sample efficiency and asymptotic performance.},
   code         = {https://github.com/adinlab/PAC4SAC},
-  google_scholar_id={FZeaKPoAAAAJ:9yKSN-GCB0IC}
+  google_scholar_id={9yKSN-GCB0IC}
 }
+
+@inproceedings{kandemir2022evidential,
+  abbr={ICLR},
+  title={Evidential Turing Processes },
+  author={Kandemir, M. and Akgül, Abdullah and Haussmann, M. and Unal, G.},
+  booktitle=iclr,
+  year={2022},
+  url={https://openreview.net/pdf?id=84NMXTHYe-},
+  html={https://openreview.net/forum?id=84NMXTHYe-},
+  selected={true},
+  abstract={A probabilistic classifier with reliable predictive uncertainties i) fits successfully to the target domain data, ii) provides calibrated class probabilities in difficult regions of the target domain (e.g. class overlap), and iii) accurately identifies queries coming out of the target domain and reject them. We introduce an original combination of Evidential Deep Learning, Neural Processes, and Neural Turing Machines capable of providing all three essential properties mentioned above for total uncertainty quantification. We observe our method on three image classification benchmarks to consistently improve the in-domain uncertainty quantification, out-of-domain detection, and robustness against input perturbations with one single model. Our unified solution delivers an implementation-friendly and computationally efficient recipe for safety clearance and provides intellectual economy to an investigation of algorithmic roots of epistemic awareness in deep neural nets.},
+  bibtex_show={true},
+  code={https://github.com/aportekila/EvidentialTuringProcesses},
+  video={https://iclr.cc/virtual/2022/poster/6361},
+  scholar_id={u5HHmVD_uO8C}
+}
+
+@inproceedings{ozer2022fl,
+  abbr={FL-NeurIPS},
+  title={How to Combine Variational Bayesian Networks in Federated Learning},
+  author = {Ozer, A. and Buldu, K.B. and Akgül, Abdullah and Unal, G.},
+  booktitle={Workshop on Federated Learning: Recent Advances and New Challenges (in Conjunction with NeurIPS 2022)},
+  year={2022},
+  url={https://openreview.net/forum?id=AkPwb9dvAlP},
+  html={https://openreview.net/forum?id=AkPwb9dvAlP},
+  selected={true},
+  abstract={Federated Learning enables multiple data centers to train a central model collaboratively without exposing any confidential data. Even though deterministic models are capable of performing high prediction accuracy, their lack of calibration and capability to quantify uncertainty is problematic for safety-critical applications. Different from deterministic models, probabilistic models such as Bayesian neural networks are relatively well-calibrated and able to quantify uncertainty alongside their competitive prediction accuracy. Both of the approaches appear in the federated learning framework; however, the aggregation scheme of deterministic models cannot be directly applied to probabilistic models since weights correspond to distributions instead of point estimates. In this work, we study the effects of various aggregation schemes for variational Bayesian neural networks. With empirical results on three image classification datasets, we observe that the degree of spread for an aggregated distribution is a significant factor in the learning process. Hence, we present an survey on the question of how to combine variational Bayesian networks in federated learning, while providing computer vision classification benchmarks for different aggregation settings.},
+  bibtex_show={true},
+  code={https://github.com/ituvisionlab/BFL-P},
+  scholar_id={d1gkVwhDpl0C}
+}
+
+@inproceedings{asan2024calibrating,
+  abbr={ICLR},
+  title={Calibrating Bayesian UNet++ for Sub-Seasonal Forecasting},
+  author={Asan, B. and Akgül, Abdullah and Unal, A. and Kandemir, M. and Unal, G.},
+  booktitle={Tackling Climate Change with Machine Learning at ICLR 2024},
+  year={2024},
+  url={https://arxiv.org/abs/2403.16612},
+  html={https://arxiv.org/abs/2403.16612},
+  selected={false},
+  abstract={Seasonal forecasting is a crucial task when it comes to detecting the extreme heat and colds that occur due to climate change. Confidence in the predictions should be reliable since a small increase in the temperatures in a year has a big impact on the world. Calibration of the neural networks provides a way to ensure our confidence in the predictions. However, calibrating regression models is an under-researched topic, especially in forecasters. We calibrate a UNet++ based architecture, which was shown to outperform physics-based models in temperature anomalies. We show that with a slight trade-off between prediction error and calibration error, it is possible to get more reliable and sharper forecasts. We believe that calibration should be an important part of safety-critical machine learning applications such as weather forecasters.},
+  bibtex_show={true},
+  scholar_id={UeHWp8X0CEIC}
+}
+
+@inproceedings{akgul2024cddp,
+  abbr={L4DC},
+  title={Continual Learning of Multi-modal Dynamics with External Memory},
+  author = {Akgül, Abdullah and Unal, G. and Kandemir, M.},
+  booktitle={Proceedings of The 6th Annual Learning for Dynamics and Control Conference},
+  year={2024},
+  url={https://arxiv.org/abs/2203.00936},
+  html={https://arxiv.org/abs/2203.00936},
+  selected={true},
+  abstract={We study the problem of fitting a model to a dynamical environment when new modes of behavior emerge sequentially. The learning model is aware when a new mode appears, but it does not have access to the true modes of individual training sequences. We devise a novel continual learning method that maintains a descriptor of the mode of an encountered sequence in a neural episodic memory. We employ a Dirichlet Process prior on the attention weights of the memory to foster efficient storage of the mode descriptors. Our method performs continual learning by transferring knowledge across tasks by retrieving the descriptors of similar modes of past tasks to the mode of a current sequence and feeding this descriptor into its transition kernel as control input. We observe the continual learning performance of our method to compare favorably to the mainstream parameter transfer approach.},
+  bibtex_show={true},
+  code={https://github.com/aportekila/CDDP-Continual-Learning-of-Multi-modal-Dynamics-with-External-Memory},
+  scholar_id={u-x6o8ySG0sC}
+}
+
+@article{baykal2025objectrl,
+	abbr       = {arXiv},
+	title 		 = {ObjectRL: An Object-Oriented Reinforcement Learning Codebase},
+	author 		 = {Baykal, G. and  Akg{\"u}l, A. and Haussmann, M. and Tasdighi, B. and Werge, N. and Wu, Y.S. and Kandemir, M.},
+	year 		   = {2025},
+	journal 	 = arxiv,
+	url 		   = {https://arxiv.org/abs/2507.03487},
+	html  		 = {https://arxiv.org/abs/2507.03487},
+	selected 	 = {false},
+	bibtex_show= {true},
+	code       = {https://github.com/adinlab/objectrl},
+	abstract 	 = {ObjectRL is an open-source Python codebase for deep reinforcement learning (RL), designed for research-oriented prototyping with minimal programming effort. Unlike existing codebases, ObjectRL is built on Object-Oriented Programming (OOP) principles, providing a clear structure that simplifies the implementation, modification, and evaluation of new algorithms. ObjectRL lowers the entry barrier for deep RL research by organizing best practices into explicit, clearly separated components, making them easier to understand and adapt. Each algorithmic component is a class with attributes that describe key RL concepts and methods that intuitively reflect their interactions. The class hierarchy closely follows common ontological relationships, enabling data encapsulation, inheritance, and polymorphism, which are core features of OOP. We demonstrate the efficiency of ObjectRL’s design through representative use cases that highlight its flexibility and suitability for rapid prototyping. The documentation and source code are available at https://objectrl.readthedocs.io and https://github.com/adinlab/objectrl .},
+  google_scholar_id={Y0pCki6q_DkC}
+}
+
+@article{akgul2025overcoming,
+	abbr       = {arXiv},
+	title 		 = {Overcoming Non-stationary Dynamics with Evidential Proximal Policy Optimization},
+	author 		 = {Akg{\"u}l, A. and Baykal, G. and Haussmann, M. and Kandemir, M.},
+	year 		   = {2025},
+	journal 	 = arxiv,
+	url 		   = {https://arxiv.org/pdf/2503.01468},
+	html  		 = {https://arxiv.org/pdf/2503.01468},
+	selected 	 = {true},
+	bibtex_show= {true},
+	abstract 	 = {Continuous control of non-stationary environments is a major challenge for deep reinforcement learning algorithms. The time-dependency of the state transition dynamics aggravates the notorious stability problems of model-free deep actor-critic architectures. We posit that two properties will play a key role in overcoming nonstationarity in transition dynamics: (i) preserving the plasticity of the critic network, (ii) directed exploration for rapid adaptation to the changing dynamics. We show that performing on-policy reinforcement learning with an evidential critic provides both of these properties. The evidential design ensures a fast and sufficiently accurate approximation to the uncertainty around the state-value, which maintains the plasticity of the critic network by detecting the distributional shifts caused by the change in dynamics. The probabilistic critic also makes the actor training objective a random variable, enabling the use of directed exploration approaches as a by-product. We name the resulting algorithm as Evidential Proximal Policy Optimization (EPPO) due to the integral role of evidential uncertainty quantification in both policy evaluation and policy improvement stages. Through experiments on non-stationary continuous control tasks, where the environment dynamics change at regular intervals, we demonstrate that our algorithm outperforms state-of-the-art on-policy reinforcement learning variants in both task-specific and overall return.},
+  google_scholar_id={Y0pCki6q_DkC}
+}
+
+@article{werge2023bof,
+	abbr         = {arXiv},
+	title        = {BOF-UCB: A Bayesian-Optimistic Frequentist Algorithm for Non-Stationary Contextual Bandits},
+	author       = {Werge, N. and Akgül, A. and Kandemir, M.},
+	year         = {2023},
+	journal      = arxiv,
+	url          = {https://arxiv.org/abs/2307.03587},
+	html         = {https://arxiv.org/abs/2307.03587},
+	selected     = {false},
+	bibtex_show  = {true},
+	abstract     = {We propose a novel Bayesian-Optimistic Frequentist Upper Confidence Bound (BOF-UCB) algorithm for stochastic contextual linear bandits in non-stationary environments. This unique combination of Bayesian and frequentist principles enhances adaptability and performance in dynamic settings. The BOF-UCB algorithm utilizes sequential Bayesian updates to infer the posterior distribution of the unknown regression parameter, and subsequently employs a frequentist approach to compute the Upper Confidence Bound (UCB) by maximizing the expected reward over the posterior distribution. We provide theoretical guarantees of BOF-UCB's performance and demonstrate its effectiveness in balancing exploration and exploitation on synthetic datasets and classical control tasks in a reinforcement learning setting. Our results show that BOF-UCB outperforms existing methods, making it a promising solution for sequential decision-making in non-stationary environments.},
+  google_scholar_id={2osOgNQ5qMEC}
+}
+

@@ -255,7 +255,7 @@ display_categories: ["external-services"] # these categories will be displayed o
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Akgül, Akg\"ul]
+  last_name: [Akgül, Akg\"ul, Akg{\"u}l]
   first_name: [Abdullah, A.]
 
   style: apa

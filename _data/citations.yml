@@ -1,0 +1,43 @@
+metadata:
+  last_updated: '2025-09-28'
+papers:
+  FZeaKPoAAAAJ:2osOgNQ5qMEC:
+    citations: 1
+    title: 'BOF-UCB: A Bayesian-Optimistic Frequentist Algorithm for Non-Stationary Contextual Bandits'
+    year: '2023'
+  FZeaKPoAAAAJ:9yKSN-GCB0IC:
+    citations: 9
+    title: PAC-Bayesian soft actor-critic learning
+    year: '2023'
+  FZeaKPoAAAAJ:IjCSPb-OGe4C:
+    citations: 2
+    title: Deterministic uncertainty propagation for improved model-based offline reinforcement learning
+    year: '2025'
+  FZeaKPoAAAAJ:Tyk-4Ss8FVUC:
+    citations: 1
+    title: Overcoming Non-stationary Dynamics with Evidential Proximal Policy Optimization
+    year: '2025'
+  FZeaKPoAAAAJ:UeHWp8X0CEIC:
+    citations: 0
+    title: Calibrating Bayesian UNet++ for Sub-Seasonal Forecasting
+    year: '2024'
+  FZeaKPoAAAAJ:Y0pCki6q_DkC:
+    citations: 0
+    title: 'ObjectRL: An Object-Oriented Reinforcement Learning Codebase'
+    year: '2025'
+  FZeaKPoAAAAJ:d1gkVwhDpl0C:
+    citations: 11
+    title: How to Combine Variational Bayesian Networks in Federated Learning
+    year: '2022'
+  FZeaKPoAAAAJ:qjMakFHDy7sC:
+    citations: 5
+    title: Meta Continual Learning on Graphs with Experience Replay
+    year: '2023'
+  FZeaKPoAAAAJ:u-x6o8ySG0sC:
+    citations: 0
+    title: Continual learning of multi-modal dynamics with external memory
+    year: '2024'
+  FZeaKPoAAAAJ:u5HHmVD_uO8C:
+    citations: 11
+    title: Evidential Turing Processes
+    year: '2022'
