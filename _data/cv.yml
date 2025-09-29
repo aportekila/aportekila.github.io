@@ -18,7 +18,7 @@
   type: time_table
   contents:
     - title: PhD in Computer Science
-      institution: University Southern Denmark
+      institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
       year: 2023 - Present
@@ -41,7 +41,7 @@
   type: time_table
   contents:
     - title: Salaried PhD
-      institution: University Southern Denmark
+      institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
       year: 2023 - Present
@@ -49,36 +49,7 @@
         - Led reinforcement learning research, resulting in a NeurIPS 2024 paper and ongoing preprints.
         - Collaborated with the <a href="https://www.ias.informatik.tu-darmstadt.de/">Intelligent Autonomous Systems</a> group at <a href="https://www.tu-darmstadt.de/">TU Darmstadt</a> under <a href="https://scholar.google.com/citations?user=-kIVAcAAAAAJ">Jan Peters</a>, leading to a submission.
         - Contributed to open-source codebases (e.g., MOMBO, ObjectRL) adopted by the research community.
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
-      description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
-      description:
-        - Description 1.
-        - Description 2.
-
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
-      description:
-
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
+        
 - title: Open Source Projects
   type: time_table
   contents:
