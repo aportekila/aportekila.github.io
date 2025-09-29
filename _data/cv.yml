@@ -1,32 +1,45 @@
 - title: General Information
   type: map
   contents:
-    - name: Full Name
-      value: Albert Einstein
-    - name: Date of Birth
-      value: 14th March 1879
+    - name: Name
+      value: Abdullah Akgül
+    - name: Address
+      value: >
+        Campusvej 55, 5230,
+        Odense, Denmark
+    - name: Email
+      value: <a href="mailto:abdullahakgul70@gmail.com"><i class="fas fa-envelope"></i> abdullahakgul70@gmail.com</a>
+    - name: Nationality
+      value: Turkish
     - name: Languages
-      value: English, German
+      value: English (Fluent), Turkish (Native), Danish (Beginner)
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: PhD in Computer Science
+      institution: University Southern Denmark
+      department: Department of Mathematics and Computer Science
+      location: Odense, Denmark
+      year: 2023 - Present
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+        - Advisor: <a href="https://melihkandemir.github.io/">Melih Kandemir</a>
+    - title: MSc in Computer Engineering
+      institution: Istanbul Technical University
+      department: Department of Computer Engineering
+      location: Istanbul, Turkiye
+      year: 2022
       description:
-        - Description 1.
-        - Description 2.
+        - Advisor: <a href="https://gozde-unal.github.io/">Gozde Unal</a>
+        - GPA: 4.00/4.00
+    - title: BSc in Computer Engineering
+      institution: Istanbul Technical University
+      department: Department of Computer Engineering
+      location: Istanbul, Turkiye
+      year: 2020
+      description:
+        - Advisor: <a href="https://web.itu.edu.tr/sariel/">Sanem Sariel</a>
+        - GPA: 3.70/4.00
 
 - title: Experience
   type: time_table
