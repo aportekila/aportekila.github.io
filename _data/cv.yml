@@ -23,14 +23,14 @@
       location: Odense, Denmark
       year: 2023 - Present
       description:
-        - Advisor: <a href="https://melihkandemir.github.io/">Melih Kandemir</a>
+        - <span class="item-title">Advisor: </span> <a href="https://melihkandemir.github.io/">Melih Kandemir</a>
     - title: MSc in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkiye
       year: 2022
       description:
-        - Advisor: <a href="https://gozde-unal.github.io/">Gozde Unal</a>
+        - <span class="item-title">Advisor: </span> <a href="https://gozde-unal.github.io/">Gozde Unal</a>
         - GPA: 4.00/4.00
     - title: BSc in Computer Engineering
       institution: Istanbul Technical University
@@ -38,12 +38,21 @@
       location: Istanbul, Turkiye
       year: 2020
       description:
-        - Advisor: <a href="https://web.itu.edu.tr/sariel/">Sanem Sariel</a>
+        - <span class="item-title">Advisor: </span> <a href="https://web.itu.edu.tr/sariel/">Sanem Sariel</a>
         - GPA: 3.70/4.00
 
 - title: Experience
   type: time_table
   contents:
+    - title: Salaried PhD
+      institution: University Southern Denmark
+      department: Department of Mathematics and Computer Science
+      location: Odense, Denmark
+      year: 2023 - Present
+      description:
+        - Led reinforcement learning research, resulting in a NeurIPS 2024 paper and ongoing preprints.
+        - Collaborated with the <a href="https://www.ias.informatik.tu-darmstadt.de/">Intelligent Autonomous Systems</a> group at <a href="https://www.tu-darmstadt.de/">TU Darmstadt</a> under <a href="https://scholar.google.com/citations?user=-kIVAcAAAAAJ">Jan Peters</a>, leading to a submission.
+        - Contributed to open-source codebases (e.g., MOMBO, ObjectRL) adopted by the research community.
     - title: Professor of Theoretical Physics
       institution: Institute for Advanced Study, Princeton University
       year: 1933 - 1955
