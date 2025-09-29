@@ -22,24 +22,20 @@
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
       year: 2023 - Present
-      description:
-        - <span class="item-title">Advisor: </span> <a href="https://melihkandemir.github.io/">Melih Kandemir</a>
     - title: MSc in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkiye
       year: 2022
       description:
-        - <span class="item-title">Advisor: </span> <a href="https://gozde-unal.github.io/">Gozde Unal</a>
-        - GPA: 4.00/4.00
+        - <span class="item-title">GPA:</span> 4.00/4.00
     - title: BSc in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkiye
       year: 2020
       description:
-        - <span class="item-title">Advisor: </span> <a href="https://web.itu.edu.tr/sariel/">Sanem Sariel</a>
-        - GPA: 3.70/4.00
+        - <span class="item-title">GPA:</span> 3.70/4.00
 
 - title: Experience
   type: time_table
