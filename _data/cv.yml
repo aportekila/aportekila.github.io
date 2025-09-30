@@ -62,7 +62,7 @@
       department: R&D and Innovation
       description:
         - Developed Siamese CNNs for fraud detection in signature verification.
-        - Achieved 95\% test accuracy on internal data and 88\% on CEDAR benchmark, reducing fraud risk.
+        - Achieved 95% test accuracy on internal data and 88% on CEDAR benchmark, reducing fraud risk.
         - Applied various CNNs (MobileNetV2, ResNet50) using Keras/TensorFlow.
       year: 2020 - 2020
     - title: Research Intern
@@ -118,6 +118,21 @@
         - Advances in Neural Information Processing Systems (NeurIPS)
         - European Workshop on Reinforcement Learning (EWRL)
 
+- title: Conference Activities
+  type: time_table
+  contents:
+    - year: 2025
+      items:
+        - European Workshop on Reinforcement Learning (EWRL), Tubingen, Germany
+        - Danish Digitalization, Data Science and AI (D3A 3.0), Nyborg, Denmark
+    - year: 2024
+      items:
+        - The Thirty-Eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024), Vancouver, Canada
+        - Danish Digitalization, Data Science and AI (D3A 2.0), Nyborg, Denmark
+        - The Forty-first International Conference on Machine Learning (ICML 2024), Vienna, Austria
+        - 6th Symposium on Advances in Approximate Bayesian Inference (AABI), Vienna, Austria
+
+
 
 - title: Skills
   type: nested_list
@@ -150,17 +165,3 @@
         - LaTeX
         - Docker
         - Weights & Biases
-
-- title: Conference Activities
-  type: time_table
-  contents:
-    - year: 2025
-      items:
-        - European Workshop on Reinforcement Learning (EWRL), Tubingen, Germany
-        - Danish Digitalization, Data Science and AI (D3A 3.0), Nyborg, Denmark
-    - year: 2024
-      items:
-        - The Thirty-Eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024), Vancouver, Canada
-        - Danish Digitalization, Data Science and AI (D3A 2.0), Nyborg, Denmark
-        - The Forty-first International Conference on Machine Learning (ICML 2024), Vienna, Austria
-        - 6th Symposium on Advances in Approximate Bayesian Inference (AABI), Vienna, Austria
