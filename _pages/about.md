@@ -16,4 +16,4 @@ social: true # includes social icons at the bottom of the page
 
 ---
 
-I have been a computer and math geek since childhood, learning through curiosity and trial-and-error. Today, I am a machine learning researcher specializing in reinforcement learning, deep learning, and probabilistic modeling, with publications at top venues such as NeurIPS and ICLR. I am skilled in developing ML systems, collaborating across disciplines, and mentoring students and projects. I am a versatile researcher who can quickly adapt to new domains in machine learning.
+I have been a computer and math geek since childhood, learning through curiosity and trial-and-error. Today, I am a machine learning researcher specializing in reinforcement learning, deep learning, and probabilistic modeling, with publications at top venues such as NeurIPS and ICLR. I am skilled in developing machine learning systems, collaborating across disciplines, and mentoring students. I am a versatile researcher who can quickly adapt to new domains in machine learning.
