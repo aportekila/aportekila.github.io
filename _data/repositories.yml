@@ -5,6 +5,7 @@ repo_description_lines_max: 2
 
 github_repos:
   - aportekila/MOMBO
+  - aportekila/EPPO
   - aportekila/CDDP-Continual-Learning-of-Multi-modal-Dynamics-with-External-Memory
   - aportekila/EvidentialTuringProcess
   - adinlab/adinrl
