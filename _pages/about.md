@@ -20,6 +20,8 @@ I have been a computer and math geek since childhood, learning through curiosity
 
 ---
 
-<div style="display: flex; justify-content: center; margin-top: 2rem;">
-  <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=UmWFPn3PuTjxJwiyiM2dCxA5Qjs415Et-CJ_7EobmYs"></script>
+<div style="display: flex; justify-content: center; margin-top: 1rem;">
+  <div style="max-width: 200px; max-height: 200px; overflow: hidden;">
+    <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=UmWFPn3PuTjxJwiyiM2dCxA5Qjs415Et-CJ_7EobmYs&w=200&h=200"></script>
+  </div>
 </div>
