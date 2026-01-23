@@ -1,12 +1,12 @@
 metadata:
-  last_updated: '2025-09-28'
+  last_updated: '2026-01-23'
 papers:
   FZeaKPoAAAAJ:2osOgNQ5qMEC:
     citations: 1
     title: 'BOF-UCB: A Bayesian-Optimistic Frequentist Algorithm for Non-Stationary Contextual Bandits'
     year: '2023'
   FZeaKPoAAAAJ:9yKSN-GCB0IC:
-    citations: 9
+    citations: 11
     title: PAC-Bayesian soft actor-critic learning
     year: '2023'
   FZeaKPoAAAAJ:IjCSPb-OGe4C:
