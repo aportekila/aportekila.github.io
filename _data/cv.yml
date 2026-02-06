@@ -21,19 +21,19 @@
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: Feb 2023 - (expected) Apr 2026
+      year: Feb 2023 -<br> (expected) Apr 2026
     - title: M.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkey
-      year: Sep 2020 - Nov 2022
+      year: Sep 2020 -<br> Nov 2022
       description:
         - <b>GPA:</b> 4.00/4.00
     - title: B.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkey
-      year: Sep 2016 - Aug 2020
+      year: Sep 2016 -<br> Aug 2020
       description:
         - <b>GPA:</b> 3.70/4.00
 
@@ -44,14 +44,14 @@
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: Feb 2026 - Present
+      year: Feb 2026 -<br> Present
       description:
         - Continuing research on probabilistic reinforcement learning for sample-efficient control.
     - title: Salaried Ph.D.
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: Feb 2023 - (expected) Apr 2026
+      year: Feb 2023 -<br> (expected) Apr 2026
       description:
         - Established a strong publication record in top-tier venues on improving sample efficiency in reinforcement learning.
         - Contributed to open-source codebases (e.g., MOMBO, EPPO, ObjectRL) adopted by the research community.
@@ -61,7 +61,7 @@
       institution: Istanbul Technical University
       department: Artificial Intelligence and Data Engineering
       location: Istanbul, Turkey
-      year: Mar 2021 - Jan 2023
+      year: Mar 2021 -<br> Jan 2023
       description:
         - Conducted research in computer vision and uncertainty quantification.
         - Teaching Assistant for Python Programming, Probability \& Statistics, and Computer Architecture courses.
@@ -73,19 +73,19 @@
       description:
         - Built a signature verification system for fraud detection using Siamese CNNs.
         - Achieved 95% test accuracy on internal data and 88% on the CEDAR benchmark.
-      year: Aug 2020 - Sep 2020
+      year: Aug 2020 -<br> Sep 2020
     - title: Research Intern
       institution: Istanbul Technical University
       location: Istanbul, Turkey
       department: Artificial Intelligence and Robotics Laboratory (AIRLab)
-      year: Aug 2019 - Sep 2019
+      year: Aug 2019 -<br> Sep 2019
       description:
         - Implemented deep reinforcement learning algorithms (DDPG, SAC) for robotic manipulation tasks.
         - Developed PyBullet simulation environments with MoveIt integration for inverse kinematics.
     - title: Front-End Developer Intern
       institution: Dogus Technology
       location: Istanbul, Turkey
-      year: Aug 2018 - Sep 2018
+      year: Aug 2018 -<br> Sep 2018
       description:
         - Built front-end web applications (JavaScript, Node.js) and back-office systems.
         - Designed secure login pages, error-handling flows, and responsive user interfaces.
