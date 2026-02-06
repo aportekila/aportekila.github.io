@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-01-23'
+  last_updated: '2026-02-06'
 papers:
   FZeaKPoAAAAJ:2osOgNQ5qMEC:
     citations: 1
@@ -14,13 +14,17 @@ papers:
     title: Deterministic uncertainty propagation for improved model-based offline reinforcement learning
     year: '2025'
   FZeaKPoAAAAJ:Tyk-4Ss8FVUC:
-    citations: 1
+    citations: 2
     title: Overcoming Non-stationary Dynamics with Evidential Proximal Policy Optimization
     year: '2025'
   FZeaKPoAAAAJ:UeHWp8X0CEIC:
     citations: 0
     title: Calibrating Bayesian UNet++ for Sub-Seasonal Forecasting
     year: '2024'
+  FZeaKPoAAAAJ:W7OEmFMy1HYC:
+    citations: 0
+    title: Distributional Active Inference
+    year: '2026'
   FZeaKPoAAAAJ:Y0pCki6q_DkC:
     citations: 0
     title: 'ObjectRL: An Object-Oriented Reinforcement Learning Codebase'
@@ -41,3 +45,7 @@ papers:
     citations: 11
     title: Evidential Turing Processes
     year: '2022'
+  nZPOL4wAAAAJ:KlAtU1dfN6UC:
+    citations: 1
+    title: Bridging the performance-gap between target-free and target-based reinforcement learning
+    year: '2026'

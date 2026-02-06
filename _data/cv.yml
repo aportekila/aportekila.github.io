@@ -17,96 +17,79 @@
 - title: Education
   type: time_table
   contents:
-    - title: PhD in Computer Science
+    - title: Ph.D. in Computer Science
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: 2023 - Present
-    - title: MSc in Computer Engineering
+      year: Feb 2023 - (expected) Apr 2026
+    - title: M.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkey
-      year: 2022
+      year: Sep 2020 - Nov 2022
       description:
         - <b>GPA:</b> 4.00/4.00
-    - title: BSc in Computer Engineering
+    - title: B.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
       location: Istanbul, Turkey
-      year: 2020
+      year: Sep 2016 - Aug 2020
       description:
         - <b>GPA:</b> 3.70/4.00
 
 - title: Experience
   type: time_table
   contents:
-    - title: Salaried PhD
+    - title: Research Assistant - Postdoctoral Researcher
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: 2023 - Present
+      year: Feb 2026 - Present
       description:
-        - Led reinforcement learning research, resulting in a NeurIPS 2024 paper and ongoing preprints.
-        - Collaborated with the <a href="https://www.ias.informatik.tu-darmstadt.de/">Intelligent Autonomous Systems</a> group at <a href="https://www.tu-darmstadt.de/">TU Darmstadt</a> led by <a href="https://scholar.google.com/citations?user=-kIVAcAAAAAJ">Jan Peters</a>, leading to a submission.
-        - Contributed to open-source codebases (e.g., MOMBO, ObjectRL) adopted by the research community.
+        - Continuing research on probabilistic reinforcement learning for sample-efficient control.
+    - title: Salaried Ph.D.
+      institution: University of Southern Denmark
+      department: Department of Mathematics and Computer Science
+      location: Odense, Denmark
+      year: Feb 2023 - (expected) Apr 2026
+      description:
+        - Established a strong publication record in top-tier venues on improving sample efficiency in reinforcement learning.
+        - Contributed to open-source codebases (e.g., MOMBO, EPPO, ObjectRL) adopted by the research community.
+        - Delivered exercise sessions on core machine learning concepts; guided students through assignments and provided feedback.
+        - Mentored 2+ MSc students on their theses, supporting research design and implementation.
     - title: Research and Teaching Assistant
-      institution: ITU Vision Lab
+      institution: Istanbul Technical University
       department: Artificial Intelligence and Data Engineering
       location: Istanbul, Turkey
-      year: 2021 - 2023
+      year: Mar 2021 - Jan 2023
       description:
-        - Conducted research in computer vision and uncertainty quantification, leading to a publication at ICLR 2022.
-    - title: Machine Learning Engineer
+        - Conducted research in computer vision and uncertainty quantification.
+        - Teaching Assistant for Python Programming, Probability \& Statistics, and Computer Architecture courses.
+        - Mentored 1 MSc student on thesis work (resulting in a TMLR publication) and 3+ BSc students on final projects (leading to 2 workshop papers at NeurIPS and ICLR).
+    - title: Part-time Machine Learning Engineer
       institution: Vakifbank
       location: Istanbul, Turkey
       department: R&D and Innovation
       description:
-        - Developed Siamese CNNs for fraud detection in signature verification.
-        - Achieved 95% test accuracy on internal data and 88% on CEDAR benchmark, reducing fraud risk.
-        - Applied various CNNs (MobileNetV2, ResNet50) using Keras/TensorFlow.
-      year: 2020 - 2020
+        - Built a signature verification system for fraud detection using Siamese CNNs.
+        - Achieved 95% test accuracy on internal data and 88% on the CEDAR benchmark.
+      year: Aug 2020 - Sep 2020
     - title: Research Intern
       institution: Istanbul Technical University
       location: Istanbul, Turkey
       department: Artificial Intelligence and Robotics Laboratory (AIRLab)
-      year: 2019 - 2019
+      year: Aug 2019 - Sep 2019
       description:
-        - Built simulated robot manipulation environments in pyBullet for kitchen tasks.
-        - Implemented Deep Deterministic Policy Gradient (DDPG) and Soft Actor-Critic (SAC) for robotic control.
-        - Integrated pyBullet and MoveIt environments for inverse kinematics calculations.
+        - Implemented deep reinforcement learning algorithms (DDPG, SAC) for robotic manipulation tasks.
+        - Developed PyBullet simulation environments with MoveIt integration for inverse kinematics.
     - title: Front-End Developer Intern
       institution: Dogus Technology
       location: Istanbul, Turkey
-      year: 2018 - 2018
+      year: Aug 2018 - Sep 2018
       description:
         - Built front-end web applications (JavaScript, Node.js) and back-office systems.
         - Designed secure login pages, error-handling flows, and responsive user interfaces.
         - Built an Arduino-based chatbot integrated with Slack for sensor-user interaction.
-
-- title: Teaching and Mentorship
-  type: time_table
-  contents:
-    - title: Teaching Assistant
-      institution: University of Southern Denmark
-      department: Department of Mathematics and Computer Science
-      location: Odense, Denmark
-      year: 2023 - Present
-      description:
-        - >
-          Courses: Introduction to Machine Learning Course, Data Mining and Machine Learning.
-        - Delivered exercise sessions on core machine learning concepts; guided students through assignments and provided constructive feedback. 
-        - Mentored 2+ MSc students on their theses, supporting research design and implementation. 
-    - title: Teaching and Research Assistant
-      year: 2021 - 2023
-      institution: Istanbul Technical University
-      department: Artificial Intelligence and Data Engineering & Computer Engineering
-      location: Istanbul, Turkey
-      description:
-        - >
-          Courses: Deep Learning, Probability and Statistics for Data Science, Computer Architecture,  Introduction to Programming for Data Science (Python), Logic Circuits Laboratory
-        - Supervised undergraduate students, enhancing their problem-solving and programming skills. 
-        - Mentored 3+ BSc students on final projects, leading to 2 workshop papers at NeurIPS and ICLR. 
-        - Mentored 1 MSc student on thesis work, resulting in a TMLR publication. 
 
 - title: Academic Service
   type: nested_list
@@ -118,37 +101,39 @@
         - Advances in Neural Information Processing Systems (NeurIPS)
         - European Workshop on Reinforcement Learning (EWRL)
 
-- title: Conference Activities
-  type: time_table
-  contents:
-    - year: 2025
-      items:
-        - European Workshop on Reinforcement Learning (EWRL), Tubingen, Germany
-        - Danish Digitalization, Data Science and AI (D3A 3.0), Nyborg, Denmark
-    - year: 2024
-      items:
-        - The Thirty-Eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024), Vancouver, Canada
-        - Danish Digitalization, Data Science and AI (D3A 2.0), Nyborg, Denmark
-        - The Forty-first International Conference on Machine Learning (ICML 2024), Vienna, Austria
-        - 6th Symposium on Advances in Approximate Bayesian Inference (AABI), Vienna, Austria
-
-
-
 - title: Skills
   type: nested_list
   contents:
-    - title: <b>Programming and Frameworks:</b>
+    - title: <b>Programming Languages:</b>
       items: 
         - Python
         - C
         - C++
+        - JavaScript
+        - HTML/CSS
+    - title: <b>ML Frameworks & Libraries:</b>
+      items:
         - PyTorch
         - TensorFlow
         - Keras
-        - SQL
-        - ROS
-    - title: <b>Machine Learning:</b>
+        - Scikit-learn
+        - NumPy
+        - SciPy
+        - Pandas
+        - OpenCV
+    - title: <b>Tools & Platforms:</b>
       items: 
+        - Git
+        - Linux
+        - Docker
+        - ROS
+        - MATLAB
+        - LaTeX
+        - Weights & Biases
+        - Flask
+        - Node.js
+    - title : <b>Areas of Interest:</b>
+      items:
         - Reinforcement Learning
         - Deep Learning
         - Probabilistic Modeling
@@ -157,11 +142,3 @@
         - Bandits
         - Federated Learning
         - Large Language Models
-    - title: <b>Tools & Platforms:</b>
-      items: 
-        - MATLAB
-        - Git
-        - Linux
-        - LaTeX
-        - Docker
-        - Weights & Biases

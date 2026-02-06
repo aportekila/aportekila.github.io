@@ -16,12 +16,12 @@ social: true # includes social icons at the bottom of the page
 
 ---
 
-I have been a computer and math geek since childhood, learning through curiosity and trial-and-error. Today, I am a machine learning researcher specializing in reinforcement learning, deep learning, and probabilistic modeling, with publications at top venues such as NeurIPS and ICLR. I am skilled in developing machine learning systems, collaborating across disciplines, and mentoring students. I am a versatile researcher who can quickly adapt to new domains in machine learning.
+Machine learning researcher with a strong publication record in reinforcement learning, deep learning, and probabilistic modeling. Focused on building machine learning systems that work beyond benchmarks, with experience developing open-source tools, solving real-world decision-making problems under uncertainty, and collaborating across disciplines. Quick to adapt to new domains.
 
 ---
 
-<div style="display: flex; justify-content: center; margin-top: 1rem;">
+<!-- <div style="display: flex; justify-content: center; margin-top: 1rem;">
   <div style="max-width: 200px; max-height: 200px; overflow: hidden;">
     <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=UmWFPn3PuTjxJwiyiM2dCxA5Qjs415Et-CJ_7EobmYs&w=200&h=200"></script>
   </div>
-</div>
+</div> -->
