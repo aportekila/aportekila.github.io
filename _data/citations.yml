@@ -1,20 +1,28 @@
 metadata:
-  last_updated: '2026-02-10'
+  last_updated: '2026-05-11'
 papers:
   FZeaKPoAAAAJ:2osOgNQ5qMEC:
     citations: 1
     title: 'BOF-UCB: A Bayesian-Optimistic Frequentist Algorithm for Non-Stationary Contextual Bandits'
     year: '2023'
   FZeaKPoAAAAJ:9yKSN-GCB0IC:
-    citations: 11
+    citations: 12
     title: PAC-Bayesian soft actor-critic learning
     year: '2023'
   FZeaKPoAAAAJ:IjCSPb-OGe4C:
-    citations: 2
+    citations: 6
     title: Deterministic uncertainty propagation for improved model-based offline reinforcement learning
     year: '2025'
+  FZeaKPoAAAAJ:LkGwnXOMwfcC:
+    citations: 0
+    title: Memory-based approaches to problems in probabilistic modeling
+    year: Unknown Year
+  FZeaKPoAAAAJ:Se3iqnhoufwC:
+    citations: 0
+    title: Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies
+    year: '2026'
   FZeaKPoAAAAJ:Tyk-4Ss8FVUC:
-    citations: 2
+    citations: 5
     title: Overcoming Non-stationary Dynamics with Evidential Proximal Policy Optimization
     year: '2025'
   FZeaKPoAAAAJ:UeHWp8X0CEIC:
@@ -22,7 +30,7 @@ papers:
     title: Calibrating Bayesian UNet++ for Sub-Seasonal Forecasting
     year: '2024'
   FZeaKPoAAAAJ:W7OEmFMy1HYC:
-    citations: 0
+    citations: 1
     title: Distributional Active Inference
     year: '2026'
   FZeaKPoAAAAJ:Y0pCki6q_DkC:
@@ -34,18 +42,22 @@ papers:
     title: How to Combine Variational Bayesian Networks in Federated Learning
     year: '2022'
   FZeaKPoAAAAJ:qjMakFHDy7sC:
-    citations: 5
+    citations: 7
     title: Meta Continual Learning on Graphs with Experience Replay
     year: '2023'
+  FZeaKPoAAAAJ:roLk4NBRz8UC:
+    citations: 0
+    title: Probabilistic Reinforcement Learning for Sample-Efficient Control
+    year: '2026'
   FZeaKPoAAAAJ:u-x6o8ySG0sC:
     citations: 0
     title: Continual learning of multi-modal dynamics with external memory
     year: '2024'
   FZeaKPoAAAAJ:u5HHmVD_uO8C:
-    citations: 11
+    citations: 12
     title: Evidential Turing Processes
     year: '2022'
-  nZPOL4wAAAAJ:KlAtU1dfN6UC:
+  FZeaKPoAAAAJ:ufrVoPGSRksC:
     citations: 1
-    title: Bridging the performance-gap between target-free and target-based reinforcement learning
-    year: '2026'
+    title: Bridging the Performance Gap Between Target-Free and Target-Based Reinforcement Learning
+    year: '2025'

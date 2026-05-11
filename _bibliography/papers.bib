@@ -11,6 +11,21 @@
 @string{aabi = {Advances in Approximate Bayesian Inference Symposium}}
 
 
+@article{boock2026hittingtime,
+	abbr       = {arXiv},
+	title 		 = {Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies},
+	author 		 = {Boock, M. V. and Akg{\"u}l, A. and {\c{C}}elikok, M. M. and Kandemir, M.},
+	year 		   = {2026},
+	journal 	 = arxiv,
+	url 		   = {https://arxiv.org/pdf/2605.06470},
+	html  		 = {https://arxiv.org/pdf/2605.06470},
+	selected 	 = {false},
+	bibtex_show= {true},
+	code       = {https://github.com/MagnusBoock/IEL/},
+	abstract 	 = {We present a new operator-theoretic representation learning framework for offlinereinforcement learning that recovers the directed temporal geometry of a controlledMarkov process from hitting time observations. While prior art often producessymmetric distances or fails to satisfy the triangle inequality, our framework learns a Hilbert-space displacement geometry where expected hitting times are realized as linear functionals of latent displacements. We prove that this representation exists under latent linear closure and is uniquely identifiable up to a bounded linear isomorphism. For finite-dimensional implementations, we show that global hitting-time error is bounded by one-step transition error amplified by the environment’s transient spectral radius. Furthermore, we provide finite-sample guarantees accounting for approximation, statistical complexity, and trajectory-label mismatch. Derived from this theory, we curate Isomorphic Embedding Learning (IEL) as a new goal-agnostic foundation policy learning algorithm that anchors a HILP-style consistency objective with explicit hitting-time regression to ensure that the learned geometry reflects actual decision-time progress. This asymmetric and compositional structure enables robust graph-based multi-stage planning for long-horizon navigation. Our experiments demonstrate that IEL improves the state of the art of learning foundation policy policies from offline maze locomotion data. Our code can be found at https://github.com/MagnusBoock/IEL},
+	google_scholar_id={FZeaKPoAAAAJ}
+}
+
 @inproceedings{vincent2026bridging,
   abbr={ICLR},
   title={Bridging the performance-gap between target-free and target-based reinforcement learning},
@@ -27,17 +42,18 @@
 }
 
 @article{akgul2026distributional,
-	abbr       = {arXiv},
+	abbr       = {ICML},
 	title 		 = {Distributional Active Inference},
 	author 		 = {Akg{\"u}l, A. and Baykal, G. and Hau{\ss}mann, M. and {\c{C}}elikok, M. M. and Kandemir, M.},
 	year 		   = {2026},
-	journal 	 = arxiv,
+	journal 	 = icml,
 	url 		   = {https://arxiv.org/pdf/2601.20985},
 	html  		 = {https://arxiv.org/pdf/2601.20985},
-	selected 	 = {false},
+	selected 	 = {true},
 	bibtex_show= {true},
 	abstract 	 = {Optimal control of complex environments with robotic systems faces two complementary and intertwined challenges: efficient organization of sensory state information and far-sighted action planning. Because the reinforcement learning framework addresses only the latter, it tends to deliver sample-inefficient solutions. Active inference is the state-of-the-art process theory that explains how biological brains handle this dual problem. However, its applications to artificial intelligence have thus far been limited to extensions of existing model-based approaches. We present a formal abstraction of reinforcement learning algorithms that spans model-based, distributional, and model-free approaches. This abstraction seamlessly integrates active inference into the distributional reinforcement learning framework, making its performance advantages accessible without transition dynamics modeling.},
-	google_scholar_id={0pYyn8DVA8AJ}
+	google_scholar_id={0pYyn8DVA8AJ},
+	video        = {https://www.youtube.com/watch?v=2NB7hTsp_F0},
 }
 
 
