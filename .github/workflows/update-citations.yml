@@ -100,6 +100,7 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          git config --local --unset http.https://github.com/.extraheader || true
           git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
           echo "🔧 Git configured."
 
