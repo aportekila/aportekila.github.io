@@ -1,34 +1,72 @@
 <div class="col mb-4">
-  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
-    <div class="card h-100 hoverable">
-      <div class="row no-gutters">
-        {% if project.img %}
-          <div class="col-md-6">
-            {% include figure.liquid loading="eager" path=project.img sizes="(min-width: 768px) 156px, 50vw" alt="project thumbnail" class="card-img" %}
-          </div>
-        {% endif %}
-        <div class="{% if project.img %}col-md-6{% else %}col-md-12{% endif %}">
-          <div class="card-body">
-            <h3 class="card-title">{{ project.title }}</h3>
-            <p class="card-text">{{ project.description }}</p>
-            <div class="row ml-1 mr-1 p-0">
+  <div class="card h-100 hoverable">
+    <div class="row no-gutters">
+      {% if project.img %}
+        <div class="col-md-4">
+          {%
+            include figure.liquid
+            loading="eager"
+            path=project.img
+            sizes="(min-width: 768px) 156px, 50vw"
+            alt="project thumbnail"
+            class="card-img h-100"
+            style="object-fit: cover;"
+          %}
+        </div>
+      {% endif %}
+      <div class="{% if project.img %}col-md-8{% else %}col-md-12{% endif %}">
+        <div class="card-body d-flex flex-column h-100">
+
+          <div class="d-flex justify-content-between align-items-center mb-2" style="position: relative; z-index: 2;">
+            <div>
+              {% if project.venue %}
+                <span class="badge" style="background-color: var(--global-theme-color); color: white; font-size: 0.75em;">
+                  {{ project.venue }} {{ project.year }}
+                </span>
+              {% endif %}
+            </div>
+            <div class="d-flex flex-wrap gap-1">
+              {% if project.paper_url %}
+                <a href="{{ project.paper_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-file-pdf fa-sm"></i> Paper
+                </a>
+              {% endif %}
+              {% if project.arxiv_id %}
+                <a href="https://arxiv.org/abs/{{ project.arxiv_id }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="ai ai-arxiv"></i> arXiv
+                </a>
+              {% endif %}
+              {% if project.video_url %}
+                <a href="{{ project.video_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-video fa-sm"></i> Video
+                </a>
+              {% endif %}
+              {% if project.code_url %}
+                <a href="{{ project.code_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-github fa-sm"></i> Code
+                </a>
+              {% endif %}
               {% if project.github %}
-                <div class="github-icon">
-                  <div class="icon" data-toggle="tooltip" title="Code Repository">
-                    <a href="{{ project.github }}"><i class="fa-brands fa-github gh-icon"></i></a>
-                  </div>
-                  {% if project.github_stars %}
-                    <span class="stars" data-toggle="tooltip" title="GitHub Stars">
-                      <i class="fa-solid fa-star"></i>
-                      <span id="{{ project.github_stars }}-stars"></span>
-                    </span>
-                  {% endif %}
-                </div>
+                <a href="{{ project.github }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-github fa-sm"></i> Code
+                </a>
+              {% endif %}
+              {% if project.scholar_id %}
+                <a href="https://scholar.google.com/citations?view_op=view_citation&citation_for_view=FZeaKPoAAAAJ:{{ project.scholar_id }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="ai ai-google-scholar fa-sm"></i> Scholar
+                </a>
               {% endif %}
             </div>
           </div>
+
+          <h3 class="card-title mb-1">
+            <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" class="stretched-link">{{ project.title }}</a>
+          </h3>
+
+          <p class="card-text flex-grow-1">{{ project.description }}</p>
+
         </div>
       </div>
     </div>
-  </a>
+  </div>
 </div>

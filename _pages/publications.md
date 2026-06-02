@@ -2,9 +2,9 @@
 layout: page
 permalink: /publications/
 title: Publications
-description: publications by categories in reversed chronological order. 
+description: Peer-reviewed publications in reinforcement learning, probabilistic modeling, and uncertainty quantification.
 nav: true
-nav_order: 3
+nav_order: 4
 ---
 
 <!-- _pages/publications.md -->

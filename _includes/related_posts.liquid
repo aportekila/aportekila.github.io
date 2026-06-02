@@ -1,0 +1,15 @@
+<h2>Related Posts</h2>
+
+<ul class="post-list">
+  {% for post in site.related_posts limit: site.related_blog_posts.max_related %}
+    {% if post.url != page.url %}
+      <li>
+        <div class="post-meta">{{ post.date | date: '%B %d, %Y' }}</div>
+        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% if post.description %}
+          <p class="post-description">{{ post.description }}</p>
+        {% endif %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

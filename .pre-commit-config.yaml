@@ -8,3 +8,13 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: gen-bib-meta
+        name: Regenerate _data/bib_meta.yml from papers.bib
+        language: python
+        entry: python3 _scripts/gen_bib_meta.py
+        files: ^_bibliography/papers\.bib$
+        additional_dependencies: [bibtexparser, pyyaml]
+        pass_filenames: false

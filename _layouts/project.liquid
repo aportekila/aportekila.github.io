@@ -1,0 +1,113 @@
+---
+layout: default
+---
+{% if page._styles %}
+  <!-- Page/Post style -->
+  <style type="text/css">
+    {{ page._styles }}
+  </style>
+{% endif %}
+
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.description %}<p class="post-description"> <strong>TL;DR:</strong>  {{ page.description }}</p>{% endif %}
+  </header>
+
+  {% comment %}Resolve link metadata: front matter takes priority; bib entry fills gaps.{% endcomment %}
+  {% if page.bib_key %}
+    {% assign _bib = site.data.bib_meta[page.bib_key] %}
+  {% endif %}
+  {% if page.paper_url %}
+    {% assign _paper_url = page.paper_url %}
+  {% elsif _bib.url and _bib.url != "" %}
+    {% assign _paper_url = _bib.url %}
+  {% endif %}
+  {% if page.arxiv_id %}
+    {% assign _arxiv_id = page.arxiv_id %}
+  {% elsif _bib.arxiv and _bib.arxiv != "" %}
+    {% assign _arxiv_id = _bib.arxiv %}
+  {% endif %}
+  {% if page.video_url %}
+    {% assign _video_url = page.video_url %}
+  {% elsif _bib.video and _bib.video != "" %}
+    {% assign _video_url = _bib.video %}
+  {% endif %}
+  {% if page.code_url %}
+    {% assign _code_url = page.code_url %}
+  {% elsif _bib.code and _bib.code != "" %}
+    {% assign _code_url = _bib.code %}
+  {% endif %}
+  {% if page.scholar_id %}
+    {% assign _scholar_id = page.scholar_id %}
+  {% elsif _bib.google_scholar_id and _bib.google_scholar_id != "" %}
+    {% assign _scholar_id = _bib.google_scholar_id %}
+  {% endif %}
+
+  {% assign has_links = false %}
+  {% if _paper_url or _arxiv_id or _video_url or _code_url or _scholar_id %}
+    {% assign has_links = true %}
+  {% endif %}
+  {% if has_links %}
+    <hr class="mt-0 mb-2">
+    <div class="row justify-content-center mb-2">
+      {% if _paper_url %}
+        <div class="col-sm-auto">
+          <a href="{{ _paper_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank"
+             style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;">
+            <i class="fa-solid fa-file-pdf"></i> Paper
+          </a>
+        </div>
+      {% endif %}
+      {% if _arxiv_id %}
+        <div class="col-sm-auto">
+          <a href="https://arxiv.org/abs/{{ _arxiv_id }}" class="btn btn-sm z-depth-0" role="button" target="_blank"
+             style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;">
+            <i class="ai ai-arxiv"></i> arXiv
+          </a>
+        </div>
+      {% endif %}
+      {% if _video_url %}
+        <div class="col-sm-auto">
+          <a href="{{ _video_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank"
+             style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;">
+            <i class="fa-solid fa-video"></i> Video
+          </a>
+        </div>
+      {% endif %}
+      {% if _code_url %}
+        <div class="col-sm-auto">
+          <a href="{{ _code_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank"
+             style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      {% endif %}
+      {% if _scholar_id %}
+        <div class="col-sm-auto">
+          <a href="https://scholar.google.com/citations?view_op=view_citation&citation_for_view=FZeaKPoAAAAJ:{{ _scholar_id }}"
+             class="btn btn-sm z-depth-0" role="button" target="_blank"
+             style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;">
+            <i class="ai ai-google-scholar"></i> Scholar
+          </a>
+        </div>
+      {% endif %}
+    </div>
+    <hr class="mt-0 mb-3">
+  {% endif %}
+
+  <article>
+    {{ content }}
+  </article>
+
+  {% if page.related_publications %}
+    <h2>References</h2>
+    <div class="publications">
+      {% bibliography --cited_in_order %}
+    </div>
+  {% endif %}
+
+  {% if site.giscus and page.giscus_comments %}
+    {% include giscus.liquid %}
+  {% endif %}
+</div>

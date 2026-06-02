@@ -21,7 +21,10 @@
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: Feb 2023 -<br> (expected) Apr 2026
+      year: Feb 2023 -<br> May 2026
+      description:
+        - <b>Defence:</b> May 18, 2026
+        - <b>Thesis:</b> Probabilistic Reinforcement Learning for Sample-Efficient Control
     - title: M.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
@@ -40,20 +43,20 @@
 - title: Experience
   type: time_table
   contents:
-    - title: Research Assistant - Postdoctoral Researcher
+    - title: Postdoctoral Researcher
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
       year: Feb 2026 -<br> Present
       description:
-        - Continuing research on probabilistic reinforcement learning for sample-efficient control.
+        - Extending probabilistic reinforcement learning to multi-agent settings, focusing on non-stationary dynamics in cooperative and competitive environments (ADIN Lab).
     - title: Salaried Ph.D.
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
-      year: Feb 2023 -<br> (expected) Apr 2026
+      year: Feb 2023 -<br> May 2026
       description:
-        - Established a strong publication record in top-tier venues on improving sample efficiency in reinforcement learning.
+        - Published at NeurIPS, ICML, ICLR, TMLR, UAI, and L4DC on probabilistic methods for sample-efficient reinforcement learning (ADIN Lab, supervised by Prof. Melih Kandemir).
         - Contributed to open-source codebases (e.g., MOMBO, EPPO, ObjectRL) adopted by the research community.
         - Delivered exercise sessions on core machine learning concepts; guided students through assignments and provided feedback.
         - Mentored 2+ MSc students on their theses, supporting research design and implementation.
@@ -63,7 +66,7 @@
       location: Istanbul, Turkey
       year: Mar 2021 -<br> Jan 2023
       description:
-        - Conducted research in computer vision and uncertainty quantification.
+        - Conducted research in computer vision and uncertainty quantification (Vision Lab, supervised by Prof. Gözde Ünal).
         - Teaching Assistant for Python Programming, Probability \& Statistics, and Computer Architecture courses.
         - Mentored 1 MSc student on thesis work (resulting in a TMLR publication) and 3+ BSc students on final projects (leading to 2 workshop papers at NeurIPS and ICLR).
     - title: Part-time Machine Learning Engineer
@@ -122,7 +125,7 @@
         - Pandas
         - OpenCV
     - title: <b>Tools & Platforms:</b>
-      items: 
+      items:
         - Git
         - Linux
         - Docker
@@ -132,6 +135,17 @@
         - Weights & Biases
         - Flask
         - Node.js
+    - title: <b>RL Environments & Benchmarks:</b>
+      items:
+        - MuJoCo / Gymnasium
+        - DeepMind Control Suite
+        - D4RL
+        - NeoRL
+        - EvoGym
+        - MaMuJoCo
+        - JaxMARL
+        - PettingZoo
+        - PyBullet
     - title : <b>Areas of Interest:</b>
       items:
         - Reinforcement Learning

@@ -1,14 +1,13 @@
 github_users:
   - aportekila
 
-repo_description_lines_max: 2
+repo_description_lines_max: 4
 
 github_repos:
+  - adinlab/objectrl
   - aportekila/MOMBO
   - aportekila/EPPO
+  - adinlab/PAC4SAC
   - aportekila/CDDP-Continual-Learning-of-Multi-modal-Dynamics-with-External-Memory
   - aportekila/EvidentialTuringProcess
-  - adinlab/adinrl
-  - adinlab/PAC4SAC
   - aportekila/FeDQN-A-Federated-Learning-Approach-for-Training-Reinforcement-Learning-Agent-of-Atari-Games
-  - aportekila/aportekila.github.io 
