@@ -11,7 +11,7 @@ ninja.data = [{
     },
   },{id: "nav-portfolio",
           title: "Portfolio",
-          description: "A curated showcase of my research — papers where I made a primary contribution and key collaborations at top venues.",
+          description: "A curated showcase of my research and industry work, spanning peer-reviewed publications at NeurIPS, ICML, ICLR, and TMLR, doctoral and master&#39;s theses, collaborative contributions, and applied ML projects.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/portfolio/";
@@ -60,32 +60,32 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-bfl-aggregating-variational-bayesian-networks-in-federated-learning",
           title: 'BFL: Aggregating Variational Bayesian Networks in Federated Learning',
-          description: "An empirical survey of five statistical aggregation rules for Variational Bayesian Neural Networks in federated learning, revealing that the variance (spread) of the aggregated distribution is the dominant factor in federated performance. Published at NeurIPS 2022.",
+          description: "Low-spread aggregation rules match or beat deterministic FedAvg while providing significantly better calibration across clients. First systematic study of aggregation strategies for Variational Bayesian Neural Networks in federated learning. NeurIPS 2022 Workshop.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bfl.html";
             },},{id: "projects-cddp-continual-learning-of-multi-modal-dynamics",
           title: 'CDDP: Continual Learning of Multi-modal Dynamics',
-          description: "A neural episodic memory with a Dirichlet Process prior enables a dynamics model to continually learn new behavioral modes without forgetting old ones. Published at L4DC 2024.",
+          description: "Learns new dynamical modes sequentially without catastrophic forgetting or mode labels, outperforming parameter-transfer baselines on 4 out of 5 datasets. Neural episodic memory with a Dirichlet Process prior for automatic mode discovery. L4DC 2024.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/cddp.html";
             },},{id: "projects-distributional-active-inference",
           title: 'Distributional Active Inference',
-          description: "A unified framework bridging distributional reinforcement learning and active inference, enabling sample-efficient control without modeling transition dynamics. Published at ICML 2026.",
+          description: "Best average rank across 19 continuous control tasks on three benchmark suites, with up to +62% sample efficiency over the next-best baseline. Integrates Active Inference into distributional RL without a world model. ICML 2026.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/daif.html";
             },},{id: "projects-eppo-evidential-proximal-policy-optimization",
           title: 'EPPO: Evidential Proximal Policy Optimization',
-          description: "Evidential uncertainty quantification in the critic network preserves plasticity and enables directed exploration, outperforming state-of-the-art on-policy methods in non-stationary environments. Published in TMLR 2025.",
+          description: "State-of-the-art in non-stationary control: average rank 1.5 across 10+ environments. Evidential critic simultaneously preserves plasticity and drives directed exploration from a single probabilistic framework. TMLR 2025.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/eppo.html";
             },},{id: "projects-evidential-turing-processes",
           title: 'Evidential Turing Processes',
-          description: "A unified Bayesian framework combining global and local uncertainty through an external memory mechanism, achieving simultaneous model calibration, class overlap quantification, and out-of-distribution detection on five real-world classification benchmarks. Published at ICLR 2022.",
+          description: "The only model achieving top-tier performance on calibration, class overlap, and OOD detection simultaneously across five real-world benchmarks. External memory unifies global and local uncertainty in a single principled framework. ICLR 2022.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/etp.html";
             },},{id: "projects-is-ql-bridging-target-free-and-target-based-reinforcement-learning",
           title: 'iS-QL: Bridging Target-free and Target-based Reinforcement Learning',
-          description: "Parameter sharing between online and target networks (keeping only the final linear layer separate) closes the stability gap of target-free RL while halving memory, with gains across Atari, DMC, and language. Published at ICLR 2026.",
+          description: "Closes the 10–60% performance gap between target-free and target-based RL by sharing all parameters except the final linear head — matching target-based stability at near target-free memory cost across Atari, DMC, and language modeling. ICLR 2026.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/isql.html";
             },},{id: "projects-memory-based-approaches-to-problems-in-probabilistic-modeling",
@@ -95,17 +95,17 @@ ninja.data = [{
               window.location.href = "/projects/mastersthesis.html";
             },},{id: "projects-mombo-deterministic-uncertainty-propagation-for-offline-rl",
           title: 'MOMBO: Deterministic Uncertainty Propagation for Offline RL',
-          description: "Moment matching replaces Monte Carlo sampling in pessimistic offline RL, cutting suboptimality and accelerating convergence across D4RL benchmarks. Published at NeurIPS 2024.",
+          description: "Best convergence rate (avg AULC rank 1.2) across all 12 D4RL offline benchmarks. Deterministic moment matching replaces Monte Carlo Bellman targets, with provably tighter suboptimality bounds. NeurIPS 2024.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mombo.html";
             },},{id: "projects-objectrl-an-object-oriented-reinforcement-learning-codebase",
           title: 'ObjectRL: An Object-Oriented Reinforcement Learning Codebase',
-          description: "An open-source deep RL research codebase built on object-oriented principles: encapsulation, inheritance, and polymorphism mirror the natural structure of RL algorithms, enabling rapid prototyping of new ideas with minimal code changes.",
+          description: "Extending SAC to a new algorithm takes roughly 5 lines: just override the two methods that change. Full OOP codebase where encapsulation, inheritance, and polymorphism map directly to RL algorithm components. arXiv 2025.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/objectrl.html";
             },},{id: "projects-pac4sac-pac-bayesian-soft-actor-critic-learning",
           title: 'PAC4SAC: PAC-Bayesian Soft Actor-Critic Learning',
-          description: "The first actor-critic algorithm to use a PAC-Bayesian generalization bound as its critic training objective. A single randomized critic paired with critic-guided multiple shooting delivers consistent sample efficiency and regret improvements over SAC. Published at AABI 2024.",
+          description: "2-3x sample efficiency improvement on high-dimensional tasks (Ant), best cumulative regret across all four PyBullet environments. First actor-critic using a PAC-Bayesian generalization bound as the critic training objective. AABI 2024.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/pac4sac.html";
             },},{id: "projects-probabilistic-methods-for-sample-efficient-reinforcement-learning",
@@ -113,6 +113,11 @@ ninja.data = [{
           description: "Doctoral thesis presenting six peer-reviewed algorithms at NeurIPS, ICML, ICLR, TMLR, and UAI, unified by one claim: probabilistic uncertainty representations make reinforcement learning agents faster, more adaptive, and more data-efficient.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/phdthesis.html";
+            },},{id: "projects-signature-verification-for-fraud-detection",
+          title: 'Signature Verification for Fraud Detection',
+          description: "Siamese CNN trained on handwritten signatures deployed at Vakifbank R&amp;D for cheque fraud detection — 95% accuracy on internal data, 88% on the public CEDAR benchmark.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/vakifbank.html";
             },},{
         id: 'social-email',
         title: 'email',
