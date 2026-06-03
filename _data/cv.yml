@@ -25,6 +25,11 @@
       description:
         - <b>Defence:</b> May 18, 2026
         - <b>Thesis:</b> Probabilistic Reinforcement Learning for Sample-Efficient Control
+      linkitems:
+        - link: https://findresearcher.sdu.dk/ws/portalfiles/portal/306372673/Akgul_Abdullah_PhD_Thesis_2026.pdf
+          linkname: <i class="fa-solid fa-file-pdf"></i> PDF
+        - link: /projects/phdthesis/
+          linkname: <i class="fa-solid fa-diagram-project"></i> Project
     - title: M.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
@@ -32,6 +37,12 @@
       year: Sep 2020 -<br> Nov 2022
       description:
         - <b>GPA:</b> 4.00/4.00
+        - <b>Thesis:</b> Memory-based Approaches to Problems in Probabilistic Modeling
+      linkitems:
+        - link: https://polen.itu.edu.tr/server/api/core/bitstreams/426e7080-7223-472d-929f-d194d6c9ea7e/content
+          linkname: <i class="fa-solid fa-file-pdf"></i> PDF
+        - link: /projects/mastersthesis/
+          linkname: <i class="fa-solid fa-diagram-project"></i> Project
     - title: B.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
@@ -50,7 +61,7 @@
       year: Feb 2026 -<br> Present
       description:
         - Extending probabilistic reinforcement learning to multi-agent settings, focusing on non-stationary dynamics in cooperative and competitive environments (ADIN Lab).
-    - title: Salaried Ph.D.
+    - title: Ph.D. Researcher
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
       location: Odense, Denmark
@@ -146,13 +157,13 @@
         - JaxMARL
         - PettingZoo
         - PyBullet
-    - title : <b>Areas of Interest:</b>
+    - title : <b>Areas of Expertise:</b>
       items:
-        - Reinforcement Learning
-        - Deep Learning
+        - Reinforcement Learning (Model-Based, Offline, Multi-Agent)
         - Probabilistic Modeling
         - Bayesian Inference
+        - Uncertainty Quantification
+        - Deep Learning
         - Computer Vision
-        - Bandits
-        - Federated Learning
+        - Contextual Bandits
         - Large Language Models
