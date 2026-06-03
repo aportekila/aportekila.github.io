@@ -1,12 +1,13 @@
 ---
 layout: project
 title: "Distributional Active Inference"
-description: "A unified framework bridging distributional reinforcement learning and active inference, enabling sample-efficient control without modeling transition dynamics. Published at ICML 2026."
+description: "Best average rank across 19 continuous control tasks on three benchmark suites, with up to +62% sample efficiency over the next-best baseline. Integrates Active Inference into distributional RL without a world model. ICML 2026."
 img: assets/img/projects/daif_fig1.png
 importance: 1
 category: Featured Work
 venue: "ICML"
 year: 2026
+role: "First Author"
 bib_key: "akgul2026distributional"
 ---
 

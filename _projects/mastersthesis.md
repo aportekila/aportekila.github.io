@@ -7,6 +7,7 @@ importance: 2
 category: Thesis
 venue: "Master's Thesis"
 year: 2022
+role: "First Author"
 bib_key: "akgul2022memory"
 ---
 

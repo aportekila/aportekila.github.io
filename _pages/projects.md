@@ -2,10 +2,10 @@
 layout: page
 title: Portfolio
 permalink: /portfolio/
-description: A curated showcase of my research — papers where I made a primary contribution and key collaborations at top venues.
+description: A curated showcase of my research and industry work, spanning peer-reviewed publications at NeurIPS, ICML, ICLR, and TMLR, doctoral and master's theses, collaborative contributions, and applied ML projects.
 nav: true
 nav_order: 2
-display_categories: [Featured Work, Thesis]
+display_categories: [Featured Work, Thesis, Industry Experience]
 horizontal: true
 ---
 

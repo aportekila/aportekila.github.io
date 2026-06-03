@@ -1,18 +1,19 @@
 ---
 layout: project
 title: "CDDP: Continual Learning of Multi-modal Dynamics"
-description: "A neural episodic memory with a Dirichlet Process prior enables a dynamics model to continually learn new behavioral modes without forgetting old ones. Published at L4DC 2024."
+description: "Learns new dynamical modes sequentially without catastrophic forgetting or mode labels, outperforming parameter-transfer baselines on 4 out of 5 datasets. Neural episodic memory with a Dirichlet Process prior for automatic mode discovery. L4DC 2024."
 img: assets/img/projects/cddp.png
 importance: 4
 category: Featured Work
 venue: "L4DC"
 year: 2024
+role: "First Author"
 bib_key: "akgul2024cddp"
 ---
 
 ## Introduction
 
-Real-world dynamical systems exhibit multiple distinct **modes** of behavior that can appear sequentially over time: a robot encountering different terrains, a vehicle under varying loads, or weather patterns shifting across climates. Learning these modes *continually* (without replaying old data) while avoiding catastrophic forgetting is an open challenge. **CDDP (Continual Dynamic Dirichlet Process)** addresses this with a Bayesian State-Space Model augmented by a neural episodic memory and a Dirichlet Process prior, enabling automatic mode discovery and zero-forgetting transfer across tasks.
+No prior method could learn a dynamical system's behavioral modes sequentially without either catastrophically forgetting earlier ones or requiring explicit mode labels at test time — two constraints that the standard continual learning fix of parameter transfer (Variational Continual Learning) cannot simultaneously satisfy for multi-modal dynamics. **CDDP (Continual Dynamic Dirichlet Process)** solves both by replacing parameter transfer with a neural episodic memory and a Dirichlet Process prior on attention weights, enabling automatic mode discovery and zero-forgetting transfer within a Bayesian State-Space Model.
 
 *This work was the second contribution of my [Master's thesis](/projects/mastersthesis/) at Istanbul Technical University, published at L4DC 2024.*
 

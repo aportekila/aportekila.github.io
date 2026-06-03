@@ -1,21 +1,22 @@
 ---
 layout: project
 title: "PAC4SAC: PAC-Bayesian Soft Actor-Critic Learning"
-description: "The first actor-critic algorithm to use a PAC-Bayesian generalization bound as its critic training objective. A single randomized critic paired with critic-guided multiple shooting delivers consistent sample efficiency and regret improvements over SAC. Published at AABI 2024."
+description: "2-3x sample efficiency improvement on high-dimensional tasks (Ant), best cumulative regret across all four PyBullet environments. First actor-critic using a PAC-Bayesian generalization bound as the critic training objective. AABI 2024."
 img: assets/img/projects/pac4sac_fig1.png
 importance: 7
 category: Featured Work
 venue: "AABI"
 year: 2024
 topic: "Value Estimation"
+role: "2nd Author"
 bib_key: "bahareh2024pac4sac"
 ---
 
 ## Introduction
 
-Actor-critic reinforcement learning (RL) trains two neural networks in tandem: a **critic** that estimates the value of actions, and an **actor** that improves the policy by following the critic's guidance. In practice, this split works well but introduces a sharp bottleneck: the quality of the critic determines the quality of the entire algorithm. Errors in the critic's value estimates accumulate over training, leading to unstable updates and wasted environment interactions.
+No prior actor-critic algorithm had used a PAC-Bayesian generalization bound as its critic training objective — despite the theory offering exactly the worst-case guarantees that critic training needs. Standard actor-critic methods minimize plain Bellman error, which provides no guarantee on how well the critic generalizes to unseen states, allowing estimation errors to accumulate and destabilize training.
 
-**PAC4SAC** (PAC-Bayes for Soft Actor-Critic) addresses this bottleneck head-on by applying **Probably Approximately Correct (PAC) Bayesian learning theory** to critic training for the first time. Instead of minimizing plain Bellman error, PAC4SAC trains a single randomized critic by minimizing a formal generalization performance bound, providing probabilistic guarantees on critic accuracy at every training step. A companion technique, **critic-guided multiple shooting**, then leverages this randomized critic to search for better actions at interaction time, amplifying sample efficiency further.
+**PAC4SAC** (PAC-Bayes for Soft Actor-Critic) closes this gap by training a single randomized critic against a formal generalization bound, yielding three complementary properties in one loss: Bellman consistency, conservative value updates that eliminate overestimation without a second critic, and a principled exploration bonus that emerges from first principles rather than being added manually. A companion technique, **critic-guided multiple shooting**, leverages the randomized critic to search for better actions at interaction time, amplifying sample efficiency further.
 
 *In this work (2nd author), I co-designed the algorithm, designed and ran all experiments, and contributed substantially to the writing.*
 

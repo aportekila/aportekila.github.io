@@ -1,12 +1,13 @@
 ---
 layout: project
 title: "ObjectRL: An Object-Oriented Reinforcement Learning Codebase"
-description: "An open-source deep RL research codebase built on object-oriented principles: encapsulation, inheritance, and polymorphism mirror the natural structure of RL algorithms, enabling rapid prototyping of new ideas with minimal code changes."
+description: "Extending SAC to a new algorithm takes roughly 5 lines: just override the two methods that change. Full OOP codebase where encapsulation, inheritance, and polymorphism map directly to RL algorithm components. arXiv 2025."
 img: assets/img/projects/objectrl_design.png
 importance: 8
 category: Featured Work
 venue: "arXiv"
 year: 2025
+role: "2nd Author"
 bib_key: "baykal2025objectrl"
 ---
 

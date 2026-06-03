@@ -1,12 +1,13 @@
 ---
 layout: project
 title: "MOMBO: Deterministic Uncertainty Propagation for Offline RL"
-description: "Moment matching replaces Monte Carlo sampling in pessimistic offline RL, cutting suboptimality and accelerating convergence across D4RL benchmarks. Published at NeurIPS 2024."
+description: "Best convergence rate (avg AULC rank 1.2) across all 12 D4RL offline benchmarks. Deterministic moment matching replaces Monte Carlo Bellman targets, with provably tighter suboptimality bounds. NeurIPS 2024."
 img: assets/img/projects/mombo_mm_vs_mc.png
 importance: 2
 category: Featured Work
 venue: "NeurIPS"
 year: 2024
+role: "First Author"
 bib_key: "akgul2024deterministic"
 ---
 

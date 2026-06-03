@@ -1,18 +1,19 @@
 ---
 layout: project
 title: "Evidential Turing Processes"
-description: "A unified Bayesian framework combining global and local uncertainty through an external memory mechanism, achieving simultaneous model calibration, class overlap quantification, and out-of-distribution detection on five real-world classification benchmarks. Published at ICLR 2022."
+description: "The only model achieving top-tier performance on calibration, class overlap, and OOD detection simultaneously across five real-world benchmarks. External memory unifies global and local uncertainty in a single principled framework. ICLR 2022."
 img: assets/img/projects/etp_plate.png
 importance: 5
 category: Featured Work
 venue: "ICLR"
 year: 2022
+role: "2nd Author"
 bib_key: "kandemir2022evidential"
 ---
 
 ## Introduction
 
-Reliable machine learning models deployed in safety-critical settings (medical diagnostics, autonomous driving, natural language understanding) must handle three distinct kinds of uncertainty: uncertainty in the model's own fit to the data, uncertainty arising from intrinsic class ambiguity, and uncertainty about whether an input comes from the same domain the model was trained on. Existing Bayesian approaches address these challenges in a piecemeal fashion: **Parametric Bayesian Models (PBMs)** such as Bayesian Neural Networks (BNNs) capture model-level uncertainty well but poorly represent local class ambiguity; **Evidential Bayesian Models (EBMs)** such as Evidential Deep Learning (EDL) quantify class overlap well but lack the global structure needed for out-of-distribution detection. **Evidential Turing Processes (ETP)** introduces a principled unification through the **Complete Bayesian Model (CBM)** framework, which provably inherits the favorable uncertainty decomposition properties of both approaches, realized via a novel **Turing Process**: a stochastic process with an external memory that accumulates in-domain evidence without requiring a context set at test time.
+No single probabilistic classifier had simultaneously achieved model calibration, faithful class-overlap quantification, and reliable out-of-distribution detection — what this work formalizes as **total calibration**. Existing Bayesian approaches address these challenges in isolation: **Parametric Bayesian Models (PBMs)** such as Bayesian Neural Networks (BNNs) capture model-level uncertainty well but poorly represent local class ambiguity; **Evidential Bayesian Models (EBMs)** such as Evidential Deep Learning (EDL) quantify class overlap well but lack the global structure needed for out-of-distribution detection. **Evidential Turing Processes (ETP)** unifies both through the **Complete Bayesian Model (CBM)** framework — provably the minimal structure required for total calibration — realized via a **Turing Process**: a stochastic process with external memory that accumulates in-domain evidence without requiring a held-out context set at test time.
 
 *In this work (2nd author), I designed and conducted all experiments and wrote the experimental section of the paper.*
 

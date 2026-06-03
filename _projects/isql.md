@@ -1,18 +1,19 @@
 ---
 layout: project
 title: "iS-QL: Bridging Target-free and Target-based Reinforcement Learning"
-description: "Parameter sharing between online and target networks (keeping only the final linear layer separate) closes the stability gap of target-free RL while halving memory, with gains across Atari, DMC, and language. Published at ICLR 2026."
+description: "Closes the 10–60% performance gap between target-free and target-based RL by sharing all parameters except the final linear head — matching target-based stability at near target-free memory cost across Atari, DMC, and language modeling. ICLR 2026."
 img: assets/img/projects/isql_algorithm_cards.png
 importance: 6
 category: Featured Work
 venue: "ICLR"
 year: 2026
+role: "4th Author"
 bib_key: "vincent2026bridging"
 ---
 
 ## Introduction
 
-Deep reinforcement learning algorithms rely on accurate value estimates to learn good policies. A standard stabilization trick, the **target network**, maintains a delayed copy of the value network to compute training targets, preventing the moving-target instability that arises from bootstrapping with a rapidly changing network. Yet target networks come at a cost: they double the memory dedicated to Q-networks, which directly limits how large a network the GPU can fit. **iS-QL** (iterated Shared Q-Learning) sidesteps this binary trade-off by sharing all network parameters except the final output layer between the online and target sides, delivering target-based stability at near target-free memory cost.
+The target-free vs. target-based choice in deep RL had no middle ground: target networks stabilize training but double Q-network memory, while target-free methods cut memory at the cost of a 10–60% performance drop on standard benchmarks. No prior work escaped this binary. **iS-QL** (iterated Shared Q-Learning) resolves it by sharing all network parameters except the final linear output layer between the online and target sides — delivering target-based stability at near target-free memory cost across five distinct RL settings.
 
 *In this collaborative work (4th author), I designed and conducted the offline language model experiments — specifically the evaluation of iS-ILQL on the Wordle task using a GPT-2 backbone.*
 

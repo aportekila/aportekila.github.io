@@ -1,12 +1,13 @@
 ---
 layout: project
 title: "EPPO: Evidential Proximal Policy Optimization"
-description: "Evidential uncertainty quantification in the critic network preserves plasticity and enables directed exploration, outperforming state-of-the-art on-policy methods in non-stationary environments. Published in TMLR 2025."
+description: "State-of-the-art in non-stationary control: average rank 1.5 across 10+ environments. Evidential critic simultaneously preserves plasticity and drives directed exploration from a single probabilistic framework. TMLR 2025."
 img: assets/img/projects/eppo.png
 importance: 3
 category: Featured Work
 venue: "TMLR"
 year: 2025
+role: "First Author"
 bib_key: "akgul2025overcoming"
 ---
 

@@ -1,16 +1,20 @@
+akgul2022memory:
+  google_scholar_id: LkGwnXOMwfcC
+  project: /projects/mastersthesis/
+  url: https://polen.itu.edu.tr/entities/publication/bc96a399-5bdf-493f-aa14-c3143b9ca952
 akgul2024cddp:
   arxiv: '2203.00936'
   code: https://github.com/aportekila/CDDP-Continual-Learning-of-Multi-modal-Dynamics-with-External-Memory
   google_scholar_id: u-x6o8ySG0sC
   html: https://arxiv.org/abs/2203.00936
-  project: /projects/04_cddp/
+  project: /projects/cddp/
   url: https://arxiv.org/abs/2203.00936
 akgul2024deterministic:
   arxiv: '2406.04088'
   code: https://github.com/aportekila/MOMBO
   google_scholar_id: IjCSPb-OGe4C
   html: https://neurips.cc/virtual/2024/poster/95381
-  project: /projects/02_mombo/
+  project: /projects/mombo/
   url: https://proceedings.neurips.cc/paper_files/paper/2024/file/82240d93542b74d0c4fdffca39cb779f-Paper-Conference.pdf
   video: https://neurips.cc/virtual/2024/poster/95381
 akgul2025overcoming:
@@ -18,15 +22,19 @@ akgul2025overcoming:
   code: https://github.com/aportekila/EPPO
   google_scholar_id: Tyk-4Ss8FVUC
   html: https://openreview.net/forum?id=KTfTwxsVNE
-  project: /projects/03_eppo/
+  project: /projects/eppo/
   url: https://openreview.net/forum?id=KTfTwxsVNE
 akgul2026distributional:
   arxiv: '2601.20985'
   google_scholar_id: W7OEmFMy1HYC
   html: https://arxiv.org/pdf/2601.20985
-  project: /projects/01_daif/
+  project: /projects/daif/
   url: https://arxiv.org/pdf/2601.20985
   video: https://icml.cc/virtual/2026/poster/61877
+akgul2026probabilistic:
+  google_scholar_id: roLk4NBRz8UC
+  project: /projects/phdthesis/
+  url: https://portal.findresearcher.sdu.dk/en/publications/probabilistic-reinforcement-learning-for-sample-efficient-control/
 asan2024calibrating:
   arxiv: '2403.16612'
   google_scholar_id: UeHWp8X0CEIC
@@ -37,13 +45,14 @@ bahareh2024pac4sac:
   code: https://github.com/adinlab/PAC4SAC
   google_scholar_id: 9yKSN-GCB0IC
   html: https://arxiv.org/abs/2301.12776
-  project: /projects/06_pac4sac/
+  project: /projects/pac4sac/
   url: https://arxiv.org/abs/2301.12776
 baykal2025objectrl:
   arxiv: '2507.03487'
   code: https://github.com/adinlab/objectrl
   google_scholar_id: Y0pCki6q_DkC
   html: https://arxiv.org/abs/2507.03487
+  project: /projects/objectrl/
   url: https://arxiv.org/abs/2507.03487
 boock2026hittingtime:
   arxiv: '2605.06470'
@@ -56,22 +65,22 @@ kandemir2022evidential:
   code: https://github.com/aportekila/EvidentialTuringProcess
   google_scholar_id: u5HHmVD_uO8C
   html: https://openreview.net/forum?id=84NMXTHYe-
-  project: /projects/07_etp/
+  project: /projects/etp/
   url: https://openreview.net/pdf?id=84NMXTHYe-
   video: https://iclr.cc/virtual/2022/poster/6361
-ozer2022fl:
+ozer2022bfl:
   arxiv: '2206.10897'
   code: https://github.com/ituvisionlab/BFL-P
   google_scholar_id: d1gkVwhDpl0C
   html: https://openreview.net/forum?id=AkPwb9dvAlP
-  project: /projects/08_bfl/
+  project: /projects/bfl/
   url: https://openreview.net/forum?id=AkPwb9dvAlP
 vincent2026bridging:
   arxiv: '2506.04398'
   code: https://github.com/theovincent/iS-DQN
   google_scholar_id: ufrVoPGSRksC
   html: https://openreview.net/forum?id=ltcxS7JE0c
-  project: /projects/05_isql/
+  project: /projects/isql/
   url: https://openreview.net/pdf?id=ltcxS7JE0c
 werge2026weighted:
   arxiv: '2307.03587'

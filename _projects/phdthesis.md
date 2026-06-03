@@ -7,6 +7,7 @@ importance: 1
 category: Thesis
 venue: "Ph.D. Thesis"
 year: 2026
+role: "First Author"
 bib_key: "akgul2026probabilistic"
 ---
 

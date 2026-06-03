@@ -2,15 +2,17 @@
   <div class="card h-100 hoverable">
     <div class="row no-gutters">
       {% if project.img %}
-        <div class="col-md-4">
+        <div class="col-md-4" style="position: relative; z-index: 2;">
+          {% assign entry_path = project.img | relative_url %}
           {%
             include figure.liquid
             loading="eager"
-            path=project.img
-            sizes="(min-width: 768px) 156px, 50vw"
-            alt="project thumbnail"
-            class="card-img h-100"
-            style="object-fit: cover;"
+            path=entry_path
+            sizes = "200px"
+            class="preview z-depth-1 rounded"
+            zoomable=true
+            avoid_scaling=true
+            alt=entry.preview
           %}
         </div>
       {% endif %}
@@ -18,42 +20,41 @@
         <div class="card-body d-flex flex-column h-100">
 
           <div class="d-flex justify-content-between align-items-center mb-2" style="position: relative; z-index: 2;">
-            <div>
+            <div class="d-flex flex-wrap gap-1 align-items-center">
               {% if project.venue %}
                 <span class="badge" style="background-color: var(--global-theme-color); color: white; font-size: 0.75em;">
                   {{ project.venue }} {{ project.year }}
                 </span>
               {% endif %}
+              {% if project.role %}
+                <span class="badge" style="background-color: #6c757d; color: white; font-size: 0.75em;">
+                  {{ project.role }}
+                </span>
+              {% endif %}
             </div>
+            {% assign bib = site.data.bib_meta[project.bib_key] %}
             <div class="d-flex flex-wrap gap-1">
-              {% if project.paper_url %}
-                <a href="{{ project.paper_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+              {% assign arxiv_id = project.arxiv_id | default: bib.arxiv %}
+              {% if arxiv_id %}
+                <a href="https://arxiv.org/abs/{{ arxiv_id }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="ai ai-arxiv"></i> arXiv
+                </a>
+              {% elsif project.paper_url or bib.url %}
+                {% assign paper_url = project.paper_url | default: bib.url %}
+                <a href="{{ paper_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
                   <i class="fa-solid fa-file-pdf fa-sm"></i> Paper
                 </a>
               {% endif %}
-              {% if project.arxiv_id %}
-                <a href="https://arxiv.org/abs/{{ project.arxiv_id }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
-                  <i class="ai ai-arxiv"></i> arXiv
+              {% assign code_url = project.code_url | default: project.github | default: bib.code %}
+              {% if code_url %}
+                <a href="{{ code_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-github fa-sm"></i> Code
                 </a>
               {% endif %}
-              {% if project.video_url %}
-                <a href="{{ project.video_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
+              {% assign video_url = project.video_url | default: bib.video %}
+              {% if video_url %}
+                <a href="{{ video_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
                   <i class="fa-solid fa-video fa-sm"></i> Video
-                </a>
-              {% endif %}
-              {% if project.code_url %}
-                <a href="{{ project.code_url }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github fa-sm"></i> Code
-                </a>
-              {% endif %}
-              {% if project.github %}
-                <a href="{{ project.github }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github fa-sm"></i> Code
-                </a>
-              {% endif %}
-              {% if project.scholar_id %}
-                <a href="https://scholar.google.com/citations?view_op=view_citation&citation_for_view=FZeaKPoAAAAJ:{{ project.scholar_id }}" class="btn btn-sm py-0 px-2" style="color: var(--global-theme-color); border: 1px solid var(--global-theme-color); border-radius: 6px;" target="_blank" rel="noopener">
-                  <i class="ai ai-google-scholar fa-sm"></i> Scholar
                 </a>
               {% endif %}
             </div>
