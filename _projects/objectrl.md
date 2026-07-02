@@ -9,6 +9,7 @@ venue: "arXiv"
 year: 2025
 role: "2nd Author"
 bib_key: "baykal2025objectrl"
+selected: true
 ---
 
 ## Introduction
