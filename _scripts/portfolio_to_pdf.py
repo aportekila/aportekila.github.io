@@ -183,53 +183,53 @@ def get_thumbnail_html(img_path: str) -> str:
     return f'<div class="thumb"><img src="{file_url}" alt="project thumbnail"></div>'
 
 
-def build_link_buttons_html(buttons: List[Tuple[str, str]], slug: str) -> str:
-    """Build HTML for link buttons, always including a 'View on Site' button."""
-    html_parts = ['<div class="links">']
+def build_link_buttons_markdown(buttons: List[Tuple[str, str]], slug: str) -> str:
+    """Build markdown links for buttons (avoids HTML div rendering issues)."""
+    links = []
 
-    # Add all Paper/arXiv/Video/Code/Scholar buttons
+    # Add all Paper/arXiv/Video/Code/Scholar buttons as markdown links
     for label, url in buttons:
-        safe_url = html_module.escape(url)
-        html_parts.append(f'<div class="btn"><a href="{safe_url}" target="_blank">{label}</a></div>')
+        links.append(f"[{label}]({url})")
 
     # Always add "View on Site" button
     site_url = f"https://aportekila.github.io/projects/{slug}/"
-    html_parts.append(f'<div class="btn"><a href="{site_url}" target="_blank">View on Site</a></div>')
+    links.append(f"[View on Site]({site_url})")
 
-    html_parts.append('</div>')
-    return '\n    '.join(html_parts)
+    # Return as a bullet list for clean formatting
+    return '\n'.join([f"- {link}" for link in links])
 
 
-def build_project_card_html(fm: Dict, buttons: List[Tuple[str, str]], slug: str) -> str:
-    """Build the HTML card header for a project."""
+def build_project_card_markdown(fm: Dict, buttons: List[Tuple[str, str]], slug: str) -> str:
+    """Build the card header for a project as markdown + embedded HTML for styling."""
     venue = fm.get('venue') or fm.get('institution', '')
     year = fm.get('year', '')
     role = fm.get('role', '')
     description = fm.get('description', '')
     img_path = fm.get('img', '')
 
-    card_parts = ['<div class="project-card">']
+    card_parts = []
 
-    # Thumbnail
-    if img_path:
-        card_parts.append('  ' + get_thumbnail_html(img_path))
-
-    # Badges
-    card_parts.append('  <div class="badges">')
+    # Metadata line (Venue/Year | Role)
+    metadata = []
     if venue and year:
-        card_parts.append(f'    <div class="badge badge-venue">{venue} {year}</div>')
+        metadata.append(f"**{venue}** ({year})")
     if role:
-        card_parts.append(f'    <div class="badge badge-role">{role}</div>')
-    card_parts.append('  </div>')
+        metadata.append(f"*{role}*")
+    if metadata:
+        card_parts.append(" | ".join(metadata))
+        card_parts.append("")
 
     # TL;DR
     if description:
-        card_parts.append(f'  <div class="tldr"><strong>TL;DR:</strong> {html_module.escape(description)}</div>')
+        card_parts.append(f"**Summary:** {description}")
+        card_parts.append("")
 
-    # Links
-    card_parts.append('  ' + build_link_buttons_html(buttons, slug))
+    # Links (as markdown bullet list)
+    if buttons:
+        card_parts.append("**Links:**")
+        card_parts.append(build_link_buttons_markdown(buttons, slug))
+        card_parts.append("")
 
-    card_parts.append('</div>')
     return '\n'.join(card_parts)
 
 
@@ -270,7 +270,7 @@ def assemble_markdown(projects: List[Dict], bib_meta: Dict, config: Dict) -> str
 
         # Resolve links and build card
         buttons = resolve_links(fm, bib_meta)
-        card_html = build_project_card_html(fm, buttons, slug)
+        card_md = build_project_card_markdown(fm, buttons, slug)
 
         # Process body: convert figures, rewrite links, demote headings
         processed_body = body
@@ -278,12 +278,12 @@ def assemble_markdown(projects: List[Dict], bib_meta: Dict, config: Dict) -> str
         processed_body = rewrite_internal_links(processed_body)
         processed_body = demote_headings(processed_body, offset=1)
 
-        # Add project section
+        # Add project section wrapped in a container for page-break control
+        parts.append(f"<section class=\"project-section\">\n")
         parts.append(f"## {title} {{#project-{slug}}}\n")
-        parts.append(card_html)
-        parts.append("\n")
+        parts.append(card_md)
         parts.append(processed_body)
-        parts.append("\n")
+        parts.append(f"</section>\n")
 
     return '\n'.join(parts)
 
@@ -548,15 +548,21 @@ def build_print_template(body_html: str) -> str:
             color: #666;
         }}
 
+        .project-section {{
+            page-break-inside: avoid;
+            break-inside: avoid-page;
+        }}
+
         /* Page break rules */
         @media print {{
             h1 {{ page-break-before: always; page-break-after: avoid; }}
             h1:first-of-type {{ page-break-before: avoid; }}
             h2 {{ page-break-before: avoid; page-break-after: avoid; }}
-            .project-card {{ page-break-inside: avoid; }}
-            table {{ page-break-inside: avoid; }}
-            figure {{ page-break-inside: avoid; }}
-            pre {{ page-break-inside: avoid; }}
+            .project-section {{ page-break-inside: avoid; break-inside: avoid-page; }}
+            table {{ page-break-inside: avoid; break-inside: avoid-page; }}
+            figure {{ page-break-inside: avoid; break-inside: avoid-page; }}
+            pre {{ page-break-inside: avoid; break-inside: avoid-page; }}
+            h1, h2 {{ orphans: 3; widows: 3; }}
         }}
     </style>
 </head>
