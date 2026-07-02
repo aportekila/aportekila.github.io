@@ -12,7 +12,7 @@ async function htmlToPdf(inputHtml, outputPdf) {
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
-      args: ['--disable-gpu']
+      args: ['--disable-gpu', '--no-sandbox', '--disable-setuid-sandbox']
     });
 
     const page = await browser.newPage();
