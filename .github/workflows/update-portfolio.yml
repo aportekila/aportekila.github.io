@@ -70,7 +70,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add assets/pdf/Portfolio.pdf
-          git commit -m "Auto-update Portfolio PDF from projects changes"
+          git commit -m "Auto-update Portfolio PDF from projects changes [skip ci]"
           git push
 
       - name: Notify if no changes
