@@ -1,33 +1,64 @@
-<div class="projects" style="margin-top: 1.5rem;">
+<div class="publications">
   {%- assign selected_projects = site.projects | where: "selected", true | sort: "importance" -%}
   {%- for project in selected_projects -%}
-    <div class="row mb-4">
-      <div class="col-md-9">
-        <strong>
-          <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">{{ project.title }}</a>
-        </strong>
-        <br>
-        <em style="color: #6c757d; font-size: 0.9em;">
-          {% if project.venue %}{{ project.venue }}{% if project.year %} {{ project.year }}{% endif %}{% endif %}{% if project.role %} • {{ project.role }}{% endif %}
-        </em>
-        <p style="margin: 0.5rem 0 0; font-size: 0.95em;">{{ project.description }}</p>
+    <div class="row">
+      <div class="col col-sm-2 abbr">
+        {%- if project.venue -%}
+          <abbr class="badge rounded w-100" style="background-color: var(--global-theme-color);">
+            {{ project.venue }}
+          </abbr>
+        {%- endif -%}
+        {%- if project.img -%}
+          {% assign entry_path = project.img | relative_url %}
+          {%
+            include figure.liquid
+            loading="lazy"
+            path=entry_path
+            sizes = "200px"
+            class="preview z-depth-1 rounded"
+            zoomable=true
+            avoid_scaling=true
+            alt=project.title
+          %}
+        {%- endif -%}
       </div>
-      <div class="col-md-3 text-end" style="display: flex; flex-direction: column; justify-content: flex-start; gap: 0.5rem;">
-        {% assign arxiv_id = project.arxiv_id %}
-        {% if arxiv_id %}
-          <a href="https://arxiv.org/abs/{{ arxiv_id }}" target="_blank" rel="noopener" style="font-size: 0.9em;">
-            <i class="ai ai-arxiv"></i> arXiv
-          </a>
-        {% endif %}
-        {% assign code_url = project.code_url | default: project.github %}
-        {% if code_url %}
-          <a href="{{ code_url }}" target="_blank" rel="noopener" style="font-size: 0.9em;">
-            <i class="fa-brands fa-github fa-sm"></i> Code
-          </a>
-        {% endif %}
-        <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" style="font-size: 0.9em;">
-          Details
-        </a>
+
+      <div class="col-sm-10">
+        <!-- Title -->
+        <div class="title">
+          <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">{{ project.title }}</a>
+        </div>
+
+        <!-- Metadata -->
+        <div class="periodical">
+          {%- if project.year -%}{{ project.year }}{%- endif -%}
+          {%- if project.role -%} • {{ project.role }}{%- endif -%}
+          {%- if project.category -%} • {{ project.category }}{%- endif -%}
+        </div>
+
+        <!-- Description/TLDR -->
+        <div style="margin: 0.5rem 0; font-size: 0.95em;">{{ project.description }}</div>
+
+        <!-- Links/Buttons -->
+        <div class="links">
+          {%- assign arxiv_id = project.arxiv_id -%}
+          {%- if arxiv_id -%}
+            <a href="https://arxiv.org/abs/{{ arxiv_id }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener"><i class="ai ai-arxiv"></i> arXiv</a>
+          {%- endif -%}
+          {%- assign paper_url = project.paper_url -%}
+          {%- if paper_url -%}
+            <a href="{{ paper_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> Paper</a>
+          {%- endif -%}
+          {%- assign code_url = project.code_url | default: project.github -%}
+          {%- if code_url -%}
+            <a href="{{ code_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
+          {%- endif -%}
+          {%- assign video_url = project.video_url -%}
+          {%- if video_url -%}
+            <a href="{{ video_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener"><i class="fa-solid fa-video"></i> Video</a>
+          {%- endif -%}
+          <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" class="btn btn-sm z-depth-0" role="button"><i class="fa-solid fa-arrow-right"></i> Details</a>
+        </div>
       </div>
     </div>
   {%- endfor -%}
