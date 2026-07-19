@@ -1,9 +1,12 @@
 ---
 layout: about
 title: Abdullah Akgül
+meta_title: "Abdullah Akgül — Reinforcement Learning & Probabilistic ML Researcher"
 permalink: /
 nav_order: 1
 subtitle: "Postdoctoral Researcher · <a href='https://www.sdu.dk/en/om_sdu/institutter_centre/imada'>University of Southern Denmark</a>"
+job_title: "Postdoctoral Researcher"
+works_for: "University of Southern Denmark"
 
 profile:
   align: right

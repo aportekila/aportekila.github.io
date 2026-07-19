@@ -44,6 +44,43 @@ layout: default
     {% assign _scholar_id = _bib.google_scholar_id %}
   {% endif %}
 
+  {% if page.bib_key %}
+    {% assign _article_links = '' | split: ',' %}
+    {% if _paper_url %}
+      {% assign _article_links = _article_links | push: _paper_url %}
+    {% endif %}
+    {% if _arxiv_id %}
+      {% capture _arxiv_link %}https://arxiv.org/abs/{{ _arxiv_id }}{% endcapture %}
+      {% assign _article_links = _article_links | push: _arxiv_link %}
+    {% endif %}
+    <script type="application/ld+json">
+      {
+          "@context": "https://schema.org",
+          "@type": "ScholarlyArticle",
+          "headline": "{{ page.title }}",
+          "name": "{{ page.title }}",
+          "description": "{{ page.description }}",
+          "author": {
+            "@type": "Person",
+            "name": "{{ site.first_name }} {{ site.last_name }}"
+          },
+          {% if page.year %}
+          "datePublished": "{{ page.year }}",
+          {% endif %}
+          {% if page.venue %}
+          "publisher": {
+            "@type": "Organization",
+            "name": "{{ page.venue }}"
+          },
+          {% endif %}
+          {% if _article_links != blank %}
+          "sameAs": {{ _article_links | jsonify }},
+          {% endif %}
+          "url": "{{ page.url | prepend: site.baseurl | prepend: site.url }}"
+      }
+    </script>
+  {% endif %}
+
   {% assign has_links = false %}
   {% if _paper_url or _arxiv_id or _video_url or _code_url or _scholar_id %}
     {% assign has_links = true %}
