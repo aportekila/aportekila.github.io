@@ -37,7 +37,7 @@ Probabilistic State-Space Models (SSMs) are the gold standard for dynamics model
 
 Both contributions adopt external memory as their core mechanism, in different probabilistic modeling contexts.
 
-### [ETP](/projects/etp/) — Evidential Turing Processes (for Total Calibration)
+### [ETP](/projects/etp.html) — Evidential Turing Processes (for Total Calibration)
 
 The key insight is that total calibration requires *two* kinds of uncertainty to coexist: a **global** uncertainty that shrinks with more data (handling OOD detection) and a **local**, per-input uncertainty that captures class overlap. This motivates:
 
@@ -45,7 +45,7 @@ The key insight is that total calibration requires *two* kinds of uncertainty to
 
 - **Turing Process:** ETP instantiates CBM using a neural episodic memory: a set of learnable memory slots updated during training via an explicit write rule. At inference, input queries retrieve relevant uncertainty information from memory via attention, without needing a held-out context set. This memory acts as the mechanism that makes the global uncertainty signal accurate and data-driven.
 
-### [CDDP](/projects/cddp/) — Continual Dynamic Dirichlet Process (for Continual Learning of Dynamics)
+### [CDDP](/projects/cddp.html) — Continual Dynamic Dirichlet Process (for Continual Learning of Dynamics)
 
 Instead of transferring model parameters between tasks (which overwrites old knowledge), CDDP stores a compact **mode descriptor** per dynamical mode in an external memory and retrieves it on demand:
 
@@ -78,7 +78,7 @@ The central finding of this thesis is that **external memory is highly beneficia
 - For **uncertainty quantification**, memory provides the global signal needed to simultaneously fit in-domain data, calibrate class probabilities, and detect out-of-distribution inputs. No prior method could achieve this without memory.
 - For **continual learning of dynamics**, memory enables cross-task knowledge transfer without parameter overwriting, solving catastrophic forgetting in a setting (multi-modal dynamical systems) where the standard parameter-transfer remedy fails.
 
-Together, [ETP](/projects/etp/) and [CDDP](/projects/cddp/) establish external memory as a principled, broadly applicable tool in the probabilistic modeling toolkit, effective wherever a model must accumulate and selectively reuse structured knowledge about its domain.
+Together, [ETP](/projects/etp.html) and [CDDP](/projects/cddp.html) establish external memory as a principled, broadly applicable tool in the probabilistic modeling toolkit, effective wherever a model must accumulate and selectively reuse structured knowledge about its domain.
 
 ---
 

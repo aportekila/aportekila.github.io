@@ -41,17 +41,17 @@ Six methods are organized under three research objectives.
 
 Inaccurate value functions slow policy improvement by propagating estimation errors through bootstrapping. Three complementary methods address this:
 
-- [**PAC4SAC**](/projects/pac4sac/): augments Soft Actor-Critic with a PAC-Bayesian critic objective that bounds generalization error directly. Uncertainty estimates from the stochastic critic guide directed exploration via multiple shooting. *(AABI 2024)*
+- [**PAC4SAC**](/projects/pac4sac.html): augments Soft Actor-Critic with a PAC-Bayesian critic objective that bounds generalization error directly. Uncertainty estimates from the stochastic critic guide directed exploration via multiple shooting. *(AABI 2024)*
 
-- [**iS-QL**](/projects/isql/): bridges the target-free/target-based dichotomy by sharing all network parameters except the final output layer, and learning K+1 parallel Bellman iterations simultaneously. Achieves target-based stability at near target-free memory cost across online control, offline control, and language modeling. *(ICLR 2026)*
+- [**iS-QL**](/projects/isql.html): bridges the target-free/target-based dichotomy by sharing all network parameters except the final output layer, and learning K+1 parallel Bellman iterations simultaneously. Achieves target-based stability at near target-free memory cost across online control, offline control, and language modeling. *(ICLR 2026)*
 
-- [**DAIF**](/projects/daif/): formulates quantile regression as Bayesian quantile regression under a Normal-Inverse-Gamma (NIG) generative model. Each (state, action, quantile) triple maps to a full distribution over the return, capturing both aleatoric and epistemic uncertainty. Exploration follows from minimizing Expected Free Energy, with no learned dynamics model required. *(ICML 2026)*
+- [**DAIF**](/projects/daif.html): formulates quantile regression as Bayesian quantile regression under a Normal-Inverse-Gamma (NIG) generative model. Each (state, action, quantile) triple maps to a full distribution over the return, capturing both aleatoric and epistemic uncertainty. Exploration follows from minimizing Expected Free Energy, with no learned dynamics model required. *(ICML 2026)*
 
 ### Objective 2: Sample-Efficient Adaptation to Non-Stationary Environments
 
 When dynamics shift, agents must rapidly detect the change and re-adapt their policies. Two probabilistic methods enable this:
 
-- [**EPPO**](/projects/eppo/): replaces the scalar value head in Proximal Policy Optimization with an evidential (NIG) critic, providing closed-form estimates of both aleatoric and epistemic uncertainty. Epistemic uncertainty identifies distribution shifts, preserving plasticity via hyperprior regularization; uncertainty propagates through the Generalized Advantage Estimator as a UCB bonus for directed exploration. *(TMLR 2025)*
+- [**EPPO**](/projects/eppo.html): replaces the scalar value head in Proximal Policy Optimization with an evidential (NIG) critic, providing closed-form estimates of both aleatoric and epistemic uncertainty. Epistemic uncertainty identifies distribution shifts, preserving plasticity via hyperprior regularization; uncertainty propagates through the Generalized Advantage Estimator as a UCB bonus for directed exploration. *(TMLR 2025)*
 
 - **WSB**: introduces Weighted Sequential Bayesian inference for non-stationary linear contextual bandits. A Bayesian posterior over drifting reward parameters is maintained through exponentially weighted updates. Novel concentration inequalities explicitly account for prior beliefs and their decay over time, yielding provably efficient algorithms (WSB-LinUCB, WSB-RandLinUCB, WSB-LinTS) that match or improve on frequentist baselines in regret. *(UAI 2026)*
 
@@ -59,23 +59,23 @@ When dynamics shift, agents must rapidly detect the change and re-adapt their po
 
 With no access to new interactions, every data point must be used as effectively as possible:
 
-- [**MOMBO**](/projects/mombo/): identifies high Monte Carlo variance as the primary source of training instability in model-based offline RL. Replaces single-sample Bellman targets with deterministic moment matching: next-state distributions from an ensemble dynamics model are propagated analytically through the Q-network, yielding a closed-form pessimistic Bellman operator. Two theoretical contributions accompany the algorithm: a suboptimality bound for sampling-based approaches showing explicit dependence on the number of samples, and a tighter deterministic bound for the moment-matching counterpart. *(NeurIPS 2024)*
+- [**MOMBO**](/projects/mombo.html): identifies high Monte Carlo variance as the primary source of training instability in model-based offline RL. Replaces single-sample Bellman targets with deterministic moment matching: next-state distributions from an ensemble dynamics model are propagated analytically through the Q-network, yielding a closed-form pessimistic Bellman operator. Two theoretical contributions accompany the algorithm: a suboptimality bound for sampling-based approaches showing explicit dependence on the number of samples, and a tighter deterministic bound for the moment-matching counterpart. *(NeurIPS 2024)*
 
 ## Results
 
 Evaluated across MuJoCo, PyBullet, DeepMind Control Suite, EvoGym, Atari, and D4RL benchmarks, the six methods consistently improve sample efficiency over their respective baselines:
 
-- [**MOMBO**](/projects/mombo/) achieves state-of-the-art or competitive normalized reward and AULC on D4RL offline benchmarks across halfcheetah, hopper, and walker2d environments, and provides a provably tighter suboptimality guarantee than sampling-based offline RL methods.
+- [**MOMBO**](/projects/mombo.html) achieves state-of-the-art or competitive normalized reward and AULC on D4RL offline benchmarks across halfcheetah, hopper, and walker2d environments, and provides a provably tighter suboptimality guarantee than sampling-based offline RL methods.
 
-- [**EPPO**](/projects/eppo/) ranks first in average AULC among seven baselines on non-stationary MuJoCo locomotion (average rank 1.5), outperforming methods designed for plasticity alone, exploration alone, and standard PPO, showing that both properties are simultaneously necessary.
+- [**EPPO**](/projects/eppo.html) ranks first in average AULC among seven baselines on non-stationary MuJoCo locomotion (average rank 1.5), outperforming methods designed for plasticity alone, exploration alone, and standard PPO, showing that both properties are simultaneously necessary.
 
-- [**DAIF**](/projects/daif/) achieves the best average task ranking across 19 continuous control tasks on three benchmark suites, with improvements of up to +62% AULC over the next-best distributional baseline on individual tasks, and competitive performance on pixel-observation tasks without pixel-specialist tuning.
+- [**DAIF**](/projects/daif.html) achieves the best average task ranking across 19 continuous control tasks on three benchmark suites, with improvements of up to +62% AULC over the next-best distributional baseline on individual tasks, and competitive performance on pixel-observation tasks without pixel-specialist tuning.
 
-- [**PAC4SAC**](/projects/pac4sac/) achieves the lowest cumulative regret and fewest episodes to task completion across four PyBullet continuous control environments compared to DDPG, SAC, and OAC baselines.
+- [**PAC4SAC**](/projects/pac4sac.html) achieves the lowest cumulative regret and fewest episodes to task completion across four PyBullet continuous control environments compared to DDPG, SAC, and OAC baselines.
 
 - **WSB** yields provably lower cumulative regret than frequentist non-stationary bandit methods, validated empirically across multiple non-stationary configurations.
 
-- [**iS-QL**](/projects/isql/) matches target-based stability while using near target-free memory, with gains across Atari, DMControl, and offline language modeling tasks.
+- [**iS-QL**](/projects/isql.html) matches target-based stability while using near target-free memory, with gains across Atari, DMControl, and offline language modeling tasks.
 
 ## Conclusion
 

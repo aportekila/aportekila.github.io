@@ -28,7 +28,7 @@
       linkitems:
         - link: https://findresearcher.sdu.dk/ws/portalfiles/portal/306372673/Akgul_Abdullah_PhD_Thesis_2026.pdf
           linkname: <i class="fa-solid fa-file-pdf"></i> PDF
-        - link: /projects/phdthesis/
+        - link: /projects/phdthesis.html
           linkname: <i class="fa-solid fa-diagram-project"></i> Project
     - title: M.Sc. in Computer Engineering
       institution: Istanbul Technical University
@@ -41,7 +41,7 @@
       linkitems:
         - link: https://polen.itu.edu.tr/server/api/core/bitstreams/426e7080-7223-472d-929f-d194d6c9ea7e/content
           linkname: <i class="fa-solid fa-file-pdf"></i> PDF
-        - link: /projects/mastersthesis/
+        - link: /projects/mastersthesis.html
           linkname: <i class="fa-solid fa-diagram-project"></i> Project
     - title: B.Sc. in Computer Engineering
       institution: Istanbul Technical University

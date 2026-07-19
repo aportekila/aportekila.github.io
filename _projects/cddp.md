@@ -15,7 +15,7 @@ bib_key: "akgul2024cddp"
 
 No prior method could learn a dynamical system's behavioral modes sequentially without either catastrophically forgetting earlier ones or requiring explicit mode labels at test time — two constraints that the standard continual learning fix of parameter transfer (Variational Continual Learning) cannot simultaneously satisfy for multi-modal dynamics. **CDDP (Continual Dynamic Dirichlet Process)** solves both by replacing parameter transfer with a neural episodic memory and a Dirichlet Process prior on attention weights, enabling automatic mode discovery and zero-forgetting transfer within a Bayesian State-Space Model.
 
-*This work was the second contribution of my [Master's thesis](/projects/mastersthesis/) at Istanbul Technical University, published at L4DC 2024.*
+*This work was the second contribution of my [Master's thesis](/projects/mastersthesis.html) at Istanbul Technical University, published at L4DC 2024.*
 
 ## Problem Statement
 
