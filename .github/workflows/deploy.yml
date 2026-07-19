@@ -59,6 +59,10 @@ on:
       - "!README.md"
   workflow_dispatch:
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -79,6 +83,10 @@ jobs:
         with:
           python-version: "3.13"
           # cache: "pip" # caching pip dependencies
+      - name: Setup Node.js ⬢
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
@@ -86,11 +94,26 @@ jobs:
           valueFile: "_config.yml"
           propertyPath: "giscus.repo"
           value: ${{ github.repository }}
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            imagemagick \
+            pandoc \
+            fonts-liberation \
+            fonts-noto-core \
+            fonts-noto-cjk
+      - name: Generate Portfolio PDF 📄
+        run: |
+          pip3 install --upgrade pyyaml
+          cd _scripts
+          npm install puppeteer
+          cd ..
+          python3 _scripts/portfolio_to_pdf.py
+        continue-on-error: false
       - name: Install and Build 🔧
         run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
           pip3 install --upgrade nbconvert bibtexparser pyyaml
-          python3 _scripts/gen_bib_meta.py
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
