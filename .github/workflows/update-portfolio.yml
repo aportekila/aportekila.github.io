@@ -16,6 +16,9 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
   update-portfolio:
     runs-on: ubuntu-latest
