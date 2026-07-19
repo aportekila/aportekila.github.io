@@ -170,8 +170,8 @@ def convert_figures(body: str) -> str:
 
 
 def rewrite_internal_links(body: str) -> str:
-    """Rewrite internal links from /projects/slug/ to #project-slug anchors."""
-    return re.sub(r'\]\(/projects/([a-zA-Z0-9_-]+)/?/?\)', r'](#project-\1)', body)
+    """Rewrite internal links from /projects/slug(.html) to #project-slug anchors."""
+    return re.sub(r'\]\(/projects/([a-zA-Z0-9_-]+)(?:\.html)?/?\)', r'](#project-\1)', body)
 
 
 def demote_headings(body: str, offset: int = 1) -> str:
@@ -194,7 +194,7 @@ def build_link_buttons_markdown(buttons: List[Tuple[str, str]], slug: str) -> st
     links = []
     for label, url in buttons:
         links.append(f"[{label}]({url})")
-    site_url = f"https://aportekila.github.io/projects/{slug}/"
+    site_url = f"https://aportekila.github.io/projects/{slug}.html"
     links.append(f"[View on Site]({site_url})")
     return '\n'.join([f"- {link}" for link in links])
 

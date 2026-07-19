@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-curriculum-vitae",
           title: "Curriculum Vitae",
-          description: "My Curriculum Vitae",
+          description: "Curriculum vitae of Abdullah Akgül — education, research experience, publications, and skills in reinforcement learning and probabilistic machine learning.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/cv/";
