@@ -697,13 +697,26 @@ footer.sticky-bottom {
   }
 
   h2.category {
-    color: var(--global-divider-color);
-    border-bottom: 1px solid var(--global-divider-color);
+    color: var(--global-theme-color);
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--global-theme-color);
     padding-top: 0.5rem;
-    margin-top: 2rem;
+    padding-bottom: 0.4rem;
+    margin-top: 2.5rem;
     margin-bottom: 1rem;
-    text-align: right;
+    text-align: left;
   }
+}
+
+// Figure/paper preview thumbnails are mostly white-background matplotlib/vector
+// exports; matting them in white keeps them looking intentional instead of like
+// a stray bright rectangle when the page is in dark mode.
+img.preview {
+  background-color: #fff;
+  padding: 0.35rem;
 }
 
 // Publications

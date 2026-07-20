@@ -3,13 +3,21 @@
     <li class="list-group-item">
       <h5 class="font-italic">{{ content.title }}</h5>
       {% if content.items %}
-        <ul class="subitems">
-          {% for subitem in content.items %}
-            <li>
-              <span class="subitem">{{ subitem }}</span>
-            </li>
-          {% endfor %}
-        </ul>
+        {% if entry.badges %}
+          <ul class="subitems badges">
+            {% for subitem in content.items %}
+              <li><span class="skill-badge">{{ subitem }}</span></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <ul class="subitems">
+            {% for subitem in content.items %}
+              <li>
+                <span class="subitem">{{ subitem }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       {% endif %}
     </li>
   {% endfor %}

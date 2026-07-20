@@ -151,6 +151,35 @@ td.list-group-link {
 }
 
 /*****************************
+ * CV SKILL BADGE styles
+ *****************************/
+
+ul.subitems.badges {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+ul.subitems.badges li {
+  display: inline-block;
+}
+
+span.skill-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.22rem 0.65rem;
+  border-radius: 1rem;
+  color: var(--global-theme-color);
+  border: 1px solid var(--global-theme-color);
+  background-color: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+  white-space: nowrap;
+}
+
+/*****************************
  * CV TOC styles
  *****************************/
 

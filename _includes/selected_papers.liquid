@@ -1,3 +1,8 @@
 <div class="publications">
-  {% bibliography --group_by none  --query @*[selected=true]* --sort_by year --order descending %}
+  {%- comment -%}
+    Excludes bib_keys already shown in the "highlights" section above (selected_projects.liquid)
+    so the same paper never appears twice on the homepage. Keep this list in sync with the
+    bib_key of every project marked `selected: true` in _projects/*.md.
+  {%- endcomment -%}
+  {% bibliography --group_by none --query @*[selected=true && key!=akgul2026distributional && key!=akgul2024deterministic && key!=akgul2025overcoming]* --sort_by year --order descending %}
 </div>

@@ -117,6 +117,7 @@
 
 - title: Skills
   type: nested_list
+  badges: true
   contents:
     - title: <b>Programming Languages:</b>
       items: 

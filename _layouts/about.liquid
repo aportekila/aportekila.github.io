@@ -56,18 +56,18 @@ layout: default
       {% include latest_posts.liquid %}
     {% endif %}
 
-    <!-- Selected projects -->
+    <!-- Highlights (top projects, richest cards) -->
     {% if page.selected_projects %}
       <h2>
-        <a href="{{ '/portfolio/' | relative_url }}" style="color: inherit">selected projects</a>
+        <a href="{{ '/portfolio/' | relative_url }}" style="color: inherit">highlights</a>
       </h2>
       {% include selected_projects.liquid %}
     {% endif %}
 
-    <!-- Selected papers -->
+    <!-- More selected publications (excludes anything already shown above in Highlights) -->
     {% if page.selected_papers %}
       <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">more selected publications</a>
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
