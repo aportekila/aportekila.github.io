@@ -719,6 +719,38 @@ img.preview {
   padding: 0.35rem;
 }
 
+// Same reasoning, but for the full-size research figures embedded in project
+// detail page bodies (a different class than the .preview thumbnails above).
+.post article img.img-fluid.rounded.z-depth-1 {
+  background-color: #fff;
+  padding: 0.5rem;
+}
+
+// Plain markdown tables (e.g. results tables on project pages) get no styling
+// from kramdown, unlike the Bootstrap-classed tables used elsewhere (CV, news).
+// `:not([class])` keeps this scoped to those unclassed tables only.
+.post article table:not([class]) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+
+  th,
+  td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--global-divider-color);
+    text-align: left;
+  }
+
+  thead th {
+    border-bottom: 2px solid var(--global-theme-color);
+    color: var(--global-theme-color);
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: var(--global-divider-color);
+  }
+}
+
 // Publications
 
 .publications {
