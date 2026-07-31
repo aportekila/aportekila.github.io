@@ -90,8 +90,7 @@ jobs:
           for path in $URLS; do
             # collapse a possible double leading slash (manual input already starting with "/")
             path="/${path#/}"
-            echo "::group::axe $path"
+            echo "=== axe $path ==="
             axe --chromedriver-path "$CHROMEDRIVER" "http://localhost:8080$path" --load-delay=1500 --exit || status=1
-            echo "::endgroup::"
           done
           exit $status
