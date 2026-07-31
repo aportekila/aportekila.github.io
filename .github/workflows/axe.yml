@@ -58,21 +58,14 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Setup Chrome 🌐
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
       - name: Install chromedriver 🚗
-        # Ask the installed Chrome binary directly for its version instead of trusting
-        # setup-chrome's outputs or re-fetching "latest stable" independently — those can
-        # disagree with what actually got installed, which causes ChromeDriver to refuse
-        # the session with a version mismatch (as happened twice before this fix).
+        # ubuntu-latest ships Google Chrome preinstalled at /opt/google/chrome/chrome, and that is
+        # the binary axe-core's Selenium launcher actually uses — a separately installed browser
+        # (e.g. via a "setup-chrome" action) sits unused alongside it and only causes chromedriver
+        # to target the wrong version. So skip installing another Chrome build entirely and just
+        # match chromedriver to the browser that will actually be launched.
         run: |
-          CHROME_BIN="${{ steps.setup-chrome.outputs.chrome-path }}"
-          if [ -z "$CHROME_BIN" ] || [ ! -x "$CHROME_BIN" ]; then
-            CHROME_BIN=$(command -v google-chrome || command -v chromium-browser || echo /opt/google/chrome/chrome)
-          fi
+          CHROME_BIN=$(command -v google-chrome || command -v google-chrome-stable || echo /opt/google/chrome/chrome)
           echo "Chrome binary: $CHROME_BIN"
           CHROME_VERSION=$("$CHROME_BIN" --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           CHROME_MAJOR=$(echo "$CHROME_VERSION" | cut -d. -f1)
