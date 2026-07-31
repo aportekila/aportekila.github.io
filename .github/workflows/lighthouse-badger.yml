@@ -23,6 +23,10 @@ env:
 # TRIGGERS
 on:
   page_build:
+  workflow_run: # fires right after our own deploy finishes, more reliable than page_build for Actions-based Pages deploys
+    workflows: ["Deploy site"]
+    types:
+      - completed
   schedule: # re-check periodically in case page_build doesn't fire reliably for this deploy method
     - cron: "55 23 * * 0" # every Sunday at 23:55 UTC
   workflow_dispatch:

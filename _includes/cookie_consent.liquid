@@ -1,0 +1,33 @@
+{% if site.enable_google_analytics %}
+  <div id="cookie-consent-banner" class="cookie-consent-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <p>This site uses Google Analytics to understand traffic. Nothing is loaded or tracked until you accept.</p>
+    <div class="cookie-consent-actions">
+      <button type="button" id="cookie-consent-decline">Decline</button>
+      <button type="button" id="cookie-consent-accept">Accept</button>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var KEY = "analytics-consent";
+      var banner = document.getElementById("cookie-consent-banner");
+      if (!banner) return;
+
+      if (!localStorage.getItem(KEY)) {
+        banner.hidden = false;
+      }
+
+      document.getElementById("cookie-consent-accept").addEventListener("click", function () {
+        localStorage.setItem(KEY, "granted");
+        banner.hidden = true;
+        if (window.__loadGoogleAnalytics) {
+          window.__loadGoogleAnalytics();
+        }
+      });
+
+      document.getElementById("cookie-consent-decline").addEventListener("click", function () {
+        localStorage.setItem(KEY, "denied");
+        banner.hidden = true;
+      });
+    })();
+  </script>
+{% endif %}

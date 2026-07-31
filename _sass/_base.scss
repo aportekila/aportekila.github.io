@@ -1484,3 +1484,106 @@ figure.cover {
     color: #23212d !important;
   }
 }
+
+/* Profile sidebar CTA badge/buttons (about page, projects page) */
+.cta-badge {
+  display: inline-block;
+  background-color: var(--global-theme-color);
+  color: var(--global-hover-text-color);
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.88em;
+  letter-spacing: 0.01em;
+}
+
+.cta-button {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92em;
+  color: var(--global-hover-text-color);
+  background-color: var(--global-theme-color);
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px var(--global-cta-shadow);
+  transition: filter 0.15s ease;
+
+  &:hover {
+    filter: brightness(0.92);
+    color: var(--global-hover-text-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Cookie consent banner */
+.cookie-consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1050;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 14px 20px;
+  background-color: var(--global-card-bg-color);
+  border-top: 1px solid var(--global-divider-color);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+
+  &[hidden] {
+    display: none;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--global-text-color);
+    max-width: 60ch;
+  }
+}
+
+.cookie-consent-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+
+  button {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid var(--global-text-color);
+    background: transparent;
+    color: var(--global-text-color);
+
+    &:hover {
+      border-color: var(--global-theme-color);
+      color: var(--global-theme-color);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 2px;
+    }
+  }
+
+  #cookie-consent-accept {
+    background-color: var(--global-theme-color);
+    border-color: var(--global-theme-color);
+    color: var(--global-hover-text-color);
+
+    &:hover {
+      filter: brightness(0.92);
+      color: var(--global-hover-text-color);
+    }
+  }
+}

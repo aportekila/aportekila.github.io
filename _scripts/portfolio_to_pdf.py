@@ -15,6 +15,12 @@ import shutil
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 
+try:
+    from PIL import Image
+    HAVE_PIL = True
+except ImportError:
+    HAVE_PIL = False
+
 # Get script directory and compute relative paths to repo root
 SCRIPT_DIR = Path(__file__).parent.absolute()
 REPO_ROOT = SCRIPT_DIR.parent  # Go up one level from _scripts to repo root
@@ -27,6 +33,55 @@ PROJECTS_PAGE_PATH = REPO_ROOT / "_pages/projects.md"
 PDF_OUTPUT_PATH = REPO_ROOT / "assets/pdf/Portfolio.pdf"
 TEMP_DIR = SCRIPT_DIR / "portfolio_pdf_output"
 TEMP_DIR.mkdir(parents=True, exist_ok=True)
+
+# Figure images are embedded at print size, not full web resolution -- downscale
+# accordingly so the generated PDF doesn't ship multi-megabyte source photos.
+PDF_IMAGE_MAX_WIDTH = 1000
+_optimized_image_cache: Dict[Path, Path] = {}
+
+
+def optimize_image_for_pdf(abs_path: Path) -> Path:
+    """Return a downscaled/re-encoded copy of abs_path for PDF embedding.
+
+    Falls back to the original file if Pillow isn't installed, the file is
+    missing, the format isn't handled, or the re-encoded result would not
+    actually be smaller than the source.
+    """
+    if not HAVE_PIL or not abs_path.exists():
+        return abs_path
+    if abs_path in _optimized_image_cache:
+        return _optimized_image_cache[abs_path]
+
+    result = abs_path
+    try:
+        img = Image.open(abs_path)
+        img.load()
+        width, height = img.size
+        scale = min(1.0, PDF_IMAGE_MAX_WIDTH / width)
+        if scale < 1.0:
+            img = img.resize((round(width * scale), round(height * scale)), Image.LANCZOS)
+
+        suffix = abs_path.suffix.lower()
+        out_dir = TEMP_DIR / "pdf_images"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_path = out_dir / abs_path.name
+
+        if suffix in (".jpg", ".jpeg"):
+            (img.convert("RGB") if img.mode != "RGB" else img).save(
+                out_path, "JPEG", quality=82, optimize=True
+            )
+        elif suffix == ".png":
+            img.save(out_path, "PNG", optimize=True, compress_level=9)
+        else:
+            out_path = None
+
+        if out_path is not None and out_path.stat().st_size < abs_path.stat().st_size:
+            result = out_path
+    except Exception as e:
+        print(f"WARNING: could not optimize {abs_path.name} for PDF, using original: {e}")
+
+    _optimized_image_cache[abs_path] = result
+    return result
 
 SCHOLAR_PROFILE_ID = "FZeaKPoAAAAJ"
 
@@ -142,7 +197,8 @@ def make_figure_html(attr_matches: List[str], caption_html: str) -> str:
         attrs = dict(ATTR_RE.findall(attrs_str))
         rel_path = attrs.get('path', '')
         abs_path = REPO_ROOT / rel_path
-        file_url = "file://" + urllib.parse.quote(str(abs_path))
+        pdf_img_path = optimize_image_for_pdf(abs_path)
+        file_url = "file://" + urllib.parse.quote(str(pdf_img_path))
         title = attrs.get('title', '')
         imgs.append(f'<div class="fig-img"><img src="{file_url}" alt="{html_module.escape(title)}"></div>')
 

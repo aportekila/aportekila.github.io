@@ -105,7 +105,7 @@ jobs:
             fonts-noto-cjk
       - name: Generate Portfolio PDF 📄
         run: |
-          pip3 install --upgrade pyyaml
+          pip3 install --upgrade pyyaml pillow
           cd _scripts
           npm install puppeteer
           cd ..
