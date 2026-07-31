@@ -58,20 +58,21 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Get Chromium version 🌐
-        # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
-        run: |
-          CHROMIUM_VERSION=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE | cut -d. -f1)
-          echo "Chromium version: $CHROMIUM_VERSION"
-          echo "CHROMIUM_VERSION=$CHROMIUM_VERSION" >> $GITHUB_ENV
       - name: Setup Chrome 🌐
         id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: ${{ env.CHROMIUM_VERSION }}
+          chrome-version: stable
       - name: Install chromedriver 🚗
+        # Derive the chromedriver version from the Chrome version actually installed above,
+        # rather than re-fetching "latest stable" independently — the two registries can be
+        # out of sync (e.g. Chrome resolves to 150.x while a separately-fetched "latest" is 151),
+        # which causes ChromeDriver to refuse the session with a version mismatch.
         run: |
-          npm install -g chromedriver@$CHROMIUM_VERSION
+          CHROME_VERSION="${{ steps.setup-chrome.outputs.chrome-version }}"
+          CHROME_MAJOR=$(echo "$CHROME_VERSION" | cut -d. -f1)
+          echo "Installed Chrome: $CHROME_VERSION (major $CHROME_MAJOR)"
+          npm install -g chromedriver@$CHROME_MAJOR
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         run: |
