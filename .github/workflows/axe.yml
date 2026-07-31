@@ -1,15 +1,14 @@
 name: Axe accessibility testing
 
 on:
-  # if you want to run this on every push uncomment the following lines
-  # push:
-  #   branches:
-  #     - master
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - master
-  #     - main
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
   workflow_dispatch:
     inputs:
       url:
@@ -18,6 +17,14 @@ on:
 
 env:
   URL: ""
+  # Key pages checked on every push/PR (in addition to the manually-specified URL, if any)
+  CHECK_URLS: >-
+    /
+    /cv/
+    /portfolio/
+    /publications/
+    /projects/eppo.html
+    /news/
 
 jobs:
   check:
@@ -71,4 +78,19 @@ jobs:
           npm install -g @axe-core/cli
           npm install -g http-server
           http-server _site/ &
-          axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8080/${{ github.event.inputs.url || env.URL }} --load-delay=1500 --exit
+          sleep 2
+          CHROMEDRIVER=$(npm root -g)/chromedriver/bin/chromedriver
+          status=0
+          if [ -n "${{ github.event.inputs.url }}" ]; then
+            URLS="/${{ github.event.inputs.url }}"
+          else
+            URLS="$CHECK_URLS"
+          fi
+          for path in $URLS; do
+            # collapse a possible double leading slash (manual input already starting with "/")
+            path="/${path#/}"
+            echo "::group::axe $path"
+            axe --chromedriver-path "$CHROMEDRIVER" "http://localhost:8080$path" --load-delay=1500 --exit || status=1
+            echo "::endgroup::"
+          done
+          exit $status

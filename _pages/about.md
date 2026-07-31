@@ -13,10 +13,10 @@ profile:
   image: AbdullahAkgul.jpeg
   image_circular: true # crops the image to make it circular
   more_info: >
-    <p><span style="display:inline-block; background-color:#e67e22; color:white; padding:4px 12px; border-radius:14px; font-weight:600; font-size:0.88em; letter-spacing:0.01em;">🔍 Open to Research Scientist &amp; MLE roles</span></p>
+    <p><span style="display:inline-block; background-color:#b8460e; color:white; padding:4px 12px; border-radius:14px; font-weight:600; font-size:0.88em; letter-spacing:0.01em;">🔍 Open to Research Scientist &amp; MLE roles</span></p>
     <p><a href='https://adinlab.github.io/'>ADIN Lab</a> · Odense, Denmark</p>
-    <p style="margin-bottom: 0.5rem;"><a href='/assets/pdf/AbdullahAkgulCV.pdf' target='_blank' style="display:block; text-align:center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.92em;">📄 Download CV (PDF)</a></p>
-    <p><a href='/assets/pdf/Portfolio.pdf' target='_blank' style="display:block; text-align:center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.92em;">🎨 Download Portfolio (PDF)</a></p>
+    <p style="margin-bottom: 0.5rem;"><a href='/assets/pdf/AbdullahAkgulCV.pdf' target='_blank' style="display:block; text-align:center; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color:white; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.92em;">📄 Download CV (PDF)</a></p>
+    <p><a href='/assets/pdf/Portfolio.pdf' target='_blank' style="display:block; text-align:center; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color:white; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.92em;">🎨 Download Portfolio (PDF)</a></p>
 
 announcements:
   enabled: true

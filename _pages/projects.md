@@ -10,7 +10,7 @@ horizontal: true
 ---
 
 <div style="text-align: center; margin-bottom: 2em;">
-  <a href="/assets/pdf/Portfolio.pdf" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.05em;">🎨 Download Portfolio PDF</a>
+  <a href="/assets/pdf/Portfolio.pdf" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.05em;">🎨 Download Portfolio PDF</a>
 </div>
 
 <!-- pages/projects.md -->
