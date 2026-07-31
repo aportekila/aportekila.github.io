@@ -2,7 +2,7 @@
   <div class="card h-100 hoverable">
     <div class="row no-gutters">
       {% if project.img %}
-        <div class="col-md-4" style="position: relative; z-index: 2;">
+        <div class="col-md-4">
           {% assign entry_path = project.img | relative_url %}
           {%
             include figure.liquid
@@ -10,7 +10,6 @@
             path=entry_path
             sizes = "200px"
             class="preview z-depth-1 rounded"
-            zoomable=true
             avoid_scaling=true
             alt=project.title
           %}
