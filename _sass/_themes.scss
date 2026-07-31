@@ -10,6 +10,8 @@
   --global-code-bg-color: #{$code-bg-color-light};
   --global-text-color: #{$black-color};
   --global-text-color-light: #{$grey-color};
+  // darker than --global-text-color-light: meets WCAG AA 4.5:1 for small muted text (e.g. "+N more authors")
+  --global-text-color-light-a11y: #595959;
   --global-theme-color: #{$purple-color};
   --global-hover-color: #{$purple-color};
   --global-hover-text-color: #{$white-color};
@@ -82,6 +84,8 @@ html[data-theme="dark"] {
   --global-code-bg-color: #{$code-bg-color-dark};
   --global-text-color: #{$grey-color-light};
   --global-text-color-light: #{$grey-color};
+  // lighter than --global-text-color-light: meets WCAG AA 4.5:1 against the dark background
+  --global-text-color-light-a11y: #a3a3a3;
   --global-theme-color: #{$cyan-color};
   --global-hover-color: #{$cyan-color};
   --global-hover-text-color: #{$white-color};

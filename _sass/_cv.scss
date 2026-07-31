@@ -2,6 +2,23 @@
  * CV shared styles
  *****************************/
 
+// Section/entry titles were bumped to semantically-correct heading levels
+// (h1 > h2 > h3, no skipped levels) for a11y; these pin back their original
+// visual sizes (former h3/h6/h5 respectively) so nothing looks different.
+.card-title.font-weight-medium {
+  font-size: 1.75rem;
+}
+
+.list-group-item {
+  .title.font-weight-bold {
+    font-size: 1rem;
+  }
+
+  h3.font-italic {
+    font-size: 1.25rem;
+  }
+}
+
 div.container-link-button {
   margin-right: 0.5rem;
 }

@@ -64,6 +64,8 @@
       {% endif %}
       {% if include.alt %}
         alt="{{ include.alt }}"
+      {% elsif include.title %}
+        alt="{{ include.title }}"
       {% endif %}
       {% if include.title %}
         title="{{ include.title }}"

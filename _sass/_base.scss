@@ -49,6 +49,12 @@ table.table a {
   }
 }
 
+// links inline within a block of text need a non-color cue (underline) per WCAG 1.4.1;
+// scoped to .news since that's the only place such inline text links currently occur
+.news td a {
+  text-decoration: underline;
+}
+
 .table-dark {
   background-color: transparent;
   &.table-bordered {
@@ -835,7 +841,7 @@ img.preview {
         }
 
         > span.more-authors {
-          color: var(--global-text-color-light);
+          color: var(--global-text-color-light-a11y);
           border-bottom: 1px dashed var(--global-text-color-light);
           cursor: pointer;
 
