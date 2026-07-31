@@ -75,8 +75,8 @@ jobs:
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         run: |
-          npm install -g @axe-core/cli
-          npm install -g http-server
+          sudo npm install -g @axe-core/cli
+          sudo npm install -g http-server
           http-server _site/ &
           sleep 2
           CHROMEDRIVER=$(npm root -g)/chromedriver/bin/chromedriver
