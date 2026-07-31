@@ -93,6 +93,17 @@ jobs:
             # collapse a possible double leading slash (manual input already starting with "/")
             path="/${path#/}"
             echo "=== axe $path ==="
-            axe --chromedriver-path "$CHROMEDRIVER" "http://localhost:8080$path" --load-delay=1500 --exit || status=1
+            # guard against GitHub Actions' default `set -e`: without the if/else, a nonzero
+            # exit here would abort the script immediately, before we can even read $? below
+            if axe --chromedriver-path "$CHROMEDRIVER" "http://localhost:8080$path" --load-delay=1500 --exit; then
+              rc=0
+            else
+              rc=$?
+            fi
+            echo "--- axe exit code for $path: $rc ---"
+            if [ $rc -ne 0 ]; then
+              status=1
+            fi
           done
+          echo "=== final status: $status ==="
           exit $status
