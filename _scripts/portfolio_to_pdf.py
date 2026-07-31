@@ -385,7 +385,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
 
         h1 {{
             font-size: 36pt;
-            color: #667eea;
+            color: #4f46e5;
             padding-bottom: 0.4em;
             margin-bottom: 0.2em;
             font-weight: 900;
@@ -394,25 +394,25 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
 
         h1:first-of-type {{
             font-size: 42pt;
-            color: #667eea;
+            color: #4f46e5;
             font-weight: 900;
             padding: 1.2em 1em 0.8em;
             margin: -15mm -15mm 0.8em -15mm;
             padding-left: 15mm;
             padding-right: 15mm;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.06) 0%, rgba(118, 75, 162, 0.06) 100%);
-            border-bottom: 4px solid #667eea;
+            border-bottom: 4px solid #4f46e5;
             box-shadow: 0 4px 16px rgba(102, 126, 234, 0.12);
         }}
 
         h2 {{
             font-size: 18pt;
-            color: #667eea;
+            color: #4f46e5;
             position: relative;
             padding-top: 0.6em;
             padding-bottom: 0.5em;
             margin-top: 2.2em;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #4f46e5;
             font-weight: 800;
             letter-spacing: -0.5px;
         }}
@@ -447,7 +447,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
             background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
             padding: 1.2em;
             margin: 1em 0 0 0;
-            border-left: 6px solid #667eea;
+            border-left: 6px solid #4f46e5;
             border-radius: 8px;
             font-size: 9.2pt;
             box-shadow: 0 6px 16px rgba(102, 126, 234, 0.1);
@@ -460,7 +460,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
             display: block;
             font-size: 11pt;
             font-weight: 800;
-            color: #667eea;
+            color: #4f46e5;
             margin-bottom: 0.6em;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -487,14 +487,14 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
         }}
 
         nav#TOC a {{
-            color: #667eea;
+            color: #4f46e5;
             text-decoration: none;
             font-weight: 600;
             font-size: 9pt;
         }}
 
         nav#TOC a:hover {{
-            color: #764ba2;
+            color: #7c3aed;
         }}
 
         table {{
@@ -515,7 +515,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
         }}
 
         th {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
             color: white;
             font-weight: 800;
         }}
@@ -589,7 +589,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
             break-inside: avoid;
             font-size: 9pt;
             line-height: 1.6;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #4f46e5;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }}
 
@@ -605,14 +605,14 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
         }}
 
         a {{
-            color: #667eea;
+            color: #4f46e5;
             text-decoration: none;
             font-weight: 600;
             border-bottom: 2px solid rgba(102, 126, 234, 0.3);
         }}
 
         a:visited {{
-            color: #764ba2;
+            color: #7c3aed;
         }}
 
         strong {{
@@ -628,7 +628,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
         hr {{
             border: none;
             height: 2px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #4f46e5 100%);
             margin: 2.5em 0;
             border-radius: 1px;
         }}
@@ -647,7 +647,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
         blockquote {{
             margin: 1.8em 0;
             padding: 1.2em 1.2em 1.2em 1.5em;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #4f46e5;
             color: #4b5563;
             font-style: italic;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
@@ -675,7 +675,7 @@ def build_print_template(body_html: str, toc_html: str = None) -> str:
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
         }}
 
         .project-section h2 {{
