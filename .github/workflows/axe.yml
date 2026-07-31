@@ -64,13 +64,22 @@ jobs:
         with:
           chrome-version: stable
       - name: Install chromedriver 🚗
-        # Derive the chromedriver version from the Chrome version actually installed above,
-        # rather than re-fetching "latest stable" independently — the two registries can be
-        # out of sync (e.g. Chrome resolves to 150.x while a separately-fetched "latest" is 151),
-        # which causes ChromeDriver to refuse the session with a version mismatch.
+        # Ask the installed Chrome binary directly for its version instead of trusting
+        # setup-chrome's outputs or re-fetching "latest stable" independently — those can
+        # disagree with what actually got installed, which causes ChromeDriver to refuse
+        # the session with a version mismatch (as happened twice before this fix).
         run: |
-          CHROME_VERSION="${{ steps.setup-chrome.outputs.chrome-version }}"
+          CHROME_BIN="${{ steps.setup-chrome.outputs.chrome-path }}"
+          if [ -z "$CHROME_BIN" ] || [ ! -x "$CHROME_BIN" ]; then
+            CHROME_BIN=$(command -v google-chrome || command -v chromium-browser || echo /opt/google/chrome/chrome)
+          fi
+          echo "Chrome binary: $CHROME_BIN"
+          CHROME_VERSION=$("$CHROME_BIN" --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           CHROME_MAJOR=$(echo "$CHROME_VERSION" | cut -d. -f1)
+          if [ -z "$CHROME_MAJOR" ]; then
+            echo "::error::Could not determine installed Chrome version from '$CHROME_BIN --version'"
+            exit 1
+          fi
           echo "Installed Chrome: $CHROME_VERSION (major $CHROME_MAJOR)"
           npm install -g chromedriver@$CHROME_MAJOR
       - name: Run axe 🪓
