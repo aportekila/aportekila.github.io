@@ -779,7 +779,9 @@ img.preview {
   }
 
   h2.bibliography {
-    color: var(--global-divider-color);
+    // was --global-divider-color (designed for ~10%-opacity hairlines, not readable text) —
+    // failed WCAG color-contrast on the year headings ("2026", "2025", ...)
+    color: var(--global-text-color-light-a11y);
     border-top: 1px solid var(--global-divider-color);
     padding-top: 1rem;
     margin-top: 2rem;
