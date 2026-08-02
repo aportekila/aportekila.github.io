@@ -38,6 +38,18 @@ jobs:
         with:
           ruby-version: "3.2.2"
           bundler-cache: true
+      - name: Setup Python 🐍
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+          cache-dependency-path: "_scripts/requirements.txt"
+      - name: Setup Node.js ⬢
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "_scripts/package-lock.json"
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
@@ -51,7 +63,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install --upgrade jupyter
+          pip3 install -r _scripts/requirements.txt
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
@@ -78,8 +90,8 @@ jobs:
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         run: |
-          sudo npm install -g @axe-core/cli
-          sudo npm install -g http-server
+          npm install -g @axe-core/cli
+          npm install -g http-server
           http-server _site/ &
           sleep 2
           CHROMEDRIVER=$(npm root -g)/chromedriver/bin/chromedriver

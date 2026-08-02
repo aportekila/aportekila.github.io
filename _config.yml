@@ -137,8 +137,8 @@ newsletter:
 # 2. Copy the form ID (the part after /f/ in your form's endpoint URL) below.
 # 3. Set enabled to true.
 contact_form:
-  enabled: false
-  formspree_id: # your Formspree form ID, e.g. xnnvqwjz
+  enabled: true
+  formspree_id: xkodldko # your Formspree form ID, e.g. xnnvqwjz
 
 # -----------------------------------------------------------------------------
 # Collections

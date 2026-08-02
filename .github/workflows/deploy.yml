@@ -82,11 +82,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-          # cache: "pip" # caching pip dependencies
+          cache: "pip"
+          cache-dependency-path: "_scripts/requirements.txt"
       - name: Setup Node.js ⬢
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "_scripts/package-lock.json"
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
@@ -103,23 +106,29 @@ jobs:
             fonts-liberation \
             fonts-noto-core \
             fonts-noto-cjk
+      - name: Install Python dependencies 🐍
+        run: pip3 install -r _scripts/requirements.txt
       - name: Generate Portfolio PDF 📄
         run: |
-          pip3 install --upgrade pyyaml pillow
           cd _scripts
-          npm install puppeteer
+          npm ci
           cd ..
           python3 _scripts/portfolio_to_pdf.py
         continue-on-error: false
       - name: Install and Build 🔧
         run: |
-          pip3 install --upgrade nbconvert bibtexparser pyyaml
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
+      - name: Upload built site 📦
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: _site
+          retention-days: 1
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

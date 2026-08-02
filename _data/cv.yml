@@ -20,7 +20,7 @@
     - title: Ph.D. in Computer Science
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
-      location: Odense, Denmark
+      location: Denmark
       year: Feb 2023 -<br> May 2026
       description:
         - <b>Defence:</b> May 18, 2026
@@ -33,7 +33,7 @@
     - title: M.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
-      location: Istanbul, Turkey
+      location: Turkey
       year: Sep 2020 -<br> Nov 2022
       description:
         - <b>GPA:</b> 4.00/4.00
@@ -46,7 +46,7 @@
     - title: B.Sc. in Computer Engineering
       institution: Istanbul Technical University
       department: Department of Computer Engineering
-      location: Istanbul, Turkey
+      location: Turkey
       year: Sep 2016 -<br> Aug 2020
       description:
         - <b>GPA:</b> 3.70/4.00
@@ -57,14 +57,14 @@
     - title: Postdoctoral Researcher
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
-      location: Odense, Denmark
-      year: Feb 2026 -<br> Present
+      location: Denmark
+      year: Feb 2026 -<br> Aug 2026
       description:
         - Extending probabilistic reinforcement learning to multi-agent settings, focusing on non-stationary dynamics in cooperative and competitive environments (ADIN Lab).
     - title: Ph.D. Researcher
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science
-      location: Odense, Denmark
+      location: Denmark
       year: Feb 2023 -<br> May 2026
       description:
         - Published at NeurIPS, ICML, ICLR, TMLR, UAI, and L4DC on probabilistic methods for sample-efficient reinforcement learning (ADIN Lab, supervised by Prof. Melih Kandemir).
@@ -74,7 +74,7 @@
     - title: Research and Teaching Assistant
       institution: Istanbul Technical University
       department: Artificial Intelligence and Data Engineering
-      location: Istanbul, Turkey
+      location: Turkey
       year: Mar 2021 -<br> Jan 2023
       description:
         - Conducted research in computer vision and uncertainty quantification (Vision Lab, supervised by Prof. Gözde Ünal).
@@ -82,7 +82,7 @@
         - Mentored 1 MSc student on thesis work (resulting in a TMLR publication) and 3+ BSc students on final projects (leading to 2 workshop papers at NeurIPS and ICLR).
     - title: Part-time Machine Learning Engineer
       institution: Vakifbank
-      location: Istanbul, Turkey
+      location: Turkey
       department: R&D and Innovation
       description:
         - Built a signature verification system for fraud detection using Siamese CNNs.
@@ -90,7 +90,7 @@
       year: Aug 2020 -<br> Sep 2020
     - title: Research Intern
       institution: Istanbul Technical University
-      location: Istanbul, Turkey
+      location: Turkey
       department: Artificial Intelligence and Robotics Laboratory (AIRLab)
       year: Aug 2019 -<br> Sep 2019
       description:
@@ -98,7 +98,7 @@
         - Developed PyBullet simulation environments with MoveIt integration for inverse kinematics.
     - title: Front-End Developer Intern
       institution: Dogus Technology
-      location: Istanbul, Turkey
+      location: Turkey
       year: Aug 2018 -<br> Sep 2018
       description:
         - Built front-end web applications (JavaScript, Node.js) and back-office systems.
