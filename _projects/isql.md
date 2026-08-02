@@ -9,6 +9,7 @@ venue: "ICLR"
 year: 2026
 role: "4th Author"
 bib_key: "vincent2026bridging"
+math: true
 ---
 
 ## Introduction

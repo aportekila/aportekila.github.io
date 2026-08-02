@@ -1,0 +1,43 @@
+<div class="contact-form-container">
+  <form class="contact-form" action="https://formspree.io/f/{{ site.contact_form.formspree_id }}" method="POST">
+    <!-- Honeypot field to deter simple bots; Formspree ignores real submissions that leave this empty -->
+    <input type="text" name="_gotcha" style="display: none" tabindex="-1" autocomplete="off">
+
+    <div class="contact-form-row">
+      <label for="contact-form-name">Name</label>
+      <input class="contact-form-input" id="contact-form-name" name="name" type="text" required>
+    </div>
+
+    <div class="contact-form-row">
+      <label for="contact-form-email">Email</label>
+      <input class="contact-form-input" id="contact-form-email" name="_replyto" type="email" required>
+    </div>
+
+    <div class="contact-form-row">
+      <label for="contact-form-message">Message</label>
+      <textarea class="contact-form-input contact-form-textarea" id="contact-form-message" name="message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="contact-form-button">Send</button>
+    <button type="button" class="contact-form-loading-button">Sending&hellip;</button>
+  </form>
+
+  <div class="contact-form-success">
+    <p>Thanks for reaching out! I&rsquo;ll get back to you soon.</p>
+  </div>
+
+  <div class="contact-form-error">
+    <p class="contact-form-error-message">Oops! Something went wrong, please try again or email me directly.</p>
+  </div>
+
+  <button class="contact-form-back-button" type="button">&larr; Back</button>
+</div>
+
+<noscript>
+  <style>
+    .contact-form-loading-button,
+    .contact-form-back-button {
+      display: none !important;
+    }
+  </style>
+</noscript>

@@ -10,6 +10,7 @@ year: 2024
 topic: "Value Estimation"
 role: "2nd Author"
 bib_key: "bahareh2024pac4sac"
+math: true
 ---
 
 ## Introduction

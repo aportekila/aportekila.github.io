@@ -130,6 +130,17 @@ newsletter:
   # https://loops.so/docs/forms/custom-form
 
 # -----------------------------------------------------------------------------
+# Contact form
+# -----------------------------------------------------------------------------
+# Uses Formspree (https://formspree.io) since GitHub Pages cannot run a backend.
+# 1. Create a free account at https://formspree.io and add a new form.
+# 2. Copy the form ID (the part after /f/ in your form's endpoint URL) below.
+# 3. Set enabled to true.
+contact_form:
+  enabled: false
+  formspree_id: # your Formspree form ID, e.g. xnnvqwjz
+
+# -----------------------------------------------------------------------------
 # Collections
 # -----------------------------------------------------------------------------
 

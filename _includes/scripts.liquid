@@ -195,7 +195,7 @@
   <script async src="https://badge.dimensions.ai/badge.js"></script>
 {% endif %}
 
-{% if site.enable_math %}
+{% if site.enable_math and page.math %}
   <!-- MathJax -->
   <script
     defer
@@ -323,4 +323,8 @@
 
 {% if site.newsletter.enabled %}
   <script defer src="{{ '/assets/js/newsletter.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}
+
+{% if site.contact_form.enabled %}
+  <script defer src="{{ '/assets/js/contact-form.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}

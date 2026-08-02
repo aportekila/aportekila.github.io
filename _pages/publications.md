@@ -5,6 +5,7 @@ title: Publications
 description: Peer-reviewed publications in reinforcement learning, probabilistic modeling, and uncertainty quantification.
 nav: true
 nav_order: 4
+math: true
 ---
 
 <!-- _pages/publications.md -->

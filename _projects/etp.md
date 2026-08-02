@@ -9,6 +9,7 @@ venue: "ICLR"
 year: 2022
 role: "2nd Author"
 bib_key: "kandemir2022evidential"
+math: true
 ---
 
 ## Introduction

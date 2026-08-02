@@ -10,6 +10,7 @@ year: 2025
 role: "First Author"
 bib_key: "akgul2025overcoming"
 selected: true
+math: true
 ---
 
 ## Introduction

@@ -10,6 +10,7 @@ year: 2024
 role: "First Author"
 bib_key: "akgul2024deterministic"
 selected: true
+math: true
 ---
 
 ## Introduction

@@ -9,6 +9,7 @@ venue: "L4DC"
 year: 2024
 role: "First Author"
 bib_key: "akgul2024cddp"
+math: true
 ---
 
 ## Introduction

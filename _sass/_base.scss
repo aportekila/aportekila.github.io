@@ -1366,6 +1366,96 @@ ninja-keys::part(ninja-input-wrapper) {
   }
 }
 
+// contact form
+.contact-form-container {
+  max-width: 500px;
+  margin: 20px 0;
+}
+
+.contact-form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+
+  label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--global-text-color);
+  }
+}
+
+.contact-form-input {
+  color: var(--global-text-color);
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.contact-form-textarea {
+  resize: vertical;
+}
+
+.contact-form-input:focus {
+  border-color: var(--global-theme-color) !important;
+}
+
+.contact-form-button,
+.contact-form-loading-button {
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+  display: inline-block;
+  white-space: nowrap;
+  height: 38px;
+  padding: 9px 17px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;
+  border-radius: 6px;
+  text-align: center;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-form-loading-button {
+  display: none;
+}
+
+.contact-form-success {
+  color: var(--global-text-color);
+  display: none;
+}
+
+.contact-form-error {
+  color: var(--global-theme-color);
+  display: none;
+}
+
+.contact-form-back-button {
+  color: var(--global-theme-color);
+  margin: 10px 0;
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media (max-width: 575px) {
+  .contact-form-input,
+  .contact-form-button,
+  .contact-form-loading-button {
+    font-size: 16px !important;
+  }
+}
+
 // popover is used for annotation in bib.liquid
 .popover {
   background-color: var(--global-bg-color);
