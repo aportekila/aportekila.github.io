@@ -193,7 +193,7 @@ span.skill-badge {
   color: var(--global-theme-color);
   border: 1px solid var(--global-theme-color);
   background-color: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 /*****************************
