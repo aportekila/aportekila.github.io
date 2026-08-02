@@ -23,6 +23,10 @@
     <!-- Header -->
     {% include header.liquid %}
 
+    <!-- Cookie consent: placed in normal document flow (not a fixed overlay)
+    so it can never cover interactive content further down the page -->
+    {% include cookie_consent.liquid %}
+
     <!-- Content -->
     <main class="container mt-5" id="main-content" tabindex="-1">
       {% if page.toc and page.toc.sidebar %}
@@ -52,9 +56,6 @@
 
     <!-- Footer -->
     {% include footer.liquid %}
-
-    <!-- Cookie consent -->
-    {% include cookie_consent.liquid %}
 
     <!-- JavaScripts -->
     {% include scripts.liquid %}

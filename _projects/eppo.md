@@ -2,7 +2,7 @@
 layout: project
 title: "EPPO: Evidential Proximal Policy Optimization"
 description: "State-of-the-art in non-stationary control: average rank 1.5 across 10+ environments. Evidential critic simultaneously preserves plasticity and drives directed exploration from a single probabilistic framework. TMLR 2025."
-img: assets/img/projects/eppo.png
+img: assets/img/projects/eppo_intro_fig.png
 importance: 3
 category: Featured Work
 venue: "TMLR"

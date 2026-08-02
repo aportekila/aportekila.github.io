@@ -1372,6 +1372,40 @@ ninja-keys::part(ninja-input-wrapper) {
   margin: 20px 0;
 }
 
+.contact-expect-card {
+  margin-top: 20px;
+  padding: 20px 24px;
+  background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.1em;
+    color: var(--global-text-color);
+
+    li {
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-expect-card {
+    margin-top: 32px;
+  }
+}
+
 .contact-form-row {
   display: flex;
   flex-direction: column;
@@ -1612,21 +1646,20 @@ figure.cover {
 }
 
 /* Cookie consent banner */
+// Rendered in normal document flow, directly below the fixed navbar, rather
+// than as a fixed overlay: a fixed bottom bar ends up covering the profile
+// CTA buttons on short mobile screens (they're full-width, so no amount of
+// repositioning the overlay avoids the clash). In-flow content simply pushes
+// the page down while the banner is visible, so it can never cover anything.
 .cookie-consent-banner {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1050;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 12px 24px;
-  padding: 14px 20px;
+  padding: 12px 20px;
   background-color: var(--global-card-bg-color);
-  border-top: 1px solid var(--global-divider-color);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--global-divider-color);
 
   &[hidden] {
     display: none;

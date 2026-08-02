@@ -27,8 +27,15 @@ layout: default
           {% endif %}
           {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
+          {% if site.title == 'blank' %}
+            {% capture profile_name %}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{% endcapture %}
+          {% else %}
+            {% capture profile_name %}{{ site.title }}{% endcapture %}
+          {% endif %}
+          {% assign profile_name = profile_name | strip | replace: '  ', ' ' %}
+          {% capture profile_alt %}Portrait of {{ profile_name }}{% endcapture %}
           {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=profile_alt
             cache_bust=true
           %}
         {% endif %}

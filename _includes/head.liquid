@@ -6,14 +6,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-<!-- Bootstrap & MDB -->
-<link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache }}">
+<!--
+  Bootstrap & MDB: loaded via the same preload+onload pattern as the fonts/
+  icons below instead of a plain blocking <link>, since together they're
+  ~430KB uncompressed and were previously render-blocking on every page.
+  Verified under throttled network (CDP "Slow 4G" emulation) that this
+  doesn't introduce a visible flash of unstyled content on either the about
+  or portfolio page before assuming it's safe.
+-->
+{% assign _bootstrap_href = '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache %}
+<link rel="preload" as="style" href="{{ _bootstrap_href }}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ _bootstrap_href }}"></noscript>
+
 <link
-  rel="stylesheet"
+  rel="preload"
+  as="style"
   href="{{ site.third_party_libraries.mdb.url.css }}"
   integrity="{{ site.third_party_libraries.mdb.integrity.css }}"
   crossorigin="anonymous"
+  onload="this.onload=null;this.rel='stylesheet'"
 >
+<noscript>
+  <link
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.mdb.url.css }}"
+    integrity="{{ site.third_party_libraries.mdb.integrity.css }}"
+    crossorigin="anonymous"
+  >
+</noscript>
 
 {% if page.pretty_table %}
   <!-- Bootstrap Table -->
