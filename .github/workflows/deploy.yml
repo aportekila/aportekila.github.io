@@ -131,7 +131,9 @@ jobs:
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
         run: |
-          npm install -g purgecss
+          # sudo: see the same fix in axe.yml — global npm installs on this runner image
+          # can fail with EACCES trying to symlink man pages into /usr/local/share/man.
+          sudo npm install -g purgecss
           purgecss -c purgecss.config.js
       - name: Upload built site 📦
         uses: actions/upload-artifact@v4
