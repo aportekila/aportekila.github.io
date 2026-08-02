@@ -4,8 +4,8 @@ title: Abdullah Akgül
 meta_title: "Abdullah Akgül — Reinforcement Learning & Probabilistic ML Researcher"
 permalink: /
 nav_order: 1
-subtitle: "Postdoctoral Researcher · <a href='https://www.sdu.dk/en/om_sdu/institutter_centre/imada'>University of Southern Denmark</a>"
-job_title: "Postdoctoral Researcher"
+subtitle: "Researcher · <a href='https://www.sdu.dk/en/om_sdu/institutter_centre/imada'>University of Southern Denmark</a>"
+job_title: "Researcher"
 works_for: "University of Southern Denmark"
 
 profile:
@@ -28,7 +28,7 @@ social: true # includes social icons at the bottom of the page
 
 ---
 
-I build probabilistic algorithms that make reinforcement learning agents learn faster by treating uncertainty as a signal rather than noise. I am a Postdoctoral Researcher at the [University of Southern Denmark](https://www.sdu.dk/en/om_sdu/institutter_centre/imada) ([ADIN Lab](https://adinlab.github.io/)). Three of my algorithms — [**MOMBO**](/projects/mombo.html) on offline RL, [**EPPO**](/projects/eppo.html) on non-stationary control, and [**DAIF**](/projects/daif.html) on online control — rank first in sample efficiency on their respective benchmarks, with publications at **NeurIPS**, **ICML**, **ICLR**, and **TMLR**.
+I build probabilistic algorithms that make reinforcement learning agents learn faster by treating uncertainty as a signal rather than noise. I am a machine learning researcher. Three of my algorithms — [**MOMBO**](/projects/mombo.html) on offline RL, [**EPPO**](/projects/eppo.html) on non-stationary control, and [**DAIF**](/projects/daif.html) on online control — rank first in sample efficiency on their respective benchmarks, with publications at **NeurIPS**, **ICML**, **ICLR**, and **TMLR**.
 
 My background spans industry deployment, probabilistic modeling, and reinforcement learning. Before my PhD, I built a fraud detection system using deep metric learning at Vakifbank, and published on federated Bayesian networks, uncertainty quantification, and continual learning of dynamical systems. Across all of it, the same question recurs: how should a model represent what it does not know, and how should that uncertainty shape its decisions? My PhD focuses that question on reinforcement learning across three settings: offline learning from fixed datasets, rapid adaptation to non-stationary dynamics, and sample-efficient online exploration, where probabilistic representations consistently prove to be the decisive ingredient.
 
