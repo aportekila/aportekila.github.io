@@ -108,6 +108,16 @@ jobs:
             fonts-noto-cjk
       - name: Install Python dependencies 🐍
         run: pip3 install -r _scripts/requirements.txt
+      - name: Cache Puppeteer browser 🌐
+        # Puppeteer's install step downloads a full Chromium build on every run unless
+        # its browser cache dir is restored — setup-node's npm cache only covers
+        # ~/.npm (package tarballs), not this separate download.
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('_scripts/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-puppeteer-
       - name: Generate Portfolio PDF 📄
         run: |
           cd _scripts

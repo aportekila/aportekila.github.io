@@ -14,7 +14,7 @@ profile:
   image_circular: true # crops the image to make it circular
   more_info: >
     <p><span class="cta-badge">🔍 Open to Research Scientist &amp; MLE roles</span></p>
-    <p><a href='https://adinlab.github.io/'>ADIN Lab</a> · Odense, Denmark</p>
+    <p><a href='https://adinlab.github.io/'>ADIN Lab</a> · Denmark</p>
     <p style="margin-bottom: 0.5rem;"><a href='/assets/pdf/AbdullahAkgulCV.pdf' target='_blank' class="cta-button">📄 Download CV (PDF)</a></p>
     <p><a href='/assets/pdf/Portfolio.pdf' target='_blank' class="cta-button">🎨 Download Portfolio (PDF)</a></p>
 

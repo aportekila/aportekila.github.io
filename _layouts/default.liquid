@@ -17,11 +17,14 @@
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    <!-- Skip link: hidden until focused, lets keyboard/screen-reader users bypass the navbar -->
+    <a class="sr-only sr-only-focusable" href="#main-content">Skip to main content</a>
+
     <!-- Header -->
     {% include header.liquid %}
 
     <!-- Content -->
-    <main class="container mt-5">
+    <main class="container mt-5" id="main-content" tabindex="-1">
       {% if page.toc and page.toc.sidebar %}
         {% if page.toc.sidebar == 'right' %}
           <div class="row">

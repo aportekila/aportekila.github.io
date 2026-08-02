@@ -1,13 +1,20 @@
 <!-- jQuery -->
+<!--
+  Deferred: everything below that consumes jQuery/Bootstrap/MDB (common.js, search-setup.js,
+  masonry.js, etc.) is already loaded with `defer`, so deferring these too keeps them running
+  in the same relative order (defer preserves document order) while no longer blocking parsing.
+-->
 <script
+  defer
   src="{{ site.third_party_libraries.jquery.url.js }}"
   integrity="{{ site.third_party_libraries.jquery.integrity.js }}"
   crossorigin="anonymous"
 ></script>
 
 <!-- Bootsrap & MDB scripts -->
-<script src="{{ '/assets/js/bootstrap.bundle.min.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/bootstrap.bundle.min.js' | relative_url }}"></script>
 <script
+  defer
   src="{{ site.third_party_libraries.mdb.url.js }}"
   integrity="{{ site.third_party_libraries.mdb.integrity.js }}"
   crossorigin="anonymous"
@@ -180,7 +187,13 @@
 {% endif %}
 
 <!-- Load Common JS -->
-<script src="{{ '/assets/js/no_defer.js' | relative_url | bust_file_cache }}"></script>
+<!--
+  no_defer.js calls $(document).ready(...) at the top level, so it needs jQuery to already
+  be defined by the time it runs. Now that jQuery itself loads with `defer` above, this must
+  stay `defer` too so it still executes after jQuery (defer preserves relative document order) —
+  as a plain blocking script it would instead run before jQuery loads and throw.
+-->
+<script defer src="{{ '/assets/js/no_defer.js' | relative_url | bust_file_cache }}"></script>
 <script defer src="{{ '/assets/js/common.js' | relative_url | bust_file_cache }}"></script>
 <script defer src="{{ '/assets/js/copy_code.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
 

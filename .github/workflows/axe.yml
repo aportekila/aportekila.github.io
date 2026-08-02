@@ -1,22 +1,25 @@
 name: Axe accessibility testing
 
+# Reuses the already-built _site from the Deploy site run instead of rebuilding
+# from scratch (Ruby/Python/Node setup, apt-get, jekyll build, purgecss) just to
+# test accessibility on the same output that build already produced. Mirrors the
+# pattern in broken-links-site.yml.
 on:
-  push:
-    branches:
-      - master
-      - main
-  pull_request:
-    branches:
-      - master
-      - main
+  workflow_run:
+    workflows: ["Deploy site"]
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       url:
-        description: "URL to be checked (e.g.: blog/)"
+        description: "URL to be checked (e.g.: blog/) — checked against the live production site"
         required: false
 
+permissions:
+  actions: read
+
 env:
-  URL: ""
+  PROD_URL: https://aportekila.github.io
   # Key pages checked on every push/PR (in addition to the manually-specified URL, if any)
   CHECK_URLS: >-
     /
@@ -30,46 +33,34 @@ jobs:
   check:
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+
+      - name: Download built site 📦
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
         with:
-          ruby-version: "3.2.2"
-          bundler-cache: true
-      - name: Setup Python 🐍
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-          cache: "pip"
-          cache-dependency-path: "_scripts/requirements.txt"
-      - name: Setup Node.js ⬢
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: "_scripts/package-lock.json"
-      - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          commitChange: false
-          valueFile: "_config.yml"
-          changes: |
-            {
-              "giscus.repo": "${{ github.repository }}",
-              "baseurl": ""
-            }
-      - name: Install and Build 🔧
+          name: site-build
+          path: _site
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Serve local build 🌐
+        if: github.event_name == 'workflow_run'
         run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install -r _scripts/requirements.txt
-          export JEKYLL_ENV=production
-          bundle exec jekyll build
-      - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
+          npm install -g http-server
+          http-server _site/ -p 8080 &
+          sleep 2
+          echo "BASE_URL=http://localhost:8080" >> "$GITHUB_ENV"
+
+      - name: Use live site as base 🌐
+        # Manual dispatch has no associated build artifact, so it checks whatever is
+        # already deployed instead of rebuilding just to serve it locally.
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "BASE_URL=${{ env.PROD_URL }}" >> "$GITHUB_ENV"
+
       - name: Install chromedriver 🚗
         # ubuntu-latest ships Google Chrome preinstalled at /opt/google/chrome/chrome, and that is
         # the binary axe-core's Selenium launcher actually uses — a separately installed browser
@@ -87,13 +78,11 @@ jobs:
           fi
           echo "Installed Chrome: $CHROME_VERSION (major $CHROME_MAJOR)"
           npm install -g chromedriver@$CHROME_MAJOR
+
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         run: |
           npm install -g @axe-core/cli
-          npm install -g http-server
-          http-server _site/ &
-          sleep 2
           CHROMEDRIVER=$(npm root -g)/chromedriver/bin/chromedriver
           status=0
           if [ -n "${{ github.event.inputs.url }}" ]; then
@@ -107,7 +96,7 @@ jobs:
             echo "=== axe $path ==="
             # guard against GitHub Actions' default `set -e`: without the if/else, a nonzero
             # exit here would abort the script immediately, before we can even read $? below
-            if axe --chromedriver-path "$CHROMEDRIVER" "http://localhost:8080$path" --load-delay=1500 --exit; then
+            if axe --chromedriver-path "$CHROMEDRIVER" "${BASE_URL}$path" --load-delay=1500 --exit; then
               rc=0
             else
               rc=$?

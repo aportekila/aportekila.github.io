@@ -1,6 +1,11 @@
 <!-- Metadata, OpenGraph and Schema.org -->
 {% include metadata.liquid %}
 
+<!-- Preconnect to hosts used on every page (fonts, jsDelivr-hosted MDB/jQuery/etc.) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
 <!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache }}">
 <link
@@ -22,22 +27,38 @@
 {% endif %}
 
 <!-- Fonts & Icons -->
-<link defer rel="stylesheet" href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}">
-<link defer rel="stylesheet" href="{{ '/assets/css/scholar-icons.css' | relative_url | bust_file_cache }}">
+<!--
+  These four stylesheets load on every page, so they're loaded async via the
+  standard preload+onload pattern instead of a plain blocking <link>: a `defer`
+  attribute on <link> is not valid HTML and browsers ignore it, so writing
+  `<link defer rel="stylesheet" ...>` still blocks rendering exactly like a
+  plain <link> would. <noscript> covers the no-JS fallback.
+-->
+{% assign _academicons_href = '/assets/css/academicons.min.css' | relative_url | bust_file_cache %}
+<link rel="preload" as="style" href="{{ _academicons_href }}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ _academicons_href }}"></noscript>
+
+{% assign _scholar_icons_href = '/assets/css/scholar-icons.css' | relative_url | bust_file_cache %}
+<link rel="preload" as="style" href="{{ _scholar_icons_href }}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ _scholar_icons_href }}"></noscript>
+
 <link
-  defer
-  rel="stylesheet"
+  rel="preload"
+  as="style"
   type="text/css"
   href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
+  onload="this.onload=null;this.rel='stylesheet'"
 >
+<noscript><link rel="stylesheet" type="text/css" href="{{ site.third_party_libraries.google_fonts.url.fonts }}"></noscript>
 
 <!-- Code Syntax Highlighting -->
 <link
-  defer
-  rel="stylesheet"
+  rel="preload"
+  as="style"
   href="{{ '/assets/css/jekyll-pygments-themes-github.css' | relative_url | bust_file_cache }}"
   media=""
   id="highlight_theme_light"
+  onload="this.onload=null;this.rel='stylesheet'"
 >
 
 {% if page.toc and page.toc.sidebar %}
@@ -73,11 +94,12 @@
   <!-- Dark Mode -->
   <script src="{{ '/assets/js/theme.js' | relative_url | bust_file_cache }}"></script>
   <link
-    defer
-    rel="stylesheet"
+    rel="preload"
+    as="style"
     href="{{ '/assets/css/jekyll-pygments-themes-native.css' | relative_url | bust_file_cache }}"
     media="none"
     id="highlight_theme_dark"
+    onload="this.onload=null;this.rel='stylesheet'"
   >
   <script>
     initTheme();
