@@ -37,6 +37,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
+        },{id: "nav-contact",
+          title: "Contact",
+          description: "Get in touch for research collaboration, roles, or questions about my work.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/contact/";
+          },
         },{id: "news-paper-mombo-deterministic-uncertainty-propagation-for-improved-model-based-offline-reinforcement-learning-accepted-to-neurips-2024",
           title: 'Paper MOMBO “Deterministic Uncertainty Propagation for Improved Model-Based Offline Reinforcement Learning” accepted to...',
           description: "",
