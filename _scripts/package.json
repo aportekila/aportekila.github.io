@@ -1,0 +1,1 @@
+{"name":"al-folio-scripts","private":true,"description":"Node dependencies for build-time scripts (portfolio PDF generation).","dependencies":{"puppeteer":"^24.0.0"}}
