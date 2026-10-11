@@ -160,7 +160,5 @@
     }
     const head = el("tr", {}, ["★", "Durum", "Puan", "İlan", "Kira", "Günlük yolculuk", "Gezme", "Not", ""].map((t) => el("th", { scope: "col", text: t })));
     root.append(el("div", { class: "h-table-wrap" }, el("table", { class: "h-table h-notes-table" }, el("thead", {}, head), tbody)));
-    const favStyle = "background:var(--surface-2);color:var(--text)";
-    root.querySelectorAll(".h-fav-btn").forEach((b) => (b.style.cssText = favStyle));
   }
 })();

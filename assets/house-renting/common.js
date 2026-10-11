@@ -307,7 +307,7 @@
       "div",
       { class: "h-tags" },
       shown.map((t) => H.el("span", { class: "h-tag " + cls, text: t })),
-      limit && items.length > limit ? H.el("span", { class: "h-tag", text: `+${items.length - limit} daha` }) : null
+      limit && items.length > limit ? H.el("span", { class: "h-tag more", text: `+${items.length - limit}` }) : null
     );
   };
   H.fail = function (container, err) {

@@ -125,6 +125,24 @@ jobs:
           cd ..
           python3 _scripts/portfolio_to_pdf.py
         continue-on-error: false
+      - name: Strip contact data from rental ads 🔒
+        # Last line of defence: the pre-commit hook and bin/update_database.py should already
+        # have done this. If anything had to be stripped here, the raw data is in the repo.
+        # Only runs when this push changed assets/database (always on manual runs / PRs).
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          [ -f assets/database/index.json ] || exit 0
+          if [ "${{ github.event_name }}" = "push" ] && [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
+             && git fetch --quiet --depth=1 origin "$BEFORE" \
+             && git diff --quiet "$BEFORE" HEAD -- assets/database; then
+            echo "assets/database unchanged in this push; skipping."
+            exit 0
+          fi
+          if ! python3 bin/strip_contacts.py --check --prune; then
+            python3 bin/strip_contacts.py --prune
+            echo "::warning::assets/database in the repo contains contact data; it was stripped from the site, but run 'python bin/strip_contacts.py --prune' locally and commit."
+          fi
       - name: Install and Build 🔧
         run: |
           export JEKYLL_ENV=production

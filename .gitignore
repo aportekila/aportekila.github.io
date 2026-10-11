@@ -13,3 +13,6 @@ vendor
 .idea
 .venv
 .claude
+
+# temporary folder of bin/update_database.py (only left behind if it was interrupted)
+assets/database.incoming/

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Safety net for the rental-ads data (assets/database), so copying the extractor's
+# database/ folder over it by hand is enough: when a commit touches it, strip contact
+# data, delete folders of ads no longer in index.json, and re-stage, so raw names /
+# phone numbers are never committed to this public repo. Enable once per clone:
+#   git config core.hooksPath .githooks
+git diff --cached --quiet -- assets/database && exit 0
+
+# Pick an interpreter that really runs (on Windows "python3" may be a Store stub).
+PY=
+for c in python3 python py; do
+  if command -v "$c" >/dev/null 2>&1 && "$c" -c "import sys" >/dev/null 2>&1; then PY=$c; break; fi
+done
+if [ -z "$PY" ]; then
+  echo "pre-commit: python not found; cannot strip contact data from assets/database." >&2
+  exit 1
+fi
+"$PY" bin/strip_contacts.py --check --prune >/dev/null 2>&1 && exit 0
+
+echo "pre-commit: cleaning assets/database (contact data / removed ads)…"
+"$PY" bin/strip_contacts.py --prune || exit 1
+git add -A assets/database || exit 1
+"$PY" bin/strip_contacts.py --check --prune >/dev/null 2>&1 || { echo "pre-commit: cleaning failed." >&2; exit 1; }
+echo "pre-commit: cleaned and re-staged assets/database."

@@ -38,7 +38,7 @@
         history.back();
       }
     });
-    root.append(el("p", {}, back));
+    root.append(el("p", { class: "h-back" }, back));
 
     // Header
     const statusSlot = el("span");
@@ -48,9 +48,7 @@
     const loc = ad.location || {};
     const fav = el("span");
     const syncFav = () => {
-      const btn = H.favButton(id, () => redrawNotes());
-      btn.style.cssText = "background:var(--surface-2);color:var(--text)";
-      clear(fav).append(btn);
+      clear(fav).append(H.favButton(id, () => redrawNotes()));
     };
     syncFav();
     document.addEventListener("house:notes", syncFav);
@@ -150,7 +148,7 @@
         stat("Kira", H.money(row.price_value)),
         stat("Aidat", row.dues == null ? "belirtilmemiş" : H.money(row.dues)),
         stat("Aylık toplam", H.money(row.monthly_cost)),
-        stat("Depozito", row.deposit == null ? "belirtilmemiş" : `${H.money(row.deposit)} (${H.num(row.deposit_months)} ay)`),
+        stat(row.deposit == null ? "Depozito" : `Depozito · ${H.num(row.deposit_months)} ay`, row.deposit == null ? "belirtilmemiş" : H.money(row.deposit)),
         stat("Taşınma maliyeti", row.move_in_cost == null ? "?" : H.money(row.move_in_cost), FI.move_in_cost.label + "; emlakçı komisyonu dahil değil"),
         stat("Net m² başına", H.num(row.price_per_m2_net) + " ₺")
       )
@@ -162,24 +160,30 @@
   function timeline(route) {
     const ol = el("ol", { class: "h-timeline" });
     for (const s of (route && route.segments) || []) {
-      let icon, text;
+      let icon, main, meta;
       if (s.mode === "walk") {
         icon = "🚶";
-        text = `Yürü ${H.mins(s.minutes)}` + (s.distance_m ? ` (${H.num(s.distance_m)} m)` : "");
+        main = el("span", {}, el("b", { text: "Yürü" }), ` ${H.mins(s.minutes)}`);
+        meta = s.distance_m ? `${H.num(s.distance_m)} m` : null;
       } else if (s.mode === "ring") {
         icon = "🚐";
-        text = `ODTÜ ring ~${s.minutes} dk: ${s.from_stop || ""} → ${s.to_stop || ""} (varsayım)`;
+        main = el("span", {}, el("b", { text: "ODTÜ ring" }), ` ~${s.minutes} dk`);
+        meta = `${s.from_stop || ""} → ${s.to_stop || ""} · varsayım`;
       } else {
         icon = RIDE_ICON[s.vehicle] || "🚌";
-        text =
-          `${s.vehicle_tr || ""} ${s.line || ""}` +
-          (s.line_name ? ` (${s.line_name})` : "") +
-          `: ${s.departure_time || "?"} ${s.from_stop || ""} → ${s.arrival_time || "?"} ${s.to_stop || ""}` +
-          (s.stop_count ? ` · ${s.stop_count} durak` : "") +
-          (s.minutes ? `, ${H.mins(s.minutes)}` : "") +
-          (s.headsign ? ` · yön: ${s.headsign}` : "");
+        main = el(
+          "span",
+          {},
+          el("b", { class: "h-line", text: s.line || "?" }),
+          " ",
+          el("span", { class: "h-time", text: s.departure_time || "?" }),
+          ` ${s.from_stop || ""} → `,
+          el("span", { class: "h-time", text: s.arrival_time || "?" }),
+          ` ${s.to_stop || ""}`
+        );
+        meta = [s.vehicle_tr, s.line_name, s.stop_count ? `${s.stop_count} durak` : null, s.minutes ? H.mins(s.minutes) : null, s.headsign ? `yön: ${s.headsign}` : null].filter(Boolean).join(" · ");
       }
-      ol.append(el("li", {}, el("span", { text: icon, "aria-hidden": "true" }), el("span", { text })));
+      ol.append(el("li", { class: "seg-" + s.mode }, el("span", { class: "h-tl-icon", text: icon, "aria-hidden": "true" }), el("div", {}, main, meta ? el("div", { class: "h-tl-meta", text: meta }) : null)));
     }
     return ol;
   }
@@ -219,15 +223,17 @@
       "Yolculuk → ODTÜ Teknokent",
       el(
         "div",
-        { class: "h-stats" },
-        stat("🚌 Sabah", H.mins(am.transit && am.transit.duration_min)),
-        stat("🚌 Akşam", H.mins(pm.transit && pm.transit.duration_min)),
-        stat("🚌 Günlük", H.mins(daily.transit)),
-        stat("🚗 Sabah", H.mins(am.drive && am.drive.duration_min)),
-        stat("🚗 Akşam", H.mins(pm.drive && pm.drive.duration_min)),
-        stat("🚗 Günlük", H.mins(daily.drive)),
-        stat("Kuş uçuşu", ad.distance_to_work && ad.distance_to_work.straight_line_km != null ? H.num(ad.distance_to_work.straight_line_km) + " km" : "?")
+        { class: "h-stats h-stats-commute" },
+        el("div", { class: "h-stats-label", text: "🚌 Toplu taşıma" }),
+        stat("Sabah", H.mins(am.transit && am.transit.duration_min)),
+        stat("Akşam", H.mins(pm.transit && pm.transit.duration_min)),
+        stat("Günlük", H.mins(daily.transit)),
+        el("div", { class: "h-stats-label", text: "🚗 Araç" }),
+        stat("Sabah", H.mins(am.drive && am.drive.duration_min)),
+        stat("Akşam", H.mins(pm.drive && pm.drive.duration_min)),
+        stat("Günlük", H.mins(daily.drive))
       ),
+      el("div", { class: "h-hint", style: "margin:-4px 0 12px", text: `Kuş uçuşu ${ad.distance_to_work && ad.distance_to_work.straight_line_km != null ? H.num(ad.distance_to_work.straight_line_km) + " km" : "?"}` }),
       el("h3", { text: "🚌 Toplu taşıma" }),
       transitTrip("Sabah", am.transit, am.transit_route, false),
       transitTrip("Akşam", pm.transit, pm.transit_route, true),
@@ -377,11 +383,23 @@
       )
     );
     const chips = el("div", { class: "h-editlist" });
+    const LIMIT = 12;
+    const collapsed = list.length > LIMIT + 3;
     list.forEach((item, i) =>
       chips.append(
         el("span", { class: "h-tag " + cls }, item, el("button", { type: "button", "aria-label": `“${item}” sil`, title: "Sil", text: "✕", onclick: () => onChange(list.filter((_, j) => j !== i)) }))
       )
     );
+    if (collapsed) {
+      const extra = [...chips.children].slice(LIMIT);
+      extra.forEach((c) => (c.hidden = true));
+      const more = el("button", { type: "button", class: "h-btn h-btn-small", text: `Tümünü göster (+${extra.length})` });
+      more.addEventListener("click", () => {
+        extra.forEach((c) => (c.hidden = false));
+        more.remove();
+      });
+      chips.append(more);
+    }
     if (!list.length) chips.append(el("span", { class: "h-muted h-small", text: "Boş" }));
     const input = el("input", { class: "h-input", placeholder: cls === "pro" ? "Artı ekle (ör. güneş alıyor)" : "Eksi ekle (ör. komşular gürültülü)" });
     const add = () => {

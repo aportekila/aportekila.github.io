@@ -117,51 +117,68 @@
   function lc(s) {
     return String(s || "").toLocaleLowerCase("tr-TR");
   }
-  function check(ad) {
+  /**
+   * Run every active filter on an ad. Returns the ids of the filters it fails
+   * ("q", "fav", "hr", "st", "r:<key>", "b:<field>", "x:<field>", "f:<feature>") and
+   * the labels of active filters whose value is unknown for it. The ad is shown when
+   * nothing fails; an ad failing only filter X counts towards X's option counts.
+   */
+  function evaluate(ad) {
+    const fails = [];
     const unknown = [];
-    const miss = (label) => {
-      if (state.hideUnknown) return false;
-      unknown.push(label);
-      return true;
+    const miss = (id, label) => {
+      if (state.hideUnknown) fails.push(id);
+      else if (!unknown.includes(label)) unknown.push(label);
     };
     if (state.q) {
       const hay = lc([ad.title, ad.neighborhood, ad.district, ad.complex_name, ad.id, ...(ad.features_all || [])].join(" | "));
-      if (!lc(state.q).split(/\s+/).filter(Boolean).every((w) => hay.includes(w))) return null;
+      if (!lc(state.q).split(/\s+/).filter(Boolean).every((w) => hay.includes(w))) fails.push("q");
     }
     const n = H.notes(ad.id);
-    if (state.fav && !n.favorite) return null;
-    if (state.hideRejected && n.status === "rejected") return null;
-    if (state.statuses.length && !state.statuses.includes(n.status)) return null;
+    if (state.fav && !n.favorite) fails.push("fav");
+    if (state.hideRejected && n.status === "rejected") fails.push("hr");
+    if (state.statuses.length && !state.statuses.includes(n.status)) fails.push("st");
     for (const [key, [lo, hi]] of Object.entries(state.ranges)) {
       const v = value(ad, key);
-      if (v == null) {
-        if (!miss(rangeSpec(key).label)) return null;
-      } else if (v < lo || v > hi) return null;
+      if (v == null) miss("r:" + key, rangeSpec(key).label);
+      else if (v < lo || v > hi) fails.push("r:" + key);
     }
     for (const [f, want] of Object.entries(state.bools)) {
       const v = ad[f];
-      if (v == null) {
-        if (!miss(FI[f].label)) return null;
-      } else if ((want > 0) !== (v === true)) return null;
+      if (v == null) miss("b:" + f, FI[f].label);
+      else if ((want > 0) !== (v === true)) fails.push("b:" + f);
     }
     for (const [f, vals] of Object.entries(state.multi)) {
       if (!vals.length) continue;
       const v = ad[f];
-      if (v == null || (Array.isArray(v) && !v.length)) {
-        if (!miss(FI[f].label)) return null;
-      } else if (!(Array.isArray(v) ? v.some((x) => vals.includes(x)) : vals.includes(v))) return null;
+      if (v == null || (Array.isArray(v) && !v.length)) miss("x:" + f, FI[f].label);
+      else if (!(Array.isArray(v) ? v.some((x) => vals.includes(x)) : vals.includes(v))) fails.push("x:" + f);
     }
     const featEntries = Object.entries(state.feats);
     if (featEntries.length) {
-      if (ad.checklist_quality !== "filled") {
-        if (!miss("Özellik listesi")) return null;
-      } else {
-        const have = new Set(ad.features_all || []);
-        for (const [name, want] of featEntries) if ((want > 0) !== have.has(name)) return null;
+      const filled = ad.checklist_quality === "filled";
+      const have = new Set(ad.features_all || []);
+      for (const [name, want] of featEntries) {
+        if (!filled) miss("f:" + name, "Özellik listesi");
+        else if ((want > 0) !== have.has(name)) fails.push("f:" + name);
       }
     }
-    return { unknown };
+    return { fails, unknown };
   }
+
+  // ---------- live option counts ----------
+  // Each control registers an updater; apply() calls them with facet(id) = the ads that
+  // pass every active filter except filter `id` (so a chip's count says what you'd get).
+  let facetUpdaters = [];
+  const onFacets = (fn) => facetUpdaters.push(fn);
+  function makeFacet(evals) {
+    const cache = new Map();
+    return (id) => {
+      if (!cache.has(id)) cache.set(id, evals.filter(([, e]) => !e.fails.length || (e.fails.length === 1 && e.fails[0] === id)).map(([ad]) => ad));
+      return cache.get(id);
+    };
+  }
+
   function compare(a, b) {
     const va = value(a, state.sort), vb = value(b, state.sort);
     if (va == null && vb == null) return a.price_value - b.price_value;
@@ -191,9 +208,13 @@
     const lo = el("input", { type: "range", min: spec.min, max: spec.max, step: spec.step, value: cur[0], "aria-label": spec.label + " en az" });
     const hi = el("input", { type: "range", min: spec.min, max: spec.max, step: spec.step, value: cur[1], "aria-label": spec.label + " en çok" });
     const info = FI[fieldOf(key)];
+    const dual = el("div", { class: "h-dual" }, lo, hi);
     const sync = () => {
       let a = Number(lo.value), b = Number(hi.value);
       if (a > b) [a, b] = [b, a];
+      const pct = (x) => ((x - spec.min) / (spec.max - spec.min || 1)) * 100;
+      dual.style.setProperty("--a", pct(a) + "%");
+      dual.style.setProperty("--b", pct(b) + "%");
       const active = a > spec.min || b < spec.max;
       if (active) state.ranges[key] = [a, b];
       else delete state.ranges[key];
@@ -206,8 +227,16 @@
     };
     lo.addEventListener("input", onInput);
     hi.addEventListener("input", onInput);
-    wrap.append(el("label", {}, el("span", { text: spec.label }), out), el("div", { class: "h-dual" }, lo, hi));
-    if (info && info.missing) wrap.append(el("div", { class: "h-hint", text: `${info.missing} ilanda bilinmiyor` }));
+    wrap.append(el("label", {}, el("span", { text: spec.label }), out), dual);
+    if (info && info.missing) {
+      const hint = el("div", { class: "h-hint" });
+      wrap.append(hint);
+      const f = fieldOf(key);
+      onFacets((facet) => {
+        const n = facet("r:" + key).filter((ad) => ad[f] == null).length;
+        hint.textContent = `${n} ilanda bilinmiyor`;
+      });
+    }
     sync();
     return wrap;
   }
@@ -215,8 +244,15 @@
   function triControl(f, labelText, extra) {
     const info = FI[f];
     const row = el("div", { class: "h-tri" });
-    const counts = `${info.true_count} var` + (info.unknown ? `, ${info.unknown} ?` : "");
-    row.append(el("span", { class: "h-tri-name" }, labelText || info.label, " ", el("small", { text: `(${counts})` }), extra ? el("small", { text: " · " + extra }) : null));
+    const counts = el("small");
+    row.append(el("span", { class: "h-tri-name" }, labelText || info.label, " ", counts, extra ? el("small", { text: " · " + extra }) : null));
+    onFacets((facet) => {
+      const ads = facet("b:" + f);
+      const yes = ads.filter((ad) => ad[f] === true).length;
+      const unk = ads.filter((ad) => ad[f] == null).length;
+      counts.textContent = `(${yes} var, ${ads.length - yes - unk} yok` + (unk ? `, ${unk} ?)` : ")");
+      row.classList.toggle("zero", !yes && !state.bools[f]);
+    });
     const btns = el("span", { class: "h-tri-btns", role: "group", "aria-label": info.label });
     const opts = [[0, "Farketmez"], [1, "Olsun"], [-1, "Olmasın"]];
     const sync = () => btns.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", Number(b.dataset.v) === (state.bools[f] || 0)));
@@ -240,12 +276,16 @@
 
   function multiControl(f, options, labelFor) {
     const info = FI[f];
-    const counts = {};
-    for (const ad of ADS) for (const v of [].concat(ad[f] ?? [])) counts[v] = (counts[v] || 0) + 1;
     const box = el("div", {}, el("div", { class: "h-sub", text: info.label }));
     const chips = el("div", { class: "h-chips" });
     for (const opt of options) {
-      const chip = el("button", { type: "button", class: "h-chip" }, labelFor ? labelFor(opt) : opt, " ", el("small", { text: counts[opt] || 0 }));
+      const count = el("small");
+      const chip = el("button", { type: "button", class: "h-chip" }, labelFor ? labelFor(opt) : opt, " ", count);
+      onFacets((facet) => {
+        const n = facet("x:" + f).filter((ad) => [].concat(ad[f] ?? []).includes(opt)).length;
+        count.textContent = n;
+        chip.classList.toggle("zero", !n);
+      });
       const sync = () => chip.setAttribute("aria-pressed", (state.multi[f] || []).includes(opt));
       chip.addEventListener("click", () => {
         const cur = new Set(state.multi[f] || []);
@@ -263,7 +303,13 @@
   }
 
   function featureChip(item) {
-    const chip = el("button", { type: "button", class: "h-chip" + (item.important ? " imp" : ""), title: "Tıkla: olsun → olmasın → farketmez" }, item.name, " ", el("small", { text: item.count }));
+    const count = el("small");
+    const chip = el("button", { type: "button", class: "h-chip" + (item.important ? " imp" : ""), title: "Tıkla: olsun → olmasın → farketmez" }, item.name, " ", count);
+    onFacets((facet) => {
+      const n = facet("f:" + item.name).filter((ad) => (ad.features_all || []).includes(item.name)).length;
+      count.textContent = n;
+      chip.classList.toggle("zero", !n);
+    });
     const sync = () => {
       const v = state.feats[item.name] || 0;
       chip.classList.toggle("yes", v > 0);
@@ -284,6 +330,7 @@
 
   function buildPanel() {
     const panel = clear(document.getElementById("filter-panel"));
+    facetUpdaters = [];
     const countIn = (keys) => keys.filter((k) => k in state.ranges || k in state.bools || (state.multi[k] || []).length).length;
 
     // Quick filters
@@ -321,7 +368,13 @@
         b.append(el("label", { class: "h-check" }, fav, "Sadece favoriler ★"), el("label", { class: "h-check" }, hr, "Elenenleri gizle"));
         const chips = el("div", { class: "h-chips" });
         for (const [k, label] of Object.entries(H.STATUS)) {
-          const chip = el("button", { type: "button", class: "h-chip", text: label });
+          const count = el("small");
+          const chip = el("button", { type: "button", class: "h-chip" }, label, " ", count);
+          onFacets((facet) => {
+            const n = facet("st").filter((ad) => H.notes(ad.id).status === k).length;
+            count.textContent = n;
+            chip.classList.toggle("zero", !n);
+          });
           const sync = () => chip.setAttribute("aria-pressed", state.statuses.includes(k));
           chip.addEventListener("click", () => {
             state.statuses = state.statuses.includes(k) ? state.statuses.filter((x) => x !== k) : [...state.statuses, k];
@@ -403,53 +456,76 @@
     const mode = H.MODES[state.mode];
     const photo = H.cardPhoto(ad);
     const link = H.adPage(ad.id);
+    const dailyInfo = FI[mode.daily];
+    const heat = H.heat((ad[mode.daily] - dailyInfo.min) / (dailyInfo.max - dailyInfo.min || 1));
     const card = el("article", { class: "h-card" + (n.status === "rejected" ? " rejected" : "") });
+
+    const badges = el("div", { class: "h-photo-badges" });
+    if (n.status !== "new") badges.append(H.statusTag(n.status));
+    if (ad.is_owner) badges.append(el("span", { class: "h-tag owner", text: "Sahibinden" }));
     card.append(
       el(
         "div",
         { class: "h-card-photo" },
         el("a", { href: link, tabindex: -1, "aria-hidden": "true" }, photo ? el("img", { src: photo, alt: "", loading: "lazy", width: 528, height: 396 }) : null),
-        el("span", { class: "h-price", text: H.money(ad.price_value) }),
-        H.favButton(ad.id, () => apply(false))
+        badges,
+        H.favButton(ad.id, () => apply(false)),
+        el(
+          "div",
+          { class: "h-photo-price" },
+          el("b", { text: H.money(ad.price_value) }),
+          el("span", { text: ad.dues_known ? `aylık toplam ${H.money(ad.monthly_cost)}` : "aidat belirtilmemiş" })
+        )
       )
     );
+
     const body = el("div", { class: "h-card-body" });
     body.append(el("a", { class: "h-card-title", href: link, text: ad.title }));
-    body.append(el("div", { class: "h-card-loc", text: [ad.district, ad.neighborhood, ad.complex_name].filter(Boolean).join(" · ") }));
+    body.append(
+      el("div", { class: "h-card-loc" }, el("span", { text: [ad.district, ad.neighborhood].filter(Boolean).join(" · ") }), ad.complex_name ? el("span", { class: "h-muted", text: ad.complex_name }) : null)
+    );
     body.append(
       el(
         "div",
         { class: "h-commute", title: `${mode.label}: sabah evden çıkış ${ad[mode.leave] || "?"}, akşam eve varış ${ad[mode.arrive] || "?"}` },
-        el("div", {}, el("span", { text: mode.icon + " Sabah" }), el("b", { text: H.mins(ad[mode.am]) })),
+        el("div", {}, el("span", { text: "Sabah" }), el("b", { text: H.mins(ad[mode.am]) })),
         el("div", {}, el("span", { text: "Akşam" }), el("b", { text: H.mins(ad[mode.pm]) })),
-        el("div", { class: "daily" }, el("span", { text: "Günlük" }), el("b", { text: H.mins(ad[mode.daily]) }))
+        el("div", { class: "daily", style: `--heat:${heat}` }, el("span", { text: mode.icon + " Günlük" }), el("b", { text: H.mins(ad[mode.daily]) }))
       )
     );
-    const fact = (label, val) => el("span", {}, label + " ", el("b", { text: val }));
+    const age = ad.building_age_max == null ? `${ad.building_age_min}+ yaş` : ad.building_age_min === ad.building_age_max ? `${ad.building_age_min} yaş` : `${ad.building_age_min}–${ad.building_age_max} yaş`;
+    body.append(
+      el(
+        "ul",
+        { class: "h-specs", "aria-label": "Özet" },
+        el("li", { text: `${ad.area_net_m2} m²` }),
+        el("li", { text: `Kat ${ad.floor}/${ad.floor_count}` }),
+        el("li", { text: age }),
+        el("li", { text: ad.heating || "Isıtma ?" })
+      )
+    );
     body.append(
       el(
         "div",
-        { class: "h-facts" },
-        fact("Aylık", H.money(ad.monthly_cost) + (ad.dues_known ? "" : " (aidat ?)")),
-        fact("Net", ad.area_net_m2 + " m²"),
-        fact("Kat", `${ad.floor}/${ad.floor_count}`),
-        fact("Bina", ad.building_age_max == null ? `${ad.building_age_min}+ yaş` : ad.building_age_min === ad.building_age_max ? `${ad.building_age_min} yaş` : `${ad.building_age_min}–${ad.building_age_max} yaş`),
-        fact("Isıtma", ad.heating || "?"),
-        state.mode === "transit" ? fact("Hat", ad.am_transit_lines || "?") : fact("Trafik", "+" + H.mins(ad.am_drive_traffic_min)),
-        fact("İlan", H.date(ad.listing_date))
+        { class: "h-route h-muted" },
+        state.mode === "transit"
+          ? `🚏 ${ad.am_transit_lines || "?"} · ${ad.am_leave_transit || "?"}'de çık`
+          : `🚦 trafik +${H.mins(ad.am_drive_traffic_min)} · ${ad.am_leave_drive || "?"}'de çık`
       )
     );
+
     const tags = el("div", { class: "h-tags" });
-    if (n.status !== "new") tags.append(H.statusTag(n.status));
-    if (n.rating) tags.append(el("span", { class: "h-tag", text: "★".repeat(n.rating) }));
-    if (ad.is_owner) tags.append(el("span", { class: "h-tag pro", text: "Sahibinden" }));
+    if (n.rating) tags.append(el("span", { class: "h-tag rating", text: "★".repeat(n.rating) }));
     if (H.CHECKLIST_WARN[ad.checklist_quality]) tags.append(el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[ad.checklist_quality] }));
     const unk = el("span", { class: "h-tag unk", hidden: true });
     tags.append(unk);
     body.append(tags);
-    if (n.pros.length) body.append(H.tagList(n.pros, "pro", 3));
-    if (n.cons.length) body.append(H.tagList(n.cons, "con", 3));
-    body.append(el("div", { class: "h-card-foot" }, H.compareToggle(ad.id), el("a", { href: link, text: "Detay →" })));
+    if (n.pros.length || n.cons.length) {
+      body.append(el("div", { class: "h-proscons" }, n.pros.length ? H.tagList(n.pros, "pro", 3) : null, n.cons.length ? H.tagList(n.cons, "con", 2) : null));
+    }
+    body.append(
+      el("div", { class: "h-card-foot" }, H.compareToggle(ad.id), el("span", { class: "h-muted h-small", text: H.date(ad.listing_date) }), el("a", { class: "h-more", href: link, text: "Detay →" }))
+    );
     card.append(body);
     card._unk = unk;
     return card;
@@ -545,11 +621,10 @@
     });
   }
   function apply(writeUrl) {
-    const results = [];
-    for (const ad of ADS) {
-      const r = check(ad);
-      if (r) results.push([ad, r]);
-    }
+    const evals = ADS.map((ad) => [ad, evaluate(ad)]);
+    const results = evals.filter(([, e]) => !e.fails.length);
+    const facet = makeFacet(evals);
+    for (const fn of facetUpdaters) fn(facet);
     results.sort((a, b) => compare(a[0], b[0]));
     const visible = results.map((r) => r[0]);
 
