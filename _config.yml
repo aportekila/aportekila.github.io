@@ -193,6 +193,10 @@ exclude:
   - README.md
   - readme_preview/
   - vendor
+  - assets/database/README.md # rental-ads data guide; GitHub Pages plugins would render it
+  - assets/database/commute_cache.json
+  - assets/database/notes_template.json
+  - assets/database/index.csv
 keep_files:
   - CNAME
   - .nojekyll

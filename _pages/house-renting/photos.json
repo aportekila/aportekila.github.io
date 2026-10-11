@@ -1,0 +1,18 @@
+---
+permalink: /assets/house-renting/photos.json
+sitemap: false
+---
+{%- comment -%}
+  Card photo per ad id: the one large photo directly in assets/database/<id>/photos/
+  (index.json has no photo paths; most are named x5_*.jpg, but not all).
+{%- endcomment -%}
+{
+{%- assign sep = "" -%}
+{%- for f in site.static_files -%}
+  {%- assign parts = f.path | split: "/" -%}
+  {%- if parts.size == 6 and parts[2] == "database" and parts[4] == "photos" -%}
+{{ sep }}"{{ parts[3] }}": "photos/{{ f.name }}"
+    {%- assign sep = "," -%}
+  {%- endif -%}
+{%- endfor -%}
+}

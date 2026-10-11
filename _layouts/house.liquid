@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    {%- comment -%}
+      Standalone layout for the unlisted /house-renting/ tool: no theme navbar,
+      no analytics, no search index, not in the sitemap, noindex.
+    {%- endcomment -%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="strict-origin">
+    <title>{{ page.title }} · Kiralık 2+1</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    {%- if page.leaflet %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    {%- endif %}
+    {%- assign v = site.time | date: '%s' %}
+    <link rel="stylesheet" href="{{ '/assets/house-renting/house.css' | relative_url }}?v={{ v }}">
+    <script>
+      window.HOUSE_CFG = {
+        db: "{{ '/assets/database' | relative_url }}",
+        notes: "{{ '/assets/notes.json' | relative_url }}",
+        photos: "{{ '/assets/house-renting/photos.json' | relative_url }}?v={{ v }}",
+        root: "{{ '/house-renting/' | relative_url }}",
+      };
+    </script>
+    <script src="{{ '/assets/house-renting/common.js' | relative_url }}?v={{ v }}"></script>
+  </head>
+  <body class="h-page-{{ page.house_page }}">
+    <header class="h-top">
+      <a class="h-brand" href="{{ '/house-renting/' | relative_url }}">🏠 Kiralık 2+1 · Ankara</a>
+      <nav class="h-nav" aria-label="Bölümler">
+        <a href="{{ '/house-renting/' | relative_url }}" {% if page.house_page == 'list' %}aria-current="page"{% endif %}>İlanlar</a>
+        <a href="{{ '/house-renting/compare/' | relative_url }}" {% if page.house_page == 'compare' %}aria-current="page"{% endif %}>Karşılaştır <span class="h-badge" data-compare-count>0</span></a>
+        <a href="{{ '/house-renting/notes/' | relative_url }}" {% if page.house_page == 'notes' %}aria-current="page"{% endif %}>Notlarım</a>
+      </nav>
+    </header>
+    <main class="h-main">
+      {{ content }}
+    </main>
+    <script src="{{ '/assets/house-renting/' | append: page.house_page | append: '.js' | relative_url }}?v={{ v }}"></script>
+  </body>
+</html>

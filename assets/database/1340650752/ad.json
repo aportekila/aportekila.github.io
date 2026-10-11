@@ -1,0 +1,801 @@
+{
+  "schema_version": 1,
+  "id": "1340650752",
+  "title": "^^EMİR GRUP'DAN İSTPORT'DA TERASLI 2+1 KİRALIK DAİREMİZ^^",
+  "source_url": "https://www.sahibinden.com/ilan/emlak-konut-kiralik-emir-grup-dan-istport-da-terasli-2-plus1-kiralik-dairemiz-1340650752/detay",
+  "source_file": null,
+  "extracted_at": "2026-10-11T21:56:32+00:00",
+  "price": {
+    "value": 45750,
+    "currency": "TRY",
+    "raw": "45.750 TL"
+  },
+  "location": {
+    "city": "Ankara",
+    "district": "Yenimahalle",
+    "neighborhood": "Cumhuriyet Mh.",
+    "parts": [
+      "Ankara",
+      "Yenimahalle",
+      "Cumhuriyet Mh."
+    ],
+    "raw": "Ankara / Yenimahalle / Cumhuriyet Mh.",
+    "latitude": 39.98145099780273,
+    "longitude": 32.659560848291015
+  },
+  "distance_to_work": {
+    "to": "ODTÜ Teknokent",
+    "to_latitude": 39.8966714,
+    "to_longitude": 32.7736614,
+    "straight_line_km": 13.55,
+    "method": "haversine (as the crow flies; road distance is longer)"
+  },
+  "commute": {
+    "to": "ODTÜ Teknokent",
+    "to_latitude": 39.8966714,
+    "to_longitude": 32.7736614,
+    "source": "Google Maps Routes API",
+    "ring": {
+      "stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)",
+      "latitude": 39.9073794,
+      "longitude": 32.7650499,
+      "minutes": 15,
+      "applies_to": "transit (EGO to the ring stop, then campus ring)"
+    },
+    "morning": {
+      "description": "home -> work, arrive by 08:50",
+      "drive": {
+        "route_found": true,
+        "distance_km": 23.94,
+        "duration_min": 34,
+        "duration_without_traffic_min": 25,
+        "leave_at": "08:10",
+        "arrive_at": "08:43",
+        "fetched_at": "2026-10-11T21:09:40+00:00"
+      },
+      "transit": {
+        "route_found": true,
+        "distance_km": 29.5,
+        "duration_min": 70,
+        "duration_without_traffic_min": null,
+        "leave_at": "07:38",
+        "arrive_at": "08:48",
+        "fetched_at": "2026-10-11T21:43:41+00:00",
+        "to_ring_stop_min": 55,
+        "ring_min": 15
+      },
+      "transit_route": {
+        "route_found": true,
+        "computed_for": "2026-10-12",
+        "fetched_at": "2026-10-11T21:44:01+00:00",
+        "duration_min": 70,
+        "distance_km": 29.5,
+        "transfers": 0,
+        "walk_min": 8,
+        "lines": "M1-2-3 → Ring",
+        "vehicles": [
+          "Metro"
+        ],
+        "uses_rail": true,
+        "first_stop": "İstanbul Yolu",
+        "leave_at": "07:38",
+        "arrive_at": "08:48",
+        "segments": [
+          {
+            "mode": "walk",
+            "minutes": 7,
+            "distance_m": 498
+          },
+          {
+            "mode": "ride",
+            "vehicle": "SUBWAY",
+            "vehicle_tr": "Metro",
+            "line": "M1-2-3",
+            "line_name": "Koru - Osb-Törekent",
+            "headsign": "Koru",
+            "from_stop": "İstanbul Yolu",
+            "to_stop": "Bilkent",
+            "departure_time": "07:45",
+            "arrival_time": "08:33",
+            "stop_count": 21,
+            "minutes": 48,
+            "distance_m": 28960
+          },
+          {
+            "mode": "walk",
+            "minutes": 1,
+            "distance_m": 43
+          },
+          {
+            "mode": "ring",
+            "minutes": 15,
+            "from_stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)",
+            "to_stop": "ODTÜ Teknokent"
+          }
+        ],
+        "to_ring_stop_min": 55,
+        "ring_min": 15
+      }
+    },
+    "evening": {
+      "description": "work -> home, leave work at 18:00",
+      "drive": {
+        "route_found": true,
+        "distance_km": 18.37,
+        "duration_min": 34,
+        "duration_without_traffic_min": 20,
+        "leave_at": "18:00",
+        "arrive_at": "18:33",
+        "fetched_at": "2026-10-11T21:10:17+00:00"
+      },
+      "transit": {
+        "route_found": true,
+        "distance_km": 29.49,
+        "duration_min": 70,
+        "duration_without_traffic_min": null,
+        "leave_at": "18:00",
+        "arrive_at": "19:11",
+        "fetched_at": "2026-10-11T21:43:42+00:00",
+        "to_ring_stop_min": 55,
+        "ring_min": 15,
+        "wait_min": 1
+      },
+      "transit_route": {
+        "route_found": true,
+        "computed_for": "2026-10-12",
+        "fetched_at": "2026-10-11T21:44:01+00:00",
+        "duration_min": 70,
+        "distance_km": 29.49,
+        "transfers": 0,
+        "walk_min": 7,
+        "lines": "Ring → M1-2-3",
+        "vehicles": [
+          "Metro"
+        ],
+        "uses_rail": true,
+        "first_stop": "Bilkent",
+        "leave_at": "18:00",
+        "arrive_at": "19:11",
+        "segments": [
+          {
+            "mode": "ring",
+            "minutes": 15,
+            "from_stop": "ODTÜ Teknokent",
+            "to_stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)"
+          },
+          {
+            "mode": "walk",
+            "minutes": 1,
+            "distance_m": 41
+          },
+          {
+            "mode": "ride",
+            "vehicle": "SUBWAY",
+            "vehicle_tr": "Metro",
+            "line": "M1-2-3",
+            "line_name": "Koru - Osb-Törekent",
+            "headsign": "OSB-Törekent",
+            "from_stop": "Bilkent",
+            "to_stop": "İstanbul Yolu",
+            "departure_time": "18:17",
+            "arrival_time": "19:05",
+            "stop_count": 21,
+            "minutes": 48,
+            "distance_m": 28959
+          },
+          {
+            "mode": "walk",
+            "minutes": 7,
+            "distance_m": 493
+          }
+        ],
+        "to_ring_stop_min": 55,
+        "ring_min": 15,
+        "leave_ring_stop_at": "18:16",
+        "wait_min": 1
+      }
+    },
+    "daily_total_min": {
+      "drive": 68,
+      "transit": 140
+    }
+  },
+  "details": {
+    "İlan No": "1340650752",
+    "İlan Tarihi": "02 Ekim 2026",
+    "Emlak Tipi": "Kiralık Daire",
+    "m² (Brüt)": "135",
+    "m² (Net)": "103",
+    "Oda Sayısı": "2+1",
+    "Bina Yaşı": "0 (Oturuma Hazır)",
+    "Kat Sayısı": "15",
+    "Bulunduğu Kat": "12",
+    "Isıtma": "Merkezi (Pay Ölçer)",
+    "Banyo Sayısı": "2",
+    "Mutfak": "Açık (Amerikan)",
+    "Balkon": "Var",
+    "Asansör": "Var",
+    "Otopark": "Açık & Kapalı Otopark",
+    "Eşyalı": "Hayır",
+    "Kullanım Durumu": "Boş",
+    "Site İçerisinde": "Evet",
+    "Site Adı": "Ap İst Port",
+    "Aidat (TL)": "3.000",
+    "Depozito (TL)": "55.000",
+    "Enerji Kimlik Belgesi": "Belirtilmemiş",
+    "Tapu Durumu": "Kat Mülkiyetli",
+    "Kimden": "Emlak Ofisinden"
+  },
+  "details_normalized": {
+    "listing_date": "2026-10-02",
+    "property_type": "Kiralık Daire",
+    "area_gross_m2": 135,
+    "area_net_m2": 103,
+    "rooms": 2,
+    "living_rooms": 1,
+    "building_age": "0 (Oturuma Hazır)",
+    "building_age_min": 0,
+    "building_age_max": 0,
+    "floor_count": 15,
+    "floor": 12,
+    "heating": "Merkezi (Pay Ölçer)",
+    "bathrooms": 2,
+    "kitchen": "Açık (Amerikan)",
+    "balcony": true,
+    "elevator": true,
+    "parking": "Açık & Kapalı Otopark",
+    "furnished": false,
+    "usage_status": "Boş",
+    "in_complex": true,
+    "complex_name": "Ap İst Port",
+    "dues": 3000,
+    "deposit": 55000,
+    "energy_class": null,
+    "deed_status": "Kat Mülkiyetli",
+    "listed_by": "Emlak Ofisinden"
+  },
+  "contact": {
+    "seller_type": "corporate",
+    "name": null,
+    "office_name": "EMİR GRUP GAYRİMENKUL",
+    "office_url": "https://emirgrup.sahibinden.com/",
+    "license_no": "0604166",
+    "member_since": "Şubat 2020",
+    "phones": null,
+    "all_ads_url": "https://emirgrup.sahibinden.com/?userId=a1rS5z23_lyB7mbbt-y_Xeg",
+    "message_url": "https://www.sahibinden.com/ilan-sahibine-soru-sor/1340650752"
+  },
+  "classified_detail": {
+    "description": "AP İSTPORT'TA BULUNAN 2+1 AMERİKAN MUTFAK 103m² OLAN DAİREMİZ;\n\nTERAS BALKON\n\nÇAMAŞIR ODASI VE VESTİYER ALANI\n\nEBEVEYN BANYOLU, GİYİNME ALANI\n\n​\n\nBİR ÇOK MARKANIN BULUNDUĞU AÇIK AVM KONSEPTİ\n\nKAPALI YÜZME HAVUZU, SAUNA VE FİN HAMAMI, FİTNESS SALONU, 24 FİZİKİ GÜVENLİK\n\nERYAMAN HIZLI TREN İSTASYONU 5DK, YENİMAHALLE DEVLET HASTANESİ 5 DK, GÖKSU PARKI 5 DK\n\nKAŞMİR CENTER 5DK, ATLANTİS AVM 5DK, OPTİMUM AVM 5DK\n\nÖZEL VE DEVLET EĞİTİM KURUMLARI 5 DK\n\nASELSAN,TUSAŞ,ROKETSAN,HAVELSAN SAVUNMA SANAYİ SERVİS GÜZERGAHLARI ÜZERİNDE\n\nÖZEL VE DEVLET KURUMLARI SERVİS GÜZERGAHI ÜZERİNDE\n\nGERSAN SANAYİ SİTSİ 5DK, KAZAN SANAYİ BÖLGESİ 10DK, OSTİM SANAYİ BÖLGESİ 10DK, SİNCAN SANAYİ BÖLGESİ 10DK\n\n​ŞEHRİN DİNAMİKLERİ İÇERİSİNDE HEM İŞ HEMDE SOSYAL HAYATINIZI KOLAYLIKLA YÖNETEBİLECEĞİNİZ BENZERSİZ KONUM...\n\nEMİR GRUP GAYRİMENKUL GÜVENCESİ İLE KAT VE CEPHELERDE BİR ÇOK SEÇENEĞİMİZ MEVCUT\n\nBÖLGE UZMANI OLARAK SİZLERİ DOĞRU YÖNLENDİRME VE TANIŞMAK İÇİN OFİSİMİZE DAVET EDİYORUZ.\n\nDiğer ilanlarımızı incelemek için tıklayabilirsiniz...",
+    "features": {
+      "Cephe": [
+        "Doğu",
+        "Kuzey"
+      ],
+      "İç Özellikler": [],
+      "Dış Özellikler": [],
+      "Muhit": [],
+      "Ulaşım": [],
+      "Manzara": [],
+      "Konut Tipi": [],
+      "Engelliye ve Yaşlıya Uygun": []
+    },
+    "feature_options": {
+      "Cephe": [
+        "Batı",
+        "Doğu",
+        "Güney",
+        "Kuzey"
+      ],
+      "İç Özellikler": [
+        "ADSL",
+        "Ahşap Doğrama",
+        "Akıllı Ev",
+        "Alarm (Hırsız)",
+        "Alarm (Yangın)",
+        "Alaturka Tuvalet",
+        "Alüminyum Doğrama",
+        "Amerikan Kapı",
+        "Ankastre Fırın",
+        "Barbekü",
+        "Beyaz Eşya",
+        "Boyalı",
+        "Bulaşık Makinesi",
+        "Buzdolabı",
+        "Çamaşır Kurutma Makinesi",
+        "Çamaşır Makinesi",
+        "Çamaşır Odası",
+        "Çelik Kapı",
+        "Duşakabin",
+        "Duvar Kağıdı",
+        "Ebeveyn Banyosu",
+        "Fırın",
+        "Fiber İnternet",
+        "Giyinme Odası",
+        "Gömme Dolap",
+        "Görüntülü Diyafon",
+        "Hilton Banyo",
+        "Intercom Sistemi",
+        "Isıcam",
+        "Jakuzi",
+        "Kapalı / Cam Balkon",
+        "Kartonpiyer",
+        "Kiler",
+        "Klima",
+        "Küvet",
+        "Laminat Zemin",
+        "Marley",
+        "Mobilya",
+        "Mutfak (Ankastre)",
+        "Mutfak (Laminat)",
+        "Mutfak Doğalgazı",
+        "Panjur/Jaluzi",
+        "Parke Zemin",
+        "PVC Doğrama",
+        "Seramik Zemin",
+        "Set Üstü Ocak",
+        "Spot Aydınlatma",
+        "Şofben",
+        "Şömine",
+        "Teras",
+        "Termosifon",
+        "Vestiyer",
+        "Yüz Tanıma & Parmak İzi"
+      ],
+      "Dış Özellikler": [
+        "Araç Şarj İstasyonu",
+        "Güneş Paneli",
+        "24 Saat Güvenlik",
+        "Apartman Görevlisi",
+        "Buhar Odası",
+        "Çocuk Oyun Parkı",
+        "Hamam",
+        "Hidrofor",
+        "Isı Yalıtımı",
+        "Jeneratör",
+        "Kablo TV",
+        "Kamera Sistemi",
+        "Köpek Parkı",
+        "Kreş",
+        "Müstakil Havuzlu",
+        "Sauna",
+        "Ses Yalıtımı",
+        "Siding",
+        "Spor Alanı",
+        "Su Deposu",
+        "Tenis Kortu",
+        "Uydu",
+        "Yangın Merdiveni",
+        "Yüzme Havuzu (Açık)",
+        "Yüzme Havuzu (Kapalı)"
+      ],
+      "Muhit": [
+        "Alışveriş Merkezi",
+        "Belediye",
+        "Cami",
+        "Cemevi",
+        "Denize Sıfır",
+        "Eczane",
+        "Eğlence Merkezi",
+        "Fuar",
+        "Göle Sıfır",
+        "Hastane",
+        "Havra",
+        "İlkokul-Ortaokul",
+        "İtfaiye",
+        "Kilise",
+        "Lise",
+        "Market",
+        "Park",
+        "Plaj",
+        "Polis Merkezi",
+        "Sağlık Ocağı",
+        "Semt Pazarı",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "Ulaşım": [
+        "Anayol",
+        "Avrasya Tüneli",
+        "Boğaz Köprüleri",
+        "Cadde",
+        "Deniz Otobüsü",
+        "Dolmuş",
+        "E-5",
+        "Havaalanı",
+        "İskele",
+        "Marmaray",
+        "Metro",
+        "Metrobüs",
+        "Minibüs",
+        "Otobüs Durağı",
+        "Sahil",
+        "TEM",
+        "Tramvay",
+        "Tren İstasyonu"
+      ],
+      "Manzara": [
+        "Boğaz",
+        "Deniz",
+        "Doğa",
+        "Göl",
+        "Havuz",
+        "Nehir",
+        "Park & Yeşil Alan",
+        "Şehir"
+      ],
+      "Konut Tipi": [
+        "Ara Kat Dubleks",
+        "Dubleks",
+        "En Üst Kat",
+        "Bahçe Dubleksi",
+        "Çatı Dubleksi",
+        "Forleks",
+        "Ters Dubleks",
+        "Tripleks"
+      ],
+      "Engelliye ve Yaşlıya Uygun": [
+        "Araç Park Yeri",
+        "Engelliye Uygun Asansör",
+        "Engelliye Uygun Banyo",
+        "Engelliye Uygun Mutfak",
+        "Engelliye Uygun Park",
+        "Geniş Koridor",
+        "Giriş / Rampa",
+        "Merdiven",
+        "Oda Kapısı",
+        "Priz / Elektrik Anahtarı",
+        "Tutamak / Korkuluk",
+        "Tuvalet",
+        "Yüzme Havuzu"
+      ]
+    },
+    "certification": {
+      "EMİR GRUP GAYRİMENKUL - Yetki Belge No": "0604166",
+      "notes": [
+        "Bu gayrimenkul için Ticaret Bakanlığı EİDS sisteminde ilan verme iznine sahiptir."
+      ]
+    },
+    "other_sections": null
+  },
+  "location_tab": {
+    "map_details": {
+      "latitude": 39.98145099780273,
+      "longitude": 32.659560848291015,
+      "city_code": "6",
+      "town_code": "64",
+      "town_name": "Yenimahalle",
+      "quarter_name": "Cumhuriyet Mh.",
+      "category_path": "Emlak/Konut/Kiralık/Daire",
+      "location_corrupt": false,
+      "directions_url": "https://www.google.com/maps/dir/Current+Location/39.98145099780273,32.659560848291015",
+      "street_view_url": "http://maps.google.com/maps?q=&layer=c&cbll=39.98145099780273,32.659560848291015&cbp=11,0,0,0,0",
+      "price_heatmap_note": "Haritadaki bölge bazlı m² fiyatları, bir aylık referans döneme ait ilan verileri üzerinden, ODTÜ Uygulamalı Matematik Enstitüsü ile iş birliği içinde geliştirilen istatistiksel modeller kullanılarak hesaplanmıştır. Hesaplamalarda brüt metrekare esas alınmıştır. Bilgilendirme amaçlı sunulan veriler, gerçek piyasa, satış veya kira değerini ifade ya da garanti etmez, piyasa koşullarına, taşınmazın özelliklerine ve konumuna göre değişebilir. Bu verilere dayanılarak alınan kararlar veya gerçekleştirilen işlemler nedeniyle doğabilecek zararlardan sahibinden.com sorumlu değildir.",
+      "text": null
+    },
+    "region_info": null,
+    "demographics": null
+  },
+  "photos": [
+    {
+      "index": 1,
+      "large": "photos/x5_13406507529kt.jpg",
+      "thumbnail": "photos/thumbs/thmb_13406507529kt.jpg",
+      "remote_url": null
+    },
+    {
+      "index": 2,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752yz9.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752yz9.jpg"
+    },
+    {
+      "index": 3,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_134065075285e.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_134065075285e.jpg"
+    },
+    {
+      "index": 4,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507526um.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507526um.jpg"
+    },
+    {
+      "index": 5,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507521g7.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507521g7.jpg"
+    },
+    {
+      "index": 6,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752uvv.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752uvv.jpg"
+    },
+    {
+      "index": 7,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752xi4.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752xi4.jpg"
+    },
+    {
+      "index": 8,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752zm3.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752zm3.jpg"
+    },
+    {
+      "index": 9,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752tao.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752tao.jpg"
+    },
+    {
+      "index": 10,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752h88.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752h88.jpg"
+    },
+    {
+      "index": 11,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752k3m.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752k3m.jpg"
+    },
+    {
+      "index": 12,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_134065075283w.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_134065075283w.jpg"
+    },
+    {
+      "index": 13,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752fum.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752fum.jpg"
+    },
+    {
+      "index": 14,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_134065075238t.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_134065075238t.jpg"
+    },
+    {
+      "index": 15,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752pwo.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752pwo.jpg"
+    },
+    {
+      "index": 16,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507520jy.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507520jy.jpg"
+    },
+    {
+      "index": 17,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752zue.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752zue.jpg"
+    },
+    {
+      "index": 18,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752ffi.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752ffi.jpg"
+    },
+    {
+      "index": 19,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752tdc.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752tdc.jpg"
+    },
+    {
+      "index": 20,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752y54.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752y54.jpg"
+    },
+    {
+      "index": 21,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752csc.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752csc.jpg"
+    },
+    {
+      "index": 22,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752wbx.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752wbx.jpg"
+    },
+    {
+      "index": 23,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507520zr.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507520zr.jpg"
+    },
+    {
+      "index": 24,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752987.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752987.jpg"
+    },
+    {
+      "index": 25,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752w6e.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752w6e.jpg"
+    },
+    {
+      "index": 26,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507529jd.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507529jd.jpg"
+    },
+    {
+      "index": 27,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752x42.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752x42.jpg"
+    },
+    {
+      "index": 28,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507526cb.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507526cb.jpg"
+    },
+    {
+      "index": 29,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752hh3.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752hh3.jpg"
+    },
+    {
+      "index": 30,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752zjk.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752zjk.jpg"
+    },
+    {
+      "index": 31,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752xaa.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752xaa.jpg"
+    },
+    {
+      "index": 32,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752vx8.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752vx8.jpg"
+    },
+    {
+      "index": 33,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752d3a.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752d3a.jpg"
+    },
+    {
+      "index": 34,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507527bi.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507527bi.jpg"
+    },
+    {
+      "index": 35,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752v90.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752v90.jpg"
+    },
+    {
+      "index": 36,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507526gf.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507526gf.jpg"
+    },
+    {
+      "index": 37,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752pmw.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752pmw.jpg"
+    },
+    {
+      "index": 38,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13406507522eh.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_13406507522eh.jpg"
+    },
+    {
+      "index": 39,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340650752n04.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/65/07/52/x5_1340650752n04.jpg"
+    }
+  ],
+  "photo_count": 39,
+  "flags": {
+    "has_pool": null,
+    "has_indoor_pool": null,
+    "has_gym": null,
+    "has_sauna": null,
+    "has_security": null,
+    "has_camera": null,
+    "has_concierge": null,
+    "has_generator": null,
+    "has_playground": null,
+    "has_ev_charger": null,
+    "has_tennis": null,
+    "has_insulation": null,
+    "has_closed_balcony": null,
+    "has_ensuite": null,
+    "has_white_goods": null,
+    "has_dishwasher": null,
+    "has_washing_machine": null,
+    "has_built_in_kitchen": null,
+    "has_ac": null,
+    "has_built_in_wardrobe": null,
+    "has_dressing_room": null,
+    "has_fiber": null,
+    "has_smart_home": null,
+    "has_double_glazing": null,
+    "has_steel_door": null,
+    "has_video_intercom": null,
+    "has_squat_toilet": null,
+    "has_sound_insulation": null,
+    "has_water_tank": null,
+    "near_school": null,
+    "south_facing": false,
+    "metro_nearby": null,
+    "train_nearby": null,
+    "bus_stop_nearby": null,
+    "near_market": null,
+    "near_mall": null,
+    "near_bazaar": null,
+    "near_gym": null,
+    "near_park": null,
+    "near_hospital": null,
+    "view_city": null,
+    "view_nature": null,
+    "is_owner": false,
+    "separate_kitchen": false,
+    "has_parking": true,
+    "has_closed_parking": true,
+    "tenant_inside": false,
+    "is_ground_floor": false,
+    "is_top_floor": false,
+    "dues_known": true,
+    "monthly_cost": 48750,
+    "price_per_m2_net": 444,
+    "deposit_months": 1.2,
+    "move_in_cost": 100750,
+    "facing": [
+      "Doğu",
+      "Kuzey"
+    ],
+    "features_all": [
+      "Doğu",
+      "Kuzey"
+    ],
+    "checklist_quality": "empty"
+  },
+  "auto_review": {
+    "checklist": {
+      "Cephe": "filled",
+      "İç Özellikler": "empty",
+      "Dış Özellikler": "empty",
+      "Muhit": "empty",
+      "Ulaşım": "empty",
+      "Manzara": "empty",
+      "Konut Tipi": "empty",
+      "Engelliye ve Yaşlıya Uygun": "empty"
+    },
+    "pros": [],
+    "cons": [
+      "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+      "Muhit listesi doldurulmamış (bilinmiyor)",
+      "Ulaşım listesi doldurulmamış (bilinmiyor)"
+    ],
+    "unticked": {}
+  }
+}

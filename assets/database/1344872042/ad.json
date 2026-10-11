@@ -1,0 +1,611 @@
+{
+  "schema_version": 1,
+  "id": "1344872042",
+  "title": "Referans Ankara Metro Yanı 2 artı 1 Daire",
+  "source_url": "https://www.sahibinden.com/ilan/emlak-konut-kiralik-referans-ankara-metro-yani-2-arti-1-daire-1344872042/detay",
+  "source_file": null,
+  "extracted_at": "2026-10-11T21:56:48+00:00",
+  "price": {
+    "value": 40000,
+    "currency": "TRY",
+    "raw": "40.000 TL"
+  },
+  "location": {
+    "city": "Ankara",
+    "district": "Etimesgut",
+    "neighborhood": "Devlet Mh.",
+    "parts": [
+      "Ankara",
+      "Etimesgut",
+      "Devlet Mh."
+    ],
+    "raw": "Ankara / Etimesgut / Devlet Mh.",
+    "latitude": 39.97879347744141,
+    "longitude": 32.610685864794924
+  },
+  "distance_to_work": {
+    "to": "ODTÜ Teknokent",
+    "to_latitude": 39.8966714,
+    "to_longitude": 32.7736614,
+    "straight_line_km": 16.63,
+    "method": "haversine (as the crow flies; road distance is longer)"
+  },
+  "commute": {
+    "to": "ODTÜ Teknokent",
+    "to_latitude": 39.8966714,
+    "to_longitude": 32.7736614,
+    "source": "Google Maps Routes API",
+    "ring": {
+      "stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)",
+      "latitude": 39.9073794,
+      "longitude": 32.7650499,
+      "minutes": 15,
+      "applies_to": "transit (EGO to the ring stop, then campus ring)"
+    },
+    "morning": {
+      "description": "home -> work, arrive by 08:50",
+      "drive": {
+        "route_found": true,
+        "distance_km": 24.21,
+        "duration_min": 39,
+        "duration_without_traffic_min": 27,
+        "leave_at": "08:10",
+        "arrive_at": "08:49",
+        "fetched_at": "2026-10-11T21:09:40+00:00"
+      },
+      "transit": {
+        "route_found": true,
+        "distance_km": 33.69,
+        "duration_min": 77,
+        "duration_without_traffic_min": null,
+        "leave_at": "07:31",
+        "arrive_at": "08:48",
+        "fetched_at": "2026-10-11T21:43:41+00:00",
+        "to_ring_stop_min": 62,
+        "ring_min": 15
+      },
+      "transit_route": {
+        "route_found": true,
+        "computed_for": "2026-10-12",
+        "fetched_at": "2026-10-11T21:44:19+00:00",
+        "duration_min": 77,
+        "distance_km": 33.69,
+        "transfers": 0,
+        "walk_min": 7,
+        "lines": "M1-2-3 → Ring",
+        "vehicles": [
+          "Metro"
+        ],
+        "uses_rail": true,
+        "first_stop": "Devlet Mahallesi",
+        "leave_at": "07:31",
+        "arrive_at": "08:48",
+        "segments": [
+          {
+            "mode": "walk",
+            "minutes": 6,
+            "distance_m": 460
+          },
+          {
+            "mode": "ride",
+            "vehicle": "SUBWAY",
+            "vehicle_tr": "Metro",
+            "line": "M1-2-3",
+            "line_name": "Koru - Osb-Törekent",
+            "headsign": "Koru",
+            "from_stop": "Devlet Mahallesi",
+            "to_stop": "Bilkent",
+            "departure_time": "07:38",
+            "arrival_time": "08:33",
+            "stop_count": 24,
+            "minutes": 55,
+            "distance_m": 33183
+          },
+          {
+            "mode": "walk",
+            "minutes": 1,
+            "distance_m": 43
+          },
+          {
+            "mode": "ring",
+            "minutes": 15,
+            "from_stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)",
+            "to_stop": "ODTÜ Teknokent"
+          }
+        ],
+        "to_ring_stop_min": 62,
+        "ring_min": 15
+      }
+    },
+    "evening": {
+      "description": "work -> home, leave work at 18:00",
+      "drive": {
+        "route_found": true,
+        "distance_km": 22.54,
+        "duration_min": 38,
+        "duration_without_traffic_min": 26,
+        "leave_at": "18:00",
+        "arrive_at": "18:38",
+        "fetched_at": "2026-10-11T21:10:17+00:00"
+      },
+      "transit": {
+        "route_found": true,
+        "distance_km": 33.69,
+        "duration_min": 77,
+        "duration_without_traffic_min": null,
+        "leave_at": "18:00",
+        "arrive_at": "19:18",
+        "fetched_at": "2026-10-11T21:43:42+00:00",
+        "to_ring_stop_min": 62,
+        "ring_min": 15,
+        "wait_min": 1
+      },
+      "transit_route": {
+        "route_found": true,
+        "computed_for": "2026-10-12",
+        "fetched_at": "2026-10-11T21:44:19+00:00",
+        "duration_min": 77,
+        "distance_km": 33.69,
+        "transfers": 0,
+        "walk_min": 7,
+        "lines": "Ring → M1-2-3",
+        "vehicles": [
+          "Metro"
+        ],
+        "uses_rail": true,
+        "first_stop": "Bilkent",
+        "leave_at": "18:00",
+        "arrive_at": "19:18",
+        "segments": [
+          {
+            "mode": "ring",
+            "minutes": 15,
+            "from_stop": "ODTÜ Teknokent",
+            "to_stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)"
+          },
+          {
+            "mode": "walk",
+            "minutes": 1,
+            "distance_m": 41
+          },
+          {
+            "mode": "ride",
+            "vehicle": "SUBWAY",
+            "vehicle_tr": "Metro",
+            "line": "M1-2-3",
+            "line_name": "Koru - Osb-Törekent",
+            "headsign": "OSB-Törekent",
+            "from_stop": "Bilkent",
+            "to_stop": "Devlet Mahallesi",
+            "departure_time": "18:17",
+            "arrival_time": "19:12",
+            "stop_count": 24,
+            "minutes": 55,
+            "distance_m": 33183
+          },
+          {
+            "mode": "walk",
+            "minutes": 7,
+            "distance_m": 468
+          }
+        ],
+        "to_ring_stop_min": 62,
+        "ring_min": 15,
+        "leave_ring_stop_at": "18:16",
+        "wait_min": 1
+      }
+    },
+    "daily_total_min": {
+      "drive": 77,
+      "transit": 154
+    }
+  },
+  "details": {
+    "İlan No": "1344872042",
+    "İlan Tarihi": "10 Ekim 2026",
+    "Emlak Tipi": "Kiralık Daire",
+    "m² (Brüt)": "90",
+    "m² (Net)": "79",
+    "Oda Sayısı": "2+1",
+    "Bina Yaşı": "5",
+    "Kat Sayısı": "30 ve üzeri",
+    "Bulunduğu Kat": "2",
+    "Isıtma": "Merkezi",
+    "Banyo Sayısı": "2",
+    "Mutfak": "Açık (Amerikan)",
+    "Balkon": "Var",
+    "Asansör": "Var",
+    "Otopark": "Açık Otopark",
+    "Eşyalı": "Hayır",
+    "Kullanım Durumu": "Boş",
+    "Site İçerisinde": "Evet",
+    "Site Adı": "Referans Ankara Konutları",
+    "Aidat (TL)": "2.525",
+    "Depozito (TL)": "40.000",
+    "Enerji Kimlik Belgesi": "Belirtilmemiş",
+    "Tapu Durumu": "Kat Mülkiyetli",
+    "Kimden": "Sahibinden"
+  },
+  "details_normalized": {
+    "listing_date": "2026-10-10",
+    "property_type": "Kiralık Daire",
+    "area_gross_m2": 90,
+    "area_net_m2": 79,
+    "rooms": 2,
+    "living_rooms": 1,
+    "building_age": "5",
+    "building_age_min": 5,
+    "building_age_max": 5,
+    "floor_count": 30,
+    "floor": 2,
+    "heating": "Merkezi",
+    "bathrooms": 2,
+    "kitchen": "Açık (Amerikan)",
+    "balcony": true,
+    "elevator": true,
+    "parking": "Açık Otopark",
+    "furnished": false,
+    "usage_status": "Boş",
+    "in_complex": true,
+    "complex_name": "Referans Ankara Konutları",
+    "dues": 2525,
+    "deposit": 40000,
+    "energy_class": null,
+    "deed_status": "Kat Mülkiyetli",
+    "listed_by": "Sahibinden"
+  },
+  "contact": {
+    "seller_type": "individual",
+    "name": null,
+    "office_name": null,
+    "office_url": null,
+    "license_no": null,
+    "member_since": "Ekim 2026",
+    "phones": null,
+    "all_ads_url": null,
+    "message_url": "https://www.sahibinden.com/ilan-sahibine-soru-sor/1344872042"
+  },
+  "classified_detail": {
+    "description": "Sahibinden Metromall Avm Karşısı Metro Yanı, Sosyal Tesis Binasında, Stadyum Manzaralı Temiz Daire",
+    "features": {
+      "Cephe": [],
+      "İç Özellikler": [],
+      "Dış Özellikler": [],
+      "Muhit": [],
+      "Ulaşım": [],
+      "Manzara": [],
+      "Konut Tipi": [],
+      "Engelliye ve Yaşlıya Uygun": []
+    },
+    "feature_options": {
+      "Cephe": [
+        "Batı",
+        "Doğu",
+        "Güney",
+        "Kuzey"
+      ],
+      "İç Özellikler": [
+        "ADSL",
+        "Ahşap Doğrama",
+        "Akıllı Ev",
+        "Alarm (Hırsız)",
+        "Alarm (Yangın)",
+        "Alaturka Tuvalet",
+        "Alüminyum Doğrama",
+        "Amerikan Kapı",
+        "Ankastre Fırın",
+        "Barbekü",
+        "Beyaz Eşya",
+        "Boyalı",
+        "Bulaşık Makinesi",
+        "Buzdolabı",
+        "Çamaşır Kurutma Makinesi",
+        "Çamaşır Makinesi",
+        "Çamaşır Odası",
+        "Çelik Kapı",
+        "Duşakabin",
+        "Duvar Kağıdı",
+        "Ebeveyn Banyosu",
+        "Fırın",
+        "Fiber İnternet",
+        "Giyinme Odası",
+        "Gömme Dolap",
+        "Görüntülü Diyafon",
+        "Hilton Banyo",
+        "Intercom Sistemi",
+        "Isıcam",
+        "Jakuzi",
+        "Kapalı / Cam Balkon",
+        "Kartonpiyer",
+        "Kiler",
+        "Klima",
+        "Küvet",
+        "Laminat Zemin",
+        "Marley",
+        "Mobilya",
+        "Mutfak (Ankastre)",
+        "Mutfak (Laminat)",
+        "Mutfak Doğalgazı",
+        "Panjur/Jaluzi",
+        "Parke Zemin",
+        "PVC Doğrama",
+        "Seramik Zemin",
+        "Set Üstü Ocak",
+        "Spot Aydınlatma",
+        "Şofben",
+        "Şömine",
+        "Teras",
+        "Termosifon",
+        "Vestiyer",
+        "Yüz Tanıma & Parmak İzi"
+      ],
+      "Dış Özellikler": [
+        "Araç Şarj İstasyonu",
+        "Güneş Paneli",
+        "24 Saat Güvenlik",
+        "Apartman Görevlisi",
+        "Buhar Odası",
+        "Çocuk Oyun Parkı",
+        "Hamam",
+        "Hidrofor",
+        "Isı Yalıtımı",
+        "Jeneratör",
+        "Kablo TV",
+        "Kamera Sistemi",
+        "Köpek Parkı",
+        "Kreş",
+        "Müstakil Havuzlu",
+        "Sauna",
+        "Ses Yalıtımı",
+        "Siding",
+        "Spor Alanı",
+        "Su Deposu",
+        "Tenis Kortu",
+        "Uydu",
+        "Yangın Merdiveni",
+        "Yüzme Havuzu (Açık)",
+        "Yüzme Havuzu (Kapalı)"
+      ],
+      "Muhit": [
+        "Alışveriş Merkezi",
+        "Belediye",
+        "Cami",
+        "Cemevi",
+        "Denize Sıfır",
+        "Eczane",
+        "Eğlence Merkezi",
+        "Fuar",
+        "Göle Sıfır",
+        "Hastane",
+        "Havra",
+        "İlkokul-Ortaokul",
+        "İtfaiye",
+        "Kilise",
+        "Lise",
+        "Market",
+        "Park",
+        "Plaj",
+        "Polis Merkezi",
+        "Sağlık Ocağı",
+        "Semt Pazarı",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "Ulaşım": [
+        "Anayol",
+        "Avrasya Tüneli",
+        "Boğaz Köprüleri",
+        "Cadde",
+        "Deniz Otobüsü",
+        "Dolmuş",
+        "E-5",
+        "Havaalanı",
+        "İskele",
+        "Marmaray",
+        "Metro",
+        "Metrobüs",
+        "Minibüs",
+        "Otobüs Durağı",
+        "Sahil",
+        "TEM",
+        "Tramvay",
+        "Tren İstasyonu"
+      ],
+      "Manzara": [
+        "Boğaz",
+        "Deniz",
+        "Doğa",
+        "Göl",
+        "Havuz",
+        "Nehir",
+        "Park & Yeşil Alan",
+        "Şehir"
+      ],
+      "Konut Tipi": [
+        "Ara Kat Dubleks",
+        "Dubleks",
+        "En Üst Kat",
+        "Bahçe Dubleksi",
+        "Çatı Dubleksi",
+        "Forleks",
+        "Ters Dubleks",
+        "Tripleks"
+      ],
+      "Engelliye ve Yaşlıya Uygun": [
+        "Araç Park Yeri",
+        "Engelliye Uygun Asansör",
+        "Engelliye Uygun Banyo",
+        "Engelliye Uygun Mutfak",
+        "Engelliye Uygun Park",
+        "Geniş Koridor",
+        "Giriş / Rampa",
+        "Merdiven",
+        "Oda Kapısı",
+        "Priz / Elektrik Anahtarı",
+        "Tutamak / Korkuluk",
+        "Tuvalet",
+        "Yüzme Havuzu"
+      ]
+    },
+    "certification": {
+      "notes": [
+        "Bu gayrimenkul için Ticaret Bakanlığı EİDS sisteminde ilan verme iznine sahiptir."
+      ]
+    },
+    "other_sections": null
+  },
+  "location_tab": {
+    "map_details": {
+      "latitude": 39.97879347744141,
+      "longitude": 32.610685864794924,
+      "city_code": "6",
+      "town_code": "60",
+      "town_name": "Etimesgut",
+      "quarter_name": "Devlet Mh.",
+      "category_path": "Emlak/Konut/Kiralık/Daire",
+      "location_corrupt": false,
+      "directions_url": "https://www.google.com/maps/dir/Current+Location/39.97879347744141,32.610685864794924",
+      "street_view_url": "http://maps.google.com/maps?q=&layer=c&cbll=39.97879347744141,32.610685864794924&cbp=11,0,0,0,0",
+      "price_heatmap_note": "Haritadaki bölge bazlı m² fiyatları, bir aylık referans döneme ait ilan verileri üzerinden, ODTÜ Uygulamalı Matematik Enstitüsü ile iş birliği içinde geliştirilen istatistiksel modeller kullanılarak hesaplanmıştır. Hesaplamalarda brüt metrekare esas alınmıştır. Bilgilendirme amaçlı sunulan veriler, gerçek piyasa, satış veya kira değerini ifade ya da garanti etmez, piyasa koşullarına, taşınmazın özelliklerine ve konumuna göre değişebilir. Bu verilere dayanılarak alınan kararlar veya gerçekleştirilen işlemler nedeniyle doğabilecek zararlardan sahibinden.com sorumlu değildir.",
+      "text": null
+    },
+    "region_info": null,
+    "demographics": null
+  },
+  "photos": [
+    {
+      "index": 1,
+      "large": "photos/x5_1344872042pjl.jpg",
+      "thumbnail": "photos/thumbs/thmb_1344872042pjl.jpg",
+      "remote_url": null
+    },
+    {
+      "index": 2,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042c2w.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042c2w.jpg"
+    },
+    {
+      "index": 3,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13448720420fg.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_13448720420fg.jpg"
+    },
+    {
+      "index": 4,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042535.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042535.jpg"
+    },
+    {
+      "index": 5,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042xx4.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042xx4.jpg"
+    },
+    {
+      "index": 6,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042ggk.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042ggk.jpg"
+    },
+    {
+      "index": 7,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042fgl.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042fgl.jpg"
+    },
+    {
+      "index": 8,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042yad.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042yad.jpg"
+    },
+    {
+      "index": 9,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1344872042lea.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/87/20/42/x5_1344872042lea.jpg"
+    }
+  ],
+  "photo_count": 9,
+  "flags": {
+    "has_pool": null,
+    "has_indoor_pool": null,
+    "has_gym": null,
+    "has_sauna": null,
+    "has_security": null,
+    "has_camera": null,
+    "has_concierge": null,
+    "has_generator": null,
+    "has_playground": null,
+    "has_ev_charger": null,
+    "has_tennis": null,
+    "has_insulation": null,
+    "has_closed_balcony": null,
+    "has_ensuite": null,
+    "has_white_goods": null,
+    "has_dishwasher": null,
+    "has_washing_machine": null,
+    "has_built_in_kitchen": null,
+    "has_ac": null,
+    "has_built_in_wardrobe": null,
+    "has_dressing_room": null,
+    "has_fiber": null,
+    "has_smart_home": null,
+    "has_double_glazing": null,
+    "has_steel_door": null,
+    "has_video_intercom": null,
+    "has_squat_toilet": null,
+    "has_sound_insulation": null,
+    "has_water_tank": null,
+    "near_school": null,
+    "south_facing": null,
+    "metro_nearby": null,
+    "train_nearby": null,
+    "bus_stop_nearby": null,
+    "near_market": null,
+    "near_mall": null,
+    "near_bazaar": null,
+    "near_gym": null,
+    "near_park": null,
+    "near_hospital": null,
+    "view_city": null,
+    "view_nature": null,
+    "is_owner": true,
+    "separate_kitchen": false,
+    "has_parking": true,
+    "has_closed_parking": false,
+    "tenant_inside": false,
+    "is_ground_floor": false,
+    "is_top_floor": false,
+    "dues_known": true,
+    "monthly_cost": 42525,
+    "price_per_m2_net": 506,
+    "deposit_months": 1.0,
+    "move_in_cost": 80000,
+    "facing": [],
+    "features_all": [],
+    "checklist_quality": "empty"
+  },
+  "auto_review": {
+    "checklist": {
+      "Cephe": "empty",
+      "İç Özellikler": "empty",
+      "Dış Özellikler": "empty",
+      "Muhit": "empty",
+      "Ulaşım": "empty",
+      "Manzara": "empty",
+      "Konut Tipi": "empty",
+      "Engelliye ve Yaşlıya Uygun": "empty"
+    },
+    "pros": [],
+    "cons": [
+      "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+      "Muhit listesi doldurulmamış (bilinmiyor)",
+      "Ulaşım listesi doldurulmamış (bilinmiyor)"
+    ],
+    "unticked": {}
+  }
+}

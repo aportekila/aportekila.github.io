@@ -1,0 +1,768 @@
+{
+  "schema_version": 1,
+  "id": "1340887952",
+  "title": "GİMSA PARK AVM' YANI BAHÇENE KOMŞU SERVİS GÜZERGAHINDA 2+1",
+  "source_url": "https://www.sahibinden.com/ilan/emlak-konut-kiralik-gimsa-park-avm-yani-bahcene-komsu-servis-guzergahinda-2-plus1-1340887952/detay",
+  "source_file": null,
+  "extracted_at": "2026-10-11T21:56:42+00:00",
+  "price": {
+    "value": 34000,
+    "currency": "TRY",
+    "raw": "34.000 TL"
+  },
+  "location": {
+    "city": "Ankara",
+    "district": "Etimesgut",
+    "neighborhood": "Şeker Mh.",
+    "parts": [
+      "Ankara",
+      "Etimesgut",
+      "Şeker Mh."
+    ],
+    "raw": "Ankara / Etimesgut / Şeker Mh.",
+    "latitude": 39.968178563134764,
+    "longitude": 32.65396040498047
+  },
+  "distance_to_work": {
+    "to": "ODTÜ Teknokent",
+    "to_latitude": 39.8966714,
+    "to_longitude": 32.7736614,
+    "straight_line_km": 12.94,
+    "method": "haversine (as the crow flies; road distance is longer)"
+  },
+  "commute": {
+    "to": "ODTÜ Teknokent",
+    "to_latitude": 39.8966714,
+    "to_longitude": 32.7736614,
+    "source": "Google Maps Routes API",
+    "ring": {
+      "stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)",
+      "latitude": 39.9073794,
+      "longitude": 32.7650499,
+      "minutes": 15,
+      "applies_to": "transit (EGO to the ring stop, then campus ring)"
+    },
+    "morning": {
+      "description": "home -> work, arrive by 08:50",
+      "drive": {
+        "route_found": true,
+        "distance_km": 19.91,
+        "duration_min": 33,
+        "duration_without_traffic_min": 24,
+        "leave_at": "08:15",
+        "arrive_at": "08:48",
+        "fetched_at": "2026-10-11T21:09:40+00:00"
+      },
+      "transit": {
+        "route_found": true,
+        "distance_km": 20.89,
+        "duration_min": 54,
+        "duration_without_traffic_min": null,
+        "leave_at": "07:44",
+        "arrive_at": "08:37",
+        "fetched_at": "2026-10-11T21:43:41+00:00",
+        "to_ring_stop_min": 39,
+        "ring_min": 15
+      },
+      "transit_route": {
+        "route_found": true,
+        "computed_for": "2026-10-12",
+        "fetched_at": "2026-10-11T21:44:02+00:00",
+        "duration_min": 54,
+        "distance_km": 20.89,
+        "transfers": 1,
+        "walk_min": 6,
+        "lines": "545 → 611-1 → Ring",
+        "vehicles": [
+          "Otobüs"
+        ],
+        "uses_rail": false,
+        "first_stop": "1406. Sokak",
+        "leave_at": "07:44",
+        "arrive_at": "08:37",
+        "segments": [
+          {
+            "mode": "walk",
+            "minutes": 3,
+            "distance_m": 228
+          },
+          {
+            "mode": "ride",
+            "vehicle": "BUS",
+            "vehicle_tr": "Otobüs",
+            "line": "545",
+            "line_name": "Eryaman - Ümitköy Metro İstasyonu",
+            "headsign": "Eryaman Hareket Noktası",
+            "from_stop": "1406. Sokak",
+            "to_stop": "Ümitköy Metro İstasyonu",
+            "departure_time": "07:47",
+            "arrival_time": "08:08",
+            "stop_count": 22,
+            "minutes": 20,
+            "distance_m": 15857
+          },
+          {
+            "mode": "ride",
+            "vehicle": "BUS",
+            "vehicle_tr": "Otobüs",
+            "line": "611-1",
+            "line_name": "Sincan Saraycık Toki - Bilkent Metro İstasyonu",
+            "headsign": "Eltuğrul Gazi Borsa İstanbul Mesleki Ve Teknik Anadolu Lisesi",
+            "from_stop": "Ümitköy Metro İstasyonu",
+            "to_stop": "Diyanet İşleri Başkanlığı",
+            "departure_time": "08:13",
+            "arrival_time": "08:19",
+            "stop_count": 8,
+            "minutes": 7,
+            "distance_m": 4569
+          },
+          {
+            "mode": "walk",
+            "minutes": 4,
+            "distance_m": 236
+          },
+          {
+            "mode": "ring",
+            "minutes": 15,
+            "from_stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)",
+            "to_stop": "ODTÜ Teknokent"
+          }
+        ],
+        "to_ring_stop_min": 39,
+        "ring_min": 15
+      }
+    },
+    "evening": {
+      "description": "work -> home, leave work at 18:00",
+      "drive": {
+        "route_found": true,
+        "distance_km": 18.47,
+        "duration_min": 36,
+        "duration_without_traffic_min": 21,
+        "leave_at": "18:00",
+        "arrive_at": "18:36",
+        "fetched_at": "2026-10-11T21:10:17+00:00"
+      },
+      "transit": {
+        "route_found": true,
+        "distance_km": 18.78,
+        "duration_min": 53,
+        "duration_without_traffic_min": null,
+        "leave_at": "18:00",
+        "arrive_at": "19:16",
+        "fetched_at": "2026-10-11T21:43:42+00:00",
+        "to_ring_stop_min": 38,
+        "ring_min": 15,
+        "wait_min": 23
+      },
+      "transit_route": {
+        "route_found": true,
+        "computed_for": "2026-10-12",
+        "fetched_at": "2026-10-11T21:44:02+00:00",
+        "duration_min": 53,
+        "distance_km": 18.78,
+        "transfers": 0,
+        "walk_min": 13,
+        "lines": "Ring → 641-1",
+        "vehicles": [
+          "Otobüs"
+        ],
+        "uses_rail": false,
+        "first_stop": "Diyanet İşleri Başkanlığı",
+        "leave_at": "18:00",
+        "arrive_at": "19:16",
+        "segments": [
+          {
+            "mode": "ring",
+            "minutes": 15,
+            "from_stop": "ODTÜ Teknokent",
+            "to_stop": "ODTÜ A2 Metro Kapısı (Bilkent metro)"
+          },
+          {
+            "mode": "walk",
+            "minutes": 3,
+            "distance_m": 236
+          },
+          {
+            "mode": "ride",
+            "vehicle": "BUS",
+            "vehicle_tr": "Otobüs",
+            "line": "641-1",
+            "line_name": "Eryaman - Bilkent Metro İstasyonu",
+            "headsign": "30 Ağustos Caddesi",
+            "from_stop": "Diyanet İşleri Başkanlığı",
+            "to_stop": "Olimpiyat Merkezi",
+            "departure_time": "18:42",
+            "arrival_time": "19:07",
+            "stop_count": 22,
+            "minutes": 25,
+            "distance_m": 17875
+          },
+          {
+            "mode": "walk",
+            "minutes": 10,
+            "distance_m": 667
+          }
+        ],
+        "to_ring_stop_min": 38,
+        "ring_min": 15,
+        "leave_ring_stop_at": "18:38",
+        "wait_min": 23
+      }
+    },
+    "daily_total_min": {
+      "drive": 69,
+      "transit": 107
+    }
+  },
+  "details": {
+    "İlan No": "1340887952",
+    "İlan Tarihi": "03 Ekim 2026",
+    "Emlak Tipi": "Kiralık Daire",
+    "m² (Brüt)": "105",
+    "m² (Net)": "95",
+    "Oda Sayısı": "2+1",
+    "Bina Yaşı": "11-15 arası",
+    "Kat Sayısı": "12",
+    "Bulunduğu Kat": "5",
+    "Isıtma": "Yerden Isıtma",
+    "Banyo Sayısı": "1",
+    "Mutfak": "Açık (Amerikan)",
+    "Balkon": "Var",
+    "Asansör": "Var",
+    "Otopark": "Açık Otopark",
+    "Eşyalı": "Hayır",
+    "Kullanım Durumu": "Boş",
+    "Site İçerisinde": "Evet",
+    "Site Adı": "Akdal Residence",
+    "Aidat (TL)": "Belirtilmemiş",
+    "Depozito (TL)": "Belirtilmemiş",
+    "Enerji Kimlik Belgesi": "Belirtilmemiş",
+    "Tapu Durumu": "Kat Mülkiyetli",
+    "Kimden": "Emlak Ofisinden"
+  },
+  "details_normalized": {
+    "listing_date": "2026-10-03",
+    "property_type": "Kiralık Daire",
+    "area_gross_m2": 105,
+    "area_net_m2": 95,
+    "rooms": 2,
+    "living_rooms": 1,
+    "building_age": "11-15 arası",
+    "building_age_min": 11,
+    "building_age_max": 15,
+    "floor_count": 12,
+    "floor": 5,
+    "heating": "Yerden Isıtma",
+    "bathrooms": 1,
+    "kitchen": "Açık (Amerikan)",
+    "balcony": true,
+    "elevator": true,
+    "parking": "Açık Otopark",
+    "furnished": false,
+    "usage_status": "Boş",
+    "in_complex": true,
+    "complex_name": "Akdal Residence",
+    "dues": null,
+    "deposit": null,
+    "energy_class": null,
+    "deed_status": "Kat Mülkiyetli",
+    "listed_by": "Emlak Ofisinden"
+  },
+  "contact": {
+    "seller_type": "corporate",
+    "name": null,
+    "office_name": "AYHAN AKDAL GAYRİMENKUL",
+    "office_url": "https://ayhanakdalgayrimenkul.sahibinden.com/",
+    "license_no": "0605096",
+    "member_since": "Ekim 2022",
+    "phones": null,
+    "all_ads_url": "https://ayhanakdalgayrimenkul.sahibinden.com/?userId=akYIrFeYgtNzG9rA5YI08JQ",
+    "message_url": "https://www.sahibinden.com/ilan-sahibine-soru-sor/1340887952"
+  },
+  "classified_detail": {
+    "description": "AKDAL EMLAK OFİSİNDEN\n\nGİMSA PARK AVM YANI\n\nBAHÇEN ERYAMANA KOMŞU\n\nOLİMPİYAT SPOR MERKEZİNE\n\nÖZEL ERYAMAN HASTANESİNE\n\nARAÇ MUAYENE İSTASYONUNA\n\nEĞİTİM KURUMLARINA\n\nALIŞVERİŞ MERKEZLERİNE YÜRÜME MESAFESİNDE\n\nAİLE APARTMANINDA\n\nTEK BLOK PARK SORUNU OLMAYAN\n\nDÜŞÜK AİDATLI\n\nGENİŞ CAM BALKONLU\n\n2+1 DAİRE\n\nKİRALIK SATILIK GAYRİMENKULLERİNİZ İÇİN\n\nBİZİMLE İLETİŞİME GEÇİNİZ\n\n[telefon gizlendi]\n\nFİRMAMIZIN TAŞINMAZ TİCARET YETKİ BELGELİDİR. 0603993-001 YETKİ NUMARASINA SAHİPTİR",
+    "features": {
+      "Cephe": [
+        "Doğu",
+        "Kuzey"
+      ],
+      "İç Özellikler": [],
+      "Dış Özellikler": [],
+      "Muhit": [],
+      "Ulaşım": [],
+      "Manzara": [],
+      "Konut Tipi": [],
+      "Engelliye ve Yaşlıya Uygun": []
+    },
+    "feature_options": {
+      "Cephe": [
+        "Batı",
+        "Doğu",
+        "Güney",
+        "Kuzey"
+      ],
+      "İç Özellikler": [
+        "ADSL",
+        "Ahşap Doğrama",
+        "Akıllı Ev",
+        "Alarm (Hırsız)",
+        "Alarm (Yangın)",
+        "Alaturka Tuvalet",
+        "Alüminyum Doğrama",
+        "Amerikan Kapı",
+        "Ankastre Fırın",
+        "Barbekü",
+        "Beyaz Eşya",
+        "Boyalı",
+        "Bulaşık Makinesi",
+        "Buzdolabı",
+        "Çamaşır Kurutma Makinesi",
+        "Çamaşır Makinesi",
+        "Çamaşır Odası",
+        "Çelik Kapı",
+        "Duşakabin",
+        "Duvar Kağıdı",
+        "Ebeveyn Banyosu",
+        "Fırın",
+        "Fiber İnternet",
+        "Giyinme Odası",
+        "Gömme Dolap",
+        "Görüntülü Diyafon",
+        "Hilton Banyo",
+        "Intercom Sistemi",
+        "Isıcam",
+        "Jakuzi",
+        "Kapalı / Cam Balkon",
+        "Kartonpiyer",
+        "Kiler",
+        "Klima",
+        "Küvet",
+        "Laminat Zemin",
+        "Marley",
+        "Mobilya",
+        "Mutfak (Ankastre)",
+        "Mutfak (Laminat)",
+        "Mutfak Doğalgazı",
+        "Panjur/Jaluzi",
+        "Parke Zemin",
+        "PVC Doğrama",
+        "Seramik Zemin",
+        "Set Üstü Ocak",
+        "Spot Aydınlatma",
+        "Şofben",
+        "Şömine",
+        "Teras",
+        "Termosifon",
+        "Vestiyer",
+        "Yüz Tanıma & Parmak İzi"
+      ],
+      "Dış Özellikler": [
+        "Araç Şarj İstasyonu",
+        "Güneş Paneli",
+        "24 Saat Güvenlik",
+        "Apartman Görevlisi",
+        "Buhar Odası",
+        "Çocuk Oyun Parkı",
+        "Hamam",
+        "Hidrofor",
+        "Isı Yalıtımı",
+        "Jeneratör",
+        "Kablo TV",
+        "Kamera Sistemi",
+        "Köpek Parkı",
+        "Kreş",
+        "Müstakil Havuzlu",
+        "Sauna",
+        "Ses Yalıtımı",
+        "Siding",
+        "Spor Alanı",
+        "Su Deposu",
+        "Tenis Kortu",
+        "Uydu",
+        "Yangın Merdiveni",
+        "Yüzme Havuzu (Açık)",
+        "Yüzme Havuzu (Kapalı)"
+      ],
+      "Muhit": [
+        "Alışveriş Merkezi",
+        "Belediye",
+        "Cami",
+        "Cemevi",
+        "Denize Sıfır",
+        "Eczane",
+        "Eğlence Merkezi",
+        "Fuar",
+        "Göle Sıfır",
+        "Hastane",
+        "Havra",
+        "İlkokul-Ortaokul",
+        "İtfaiye",
+        "Kilise",
+        "Lise",
+        "Market",
+        "Park",
+        "Plaj",
+        "Polis Merkezi",
+        "Sağlık Ocağı",
+        "Semt Pazarı",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "Ulaşım": [
+        "Anayol",
+        "Avrasya Tüneli",
+        "Boğaz Köprüleri",
+        "Cadde",
+        "Deniz Otobüsü",
+        "Dolmuş",
+        "E-5",
+        "Havaalanı",
+        "İskele",
+        "Marmaray",
+        "Metro",
+        "Metrobüs",
+        "Minibüs",
+        "Otobüs Durağı",
+        "Sahil",
+        "TEM",
+        "Tramvay",
+        "Tren İstasyonu"
+      ],
+      "Manzara": [
+        "Boğaz",
+        "Deniz",
+        "Doğa",
+        "Göl",
+        "Havuz",
+        "Nehir",
+        "Park & Yeşil Alan",
+        "Şehir"
+      ],
+      "Konut Tipi": [
+        "Ara Kat Dubleks",
+        "Dubleks",
+        "En Üst Kat",
+        "Bahçe Dubleksi",
+        "Çatı Dubleksi",
+        "Forleks",
+        "Ters Dubleks",
+        "Tripleks"
+      ],
+      "Engelliye ve Yaşlıya Uygun": [
+        "Araç Park Yeri",
+        "Engelliye Uygun Asansör",
+        "Engelliye Uygun Banyo",
+        "Engelliye Uygun Mutfak",
+        "Engelliye Uygun Park",
+        "Geniş Koridor",
+        "Giriş / Rampa",
+        "Merdiven",
+        "Oda Kapısı",
+        "Priz / Elektrik Anahtarı",
+        "Tutamak / Korkuluk",
+        "Tuvalet",
+        "Yüzme Havuzu"
+      ]
+    },
+    "certification": {
+      "AYHAN AKDAL GAYRİMENKUL - Yetki Belge No": "0605096",
+      "notes": [
+        "Bu gayrimenkul için Ticaret Bakanlığı EİDS sisteminde ilan verme iznine sahiptir."
+      ]
+    },
+    "other_sections": null
+  },
+  "location_tab": {
+    "map_details": {
+      "latitude": 39.968178563134764,
+      "longitude": 32.65396040498047,
+      "city_code": "6",
+      "town_code": "60",
+      "town_name": "Etimesgut",
+      "quarter_name": "Şeker Mh.",
+      "category_path": "Emlak/Konut/Kiralık/Daire",
+      "location_corrupt": false,
+      "directions_url": "https://www.google.com/maps/dir/Current+Location/39.968178563134764,32.65396040498047",
+      "street_view_url": "http://maps.google.com/maps?q=&layer=c&cbll=39.968178563134764,32.65396040498047&cbp=11,0,0,0,0",
+      "price_heatmap_note": "Haritadaki bölge bazlı m² fiyatları, bir aylık referans döneme ait ilan verileri üzerinden, ODTÜ Uygulamalı Matematik Enstitüsü ile iş birliği içinde geliştirilen istatistiksel modeller kullanılarak hesaplanmıştır. Hesaplamalarda brüt metrekare esas alınmıştır. Bilgilendirme amaçlı sunulan veriler, gerçek piyasa, satış veya kira değerini ifade ya da garanti etmez, piyasa koşullarına, taşınmazın özelliklerine ve konumuna göre değişebilir. Bu verilere dayanılarak alınan kararlar veya gerçekleştirilen işlemler nedeniyle doğabilecek zararlardan sahibinden.com sorumlu değildir.",
+      "text": null
+    },
+    "region_info": null,
+    "demographics": null
+  },
+  "photos": [
+    {
+      "index": 1,
+      "large": "photos/x5_13408879527kv.jpg",
+      "thumbnail": "photos/thumbs/thmb_13408879527kv.jpg",
+      "remote_url": null
+    },
+    {
+      "index": 2,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952hsv.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952hsv.jpg"
+    },
+    {
+      "index": 3,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952gb0.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952gb0.jpg"
+    },
+    {
+      "index": 4,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879527z7.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879527z7.jpg"
+    },
+    {
+      "index": 5,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879528o3.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879528o3.jpg"
+    },
+    {
+      "index": 6,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952og8.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952og8.jpg"
+    },
+    {
+      "index": 7,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952iuy.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952iuy.jpg"
+    },
+    {
+      "index": 8,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952cd1.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952cd1.jpg"
+    },
+    {
+      "index": 9,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952xm9.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952xm9.jpg"
+    },
+    {
+      "index": 10,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952s6h.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952s6h.jpg"
+    },
+    {
+      "index": 11,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952yw8.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952yw8.jpg"
+    },
+    {
+      "index": 12,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952hb8.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952hb8.jpg"
+    },
+    {
+      "index": 13,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952unl.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952unl.jpg"
+    },
+    {
+      "index": 14,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952cgo.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952cgo.jpg"
+    },
+    {
+      "index": 15,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952uli.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952uli.jpg"
+    },
+    {
+      "index": 16,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879523pc.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879523pc.jpg"
+    },
+    {
+      "index": 17,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952nbd.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952nbd.jpg"
+    },
+    {
+      "index": 18,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952pi5.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952pi5.jpg"
+    },
+    {
+      "index": 19,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879526h1.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879526h1.jpg"
+    },
+    {
+      "index": 20,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_134088795293x.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_134088795293x.jpg"
+    },
+    {
+      "index": 21,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879522og.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879522og.jpg"
+    },
+    {
+      "index": 22,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952emy.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952emy.jpg"
+    },
+    {
+      "index": 23,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952k6v.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952k6v.jpg"
+    },
+    {
+      "index": 24,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952doz.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952doz.jpg"
+    },
+    {
+      "index": 25,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879522ki.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879522ki.jpg"
+    },
+    {
+      "index": 26,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952vvr.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952vvr.jpg"
+    },
+    {
+      "index": 27,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879528ea.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879528ea.jpg"
+    },
+    {
+      "index": 28,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879529ga.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879529ga.jpg"
+    },
+    {
+      "index": 29,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_1340887952a0b.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_1340887952a0b.jpg"
+    },
+    {
+      "index": 30,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_13408879520ps.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_13408879520ps.jpg"
+    },
+    {
+      "index": 31,
+      "large": null,
+      "thumbnail": "photos/thumbs/thmb_134088795257g.jpg",
+      "remote_url": "https://i0.shbdn.com/photos/88/79/52/x5_134088795257g.jpg"
+    }
+  ],
+  "photo_count": 31,
+  "flags": {
+    "has_pool": null,
+    "has_indoor_pool": null,
+    "has_gym": null,
+    "has_sauna": null,
+    "has_security": null,
+    "has_camera": null,
+    "has_concierge": null,
+    "has_generator": null,
+    "has_playground": null,
+    "has_ev_charger": null,
+    "has_tennis": null,
+    "has_insulation": null,
+    "has_closed_balcony": null,
+    "has_ensuite": null,
+    "has_white_goods": null,
+    "has_dishwasher": null,
+    "has_washing_machine": null,
+    "has_built_in_kitchen": null,
+    "has_ac": null,
+    "has_built_in_wardrobe": null,
+    "has_dressing_room": null,
+    "has_fiber": null,
+    "has_smart_home": null,
+    "has_double_glazing": null,
+    "has_steel_door": null,
+    "has_video_intercom": null,
+    "has_squat_toilet": null,
+    "has_sound_insulation": null,
+    "has_water_tank": null,
+    "near_school": null,
+    "south_facing": false,
+    "metro_nearby": null,
+    "train_nearby": null,
+    "bus_stop_nearby": null,
+    "near_market": null,
+    "near_mall": null,
+    "near_bazaar": null,
+    "near_gym": null,
+    "near_park": null,
+    "near_hospital": null,
+    "view_city": null,
+    "view_nature": null,
+    "is_owner": false,
+    "separate_kitchen": false,
+    "has_parking": true,
+    "has_closed_parking": false,
+    "tenant_inside": false,
+    "is_ground_floor": false,
+    "is_top_floor": false,
+    "dues_known": false,
+    "monthly_cost": 34000,
+    "price_per_m2_net": 358,
+    "deposit_months": null,
+    "move_in_cost": null,
+    "facing": [
+      "Doğu",
+      "Kuzey"
+    ],
+    "features_all": [
+      "Doğu",
+      "Kuzey"
+    ],
+    "checklist_quality": "empty"
+  },
+  "auto_review": {
+    "checklist": {
+      "Cephe": "filled",
+      "İç Özellikler": "empty",
+      "Dış Özellikler": "empty",
+      "Muhit": "empty",
+      "Ulaşım": "empty",
+      "Manzara": "empty",
+      "Konut Tipi": "empty",
+      "Engelliye ve Yaşlıya Uygun": "empty"
+    },
+    "pros": [],
+    "cons": [
+      "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+      "Muhit listesi doldurulmamış (bilinmiyor)",
+      "Ulaşım listesi doldurulmamış (bilinmiyor)"
+    ],
+    "unticked": {}
+  }
+}
