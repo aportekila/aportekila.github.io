@@ -28,6 +28,11 @@
   H.el = function (tag, attrs, ...children) {
     const node = document.createElement(tag);
     for (const [k, v] of Object.entries(attrs || {})) {
+      // aria-pressed / aria-current … need the literal strings "true" / "false"
+      if (k.startsWith("aria-") && typeof v === "boolean") {
+        node.setAttribute(k, String(v));
+        continue;
+      }
       if (v == null || v === false) continue;
       if (k === "class") node.className = v;
       else if (k === "text") node.textContent = v;
@@ -151,7 +156,13 @@
         H.pruneLocalNotes();
         H.enrich(index);
         H.updateFavBadge();
-        return index;
+        // index.json only says "floor 0" for entrance, garden and basement-entrance flats;
+        // read the exact label ("Giriş Altı Kot", "Bahçe Katı"…) of those few ads.
+        return Promise.all(
+          index.ads
+            .filter((a) => a.is_ground_floor || a.floor <= 0)
+            .map((a) => H.loadAd(a.id).then((d) => (a._floor_label = (d.details && d.details["Bulunduğu Kat"]) || null)).catch(() => null))
+        ).then(() => index);
       });
     }
     return indexPromise;
@@ -178,6 +189,7 @@
       cons: ad ? [...(ad.auto_cons || [])] : [],
       note: "",
       checklist: {},
+      extra: {},
     };
   };
   function normalize(id, n) {
@@ -191,6 +203,17 @@
     // Visit checklist: { itemKey: true } for ticked items only, sorted for stable comparison.
     const cl = out.checklist && typeof out.checklist === "object" ? out.checklist : {};
     out.checklist = Object.fromEntries(Object.keys(cl).filter((k) => cl[k] === true && /^[a-z_]+$/.test(k)).sort().map((k) => [k, true]));
+    // Facts the user learns on a visit, used by the scoring page.
+    const x = out.extra && typeof out.extra === "object" ? out.extra : {};
+    const int = (v, lo, hi) => (Number.isFinite(Number(v)) && v !== "" && v !== null && Number(v) >= lo && Number(v) <= hi ? Math.round(Number(v)) : undefined);
+    const extra = {
+      pets: x.pets === "yes" || x.pets === "no" ? x.pets : undefined,
+      furnishing: ["none", "partial", "furnished", "good", "new"].includes(x.furnishing) ? x.furnishing : undefined,
+      interior_age: int(x.interior_age, 0, 100),
+      env: int(x.env, 1, 5),
+      security: int(x.security, 1, 5),
+    };
+    out.extra = Object.fromEntries(Object.entries(extra).filter(([, v]) => v !== undefined).sort());
     return out;
   }
   /** Things to check / ask during a visit; keys are stored in notes.checklist. */
@@ -480,21 +503,6 @@
     if (!area) return null;
     const pct = Math.round(Math.abs(area.diff) * 100);
     return pct < 3 ? "bölge ortalamasında" : `bölgeye göre %${pct} ${area.diff < 0 ? "ucuz" : "pahalı"}`;
-  };
-
-  /** Fit score 0–100 from commute (current mode), monthly cost and net m², with weights. */
-  H.DEFAULT_WEIGHTS = { c: 5, m: 3, a: 2 };
-  H.score = function (ad, mode, w, FI) {
-    const norm = (f, v, lowerIsBetter) => {
-      const i = FI[f];
-      if (v == null || !i || i.max === i.min) return 0.5;
-      const t = (v - i.min) / (i.max - i.min);
-      return lowerIsBetter ? 1 - t : t;
-    };
-    const daily = H.MODES[mode].d2d; // door-to-door, waits included
-    const parts = [[w.c, norm(daily, ad[daily], true)], [w.m, norm("monthly_cost", ad.monthly_cost, true)], [w.a, norm("area_net_m2", ad.area_net_m2, false)]];
-    const total = parts.reduce((s, [wt]) => s + wt, 0);
-    return total ? Math.round((100 * parts.reduce((s, [wt, v]) => s + wt * v, 0)) / total) : 0;
   };
 
   // ---------- rail lines (assets/house-renting/rail.json, from OpenStreetMap) ----------

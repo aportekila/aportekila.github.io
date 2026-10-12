@@ -42,6 +42,7 @@
       }
     </script>
     <script src="{{ '/assets/house-renting/common.js' | relative_url }}?v={{ v }}"></script>
+    <script src="{{ '/assets/house-renting/score-engine.js' | relative_url }}?v={{ v }}"></script>
   </head>
   <body class="h-page-{{ page.house_page }}">
     <header class="h-top">
@@ -50,6 +51,7 @@
         <a href="{{ '/house-renting/' | relative_url }}" data-nav="list" {% if page.house_page == 'list' %}aria-current="page"{% endif %}>İlanlar</a>
         <a href="{{ '/house-renting/' | relative_url }}?fav=1" data-nav="fav">★ Favoriler <span class="h-badge" data-fav-count>0</span></a>
         <a href="{{ '/house-renting/compare/' | relative_url }}" {% if page.house_page == 'compare' %}aria-current="page"{% endif %}>Karşılaştır <span class="h-badge" data-compare-count>0</span></a>
+        <a href="{{ '/house-renting/score/' | relative_url }}" {% if page.house_page == 'score' %}aria-current="page"{% endif %}>🏆 Puanlama</a>
         <a href="{{ '/house-renting/triage/' | relative_url }}" {% if page.house_page == 'triage' %}aria-current="page"{% endif %}>⚡ Eleme</a>
         <a href="{{ '/house-renting/notes/' | relative_url }}" {% if page.house_page == 'notes' %}aria-current="page"{% endif %}>Notlarım</a>
       </nav>

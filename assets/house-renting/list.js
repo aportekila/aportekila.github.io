@@ -37,6 +37,7 @@
 
   let FI, ADS, CATALOG, TIME_RANGE = {};
   let costs = H.costSettings();
+  let scores = null; // active scoring profile results, refreshed on every apply()
   let state;
   const openSections = new Set(["_quick"]);
   const cardCache = new Map();
@@ -44,7 +45,7 @@
 
   // ---------- state ----------
   function emptyState() {
-    return { mode: H.getMode(), q: "", sort: DEFAULT_SORT, dir: null, view: "list", hideUnknown: false, fav: false, hideRejected: false, statuses: [], ranges: {}, bools: {}, multi: {}, feats: {}, w: { ...H.DEFAULT_WEIGHTS }, dedupe: false, shared: null };
+    return { mode: H.getMode(), q: "", sort: DEFAULT_SORT, dir: null, view: "list", hideUnknown: false, fav: false, hideRejected: false, statuses: [], ranges: {}, bools: {}, multi: {}, feats: {}, dedupe: false, shared: null };
   }
   const sortDef = (k) => SORTS.find((s) => s.key === k) || SORTS[0];
   const sortDir = () => state.dir || sortDef(state.sort).dir;
@@ -63,8 +64,6 @@
     s.statuses = p.getAll("st").filter((x) => x in H.STATUS);
     s.dedupe = p.get("dd") === "1";
     s.shared = p.get("sl") || null;
-    const w = (p.get("w") || "").split("_").map(Number);
-    if (w.length === 3 && w.every((x) => Number.isInteger(x) && x >= 0 && x <= 10)) s.w = { c: w[0], m: w[1], a: w[2] };
     for (const [k, v] of p) {
       if (k.startsWith("r_")) {
         const [lo, hi] = v.split("_").map(Number);
@@ -89,8 +88,6 @@
     state.statuses.forEach((x) => p.append("st", x));
     if (state.dedupe) p.set("dd", "1");
     if (state.shared) p.set("sl", state.shared);
-    const { c, m, a } = state.w, d = H.DEFAULT_WEIGHTS;
-    if (c !== d.c || m !== d.m || a !== d.a) p.set("w", `${c}_${m}_${a}`);
     for (const [k, [lo, hi]] of Object.entries(state.ranges)) p.set("r_" + k, lo + "_" + hi);
     for (const [k, v] of Object.entries(state.bools)) p.set("b_" + k, v > 0 ? "y" : "n");
     for (const [k, vs] of Object.entries(state.multi)) vs.forEach((v) => p.append("x_" + k, v));
@@ -110,7 +107,10 @@
   }
   function value(ad, key) {
     if (key === "_rating") return H.notes(ad.id).rating;
-    if (key === "_score") return H.score(ad, state.mode, state.w, FI);
+    if (key === "_score") {
+      const r = scores && scores.get(ad.id);
+      return r && !r.excluded.length ? r.total : null; // excluded by a rule: sorted last
+    }
     if (key === "_total") return H.totalCost(ad, state.mode, costs);
     const f = fieldOf(key);
     const v = ad[f];
@@ -450,34 +450,30 @@
       })
     );
 
-    // Fit score weights
-    const wChanged = ["c", "m", "a"].some((k) => state.w[k] !== H.DEFAULT_WEIGHTS[k]);
+    // Scoring profile (edited on the Puanlama page)
     panel.append(
-      section("_score", "Uygunluk puanı", wChanged ? 1 : 0, (b) => {
-        b.append(el("div", { class: "h-hint", text: "Her ilana 0–100 arası puan: yolculuk (seçili tip), aylık toplam ve net m², bu ağırlıklarla. “Uygunluk puanı” sıralamasında kullanılır." }));
-        const labels = { c: "Yolculuk", m: "Aylık maliyet", a: "Net m²" };
-        for (const k of ["c", "m", "a"]) {
-          const out = el("output", { text: state.w[k] });
-          const input = el("input", { type: "range", min: 0, max: 10, step: 1, value: state.w[k], "aria-label": labels[k] + " ağırlığı", class: "h-single" });
-          input.addEventListener("input", () => {
-            state.w = { ...state.w, [k]: Number(input.value) };
-            out.textContent = input.value;
-            scheduleApply();
-          });
-          b.append(el("div", { class: "h-range active" }, el("label", {}, el("span", { text: labels[k] }), out), input));
-        }
-        if (state.sort !== "_score")
-          b.append(
-            el("button", {
-              type: "button", class: "h-btn h-btn-small", text: "Puana göre sırala",
-              onclick: () => {
-                state.sort = "_score";
-                state.dir = null;
-                buildPanel();
-                apply(true);
-              },
-            })
-          );
+      section("_score", "Puanlama", 0, (b) => {
+        const st = H.scoring.load();
+        const sel = el("select", { class: "h-input", "aria-label": "Puanlama profili" });
+        for (const p of Object.values(st.profiles)) sel.append(el("option", { value: p.id, text: p.name, selected: p.id === st.active }));
+        sel.addEventListener("change", () => {
+          st.active = sel.value;
+          H.scoring.save(st);
+          cardCache.clear();
+          apply(false);
+        });
+        b.append(
+          el("div", { class: "h-hint", text: "“Uygunluk puanı” sıralaması bu profili kullanır: ağırlıklı kriterler + bonus / ceza / eleme kuralları." }),
+          el("label", { class: "h-sort" }, "Profil", sel),
+          el(
+            "div",
+            { class: "h-actions" },
+            el("a", { class: "h-btn h-btn-small", href: H.cfg.root + "score/", text: "🏆 Kuralları düzenle" }),
+            state.sort !== "_score"
+              ? el("button", { type: "button", class: "h-btn h-btn-small", text: "Puana göre sırala", onclick: () => { state.sort = "_score"; state.dir = null; buildPanel(); apply(true); } })
+              : null
+          )
+        );
       })
     );
 
@@ -812,6 +808,7 @@
     });
   }
   function apply(writeUrl) {
+    scores = H.scoring.activeResults();
     const evals = ADS.map((ad) => [ad, evaluate(ad)]);
     const results = evals.filter(([, e]) => !e.fails.length);
     const facet = makeFacet(evals);
@@ -841,7 +838,11 @@
       card._unk.textContent = "? " + r.unknown.join(", ");
       card._unk.title = "Bu ilanda bilinmiyor: " + r.unknown.join(", ");
       card._score.hidden = state.sort !== "_score";
-      if (state.sort === "_score") card._score.textContent = `Puan ${H.score(ad, state.mode, state.w, FI)}`;
+      if (state.sort === "_score") {
+        const sr = scores.get(ad.id);
+        card._score.textContent = sr && sr.excluded.length ? "Puanlamada elendi" : `🏆 ${H.num(Math.round(sr ? sr.total : 0))} · ${sr ? sr.rank : "?"}.`;
+        card._score.title = sr && sr.excluded.length ? sr.excluded.join("; ") : `Taban ${sr ? H.num(sr.base) : "?"} + bonus/ceza ${sr ? H.num(sr.bonus) : "?"} (profil: ${H.scoring.active().name})`;
+      }
       frag.append(card);
     }
     clear(container).append(frag);
@@ -984,6 +985,7 @@
       })
     );
     document.addEventListener("house:compare", updateCompareBar);
+    document.addEventListener("house:scoring", () => apply(false));
     document.addEventListener("house:notes", (e) => {
       if (e.detail && e.detail.id) cardCache.delete(e.detail.id);
       else cardCache.clear();

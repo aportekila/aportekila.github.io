@@ -89,7 +89,11 @@
     // Notes first: they are the user's own verdict.
     group("Notlarım");
     const notes = ads.map((a) => H.notes(a.id));
-    row("Puan", notes.map((n) => ({ key: n.rating, node: n.rating ? "★".repeat(n.rating) : "–", best: false })));
+    const sc = ads.map((a) => H.scoring.scoreOf(a.id));
+    const okTotals = sc.filter((r) => r && !r.excluded.length).map((r) => r.total);
+    const bestTotal = okTotals.length > 1 ? Math.max(...okTotals) : null;
+    row(`🏆 Puanlama (${H.scoring.active().name})`, sc.map((r) => ({ key: r && r.total, node: !r ? "–" : r.excluded.length ? "elendi" : `${H.num(Math.round(r.total))} · ${r.rank}.`, best: r && !r.excluded.length && r.total === bestTotal, num: true })), { always: true });
+    row("Puanım", notes.map((n) => ({ key: n.rating, node: n.rating ? "★".repeat(n.rating) : "–", best: false })));
     row("Artılar", notes.map((n) => ({ key: JSON.stringify(n.pros), node: n.pros.length ? H.tagList(n.pros, "pro", 3) : "–" })), { always: true });
     row("Eksiler", notes.map((n) => ({ key: JSON.stringify(n.cons), node: n.cons.length ? H.tagList(n.cons, "con", 3) : "–" })), { always: true });
     row("Not", notes.map((n) => ({ key: n.note, node: n.note ? el("div", { class: "h-desc h-small", text: n.note.length > 200 ? n.note.slice(0, 200) + "…" : n.note }) : "–" })));

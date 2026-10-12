@@ -72,6 +72,8 @@
     const photo = H.cardPhoto(ad);
     const t = H.MODES.transit, d = H.MODES.drive;
     const tags = el("div", { class: "h-tags" });
+    const sr = H.scoring.scoreOf(ad.id);
+    if (sr) tags.append(el("span", { class: "h-tag score", text: sr.excluded.length ? "🏆 elendi" : `🏆 ${H.num(Math.round(sr.total))} · ${sr.rank}.` }));
     if (ad.is_owner) tags.append(el("span", { class: "h-tag owner", text: "Sahibinden" }));
     if (ad._dup) tags.append(el("span", { class: "h-tag dup", text: `≈ aynı daire, ${ad._dup.length} ilan` + (ad._dup[0] === ad.id ? " · en ucuzu" : "") }));
     if (ad._area && Math.abs(ad._area.diff) >= 0.08) tags.append(el("span", { class: "h-tag " + (ad._area.diff < 0 ? "pro" : "con"), text: H.areaText(ad._area) }));

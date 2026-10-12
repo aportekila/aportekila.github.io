@@ -19,9 +19,9 @@ const DB = "{{ '/assets/database/' | relative_url }}";
 const V = "?v=" + VERSION;
 
 const PRECACHE = [
-  ROOT, ROOT + "ad/", ROOT + "compare/", ROOT + "notes/", ROOT + "triage/",
+  ROOT, ROOT + "ad/", ROOT + "compare/", ROOT + "notes/", ROOT + "triage/", ROOT + "score/",
   ASSETS + "house.css" + V, ASSETS + "common.js" + V,
-  ASSETS + "list.js" + V, ASSETS + "detail.js" + V, ASSETS + "compare.js" + V, ASSETS + "notes.js" + V, ASSETS + "triage.js" + V,
+  ASSETS + "list.js" + V, ASSETS + "detail.js" + V, ASSETS + "compare.js" + V, ASSETS + "notes.js" + V, ASSETS + "triage.js" + V, ASSETS + "score.js" + V, ASSETS + "score-engine.js" + V,
   ASSETS + "photos.json" + V, ASSETS + "rail.json" + V,
   DB + "index.json", "{{ '/assets/notes.json' | relative_url }}",
 ];

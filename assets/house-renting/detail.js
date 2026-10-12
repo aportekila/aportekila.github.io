@@ -69,7 +69,7 @@
           { style: "min-width:0;flex:1 1 420px" },
           el("h1", { text: ad.title }),
           el("div", { class: "h-muted" }, [loc.district, loc.neighborhood, row && row.complex_name].filter(Boolean).join(" · "), " · İlan no ", ad.id, row ? " · " + H.date(row.listing_date) : ""),
-          el("div", { class: "h-tags", style: "margin-top:6px" }, statusSlot, row && row.is_owner ? el("span", { class: "h-tag pro", text: "Sahibinden (emlakçısız)" }) : null, row && H.CHECKLIST_WARN[row.checklist_quality] ? el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[row.checklist_quality] }) : null, row && row.tenant_inside ? el("span", { class: "h-tag warn", text: "Şu an kiracılı" }) : null, H.friendsFor(id).map((n) => el("span", { class: "h-tag friend", text: `★ ${n}` })))
+          el("div", { class: "h-tags", style: "margin-top:6px" }, statusSlot, row && row.is_owner ? el("span", { class: "h-tag pro", text: "Sahibinden (emlakçısız)" }) : null, row && H.CHECKLIST_WARN[row.checklist_quality] ? el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[row.checklist_quality] }) : null, row && row.tenant_inside ? el("span", { class: "h-tag warn", text: "Şu an kiracılı" }) : null, H.friendsFor(id).map((n) => el("span", { class: "h-tag friend", text: `★ ${n}` })), scoreTag())
         ),
         el(
           "div",
@@ -126,6 +126,13 @@
     right.append(mapPanel(ad));
     right.append(detailsPanel(ad));
     right.append(sellerPanel(ad));
+  }
+
+  function scoreTag() {
+    const r = H.scoring.scoreOf(id);
+    if (!r) return null;
+    const text = r.excluded.length ? "🏆 puanlamada elendi" : `🏆 ${H.num(Math.round(r.total))} puan · ${r.rank}./${H.index.ads.length}`;
+    return el("a", { class: "h-tag score", href: H.cfg.root + "score/", title: `Profil: ${H.scoring.active().name}` + (r.excluded.length ? " — " + r.excluded.join("; ") : ""), text });
   }
 
   // ---------- photos ----------
@@ -220,7 +227,19 @@
         stat("Net m² başına", H.num(row.price_per_m2_net) + " ₺"),
         row._area ? stat(`${row._area.scope} ortancası`, H.num(Math.round(row._area.median)) + " ₺/m²", `${row._area.n} ilanın net m² kirası ortancası`) : null
       ),
+      effCostBox(row),
       row._area ? el("div", { class: "h-note" }, "Bu ilan ", el("b", { text: H.areaText(row._area) }), ` (m² kirası ${H.num(row.price_per_m2_net)} ₺, ${row._area.scope} ortancası ${H.num(Math.round(row._area.median))} ₺, ${row._area.n} ilan). Pazarlıkta işine yarayabilir.`) : null
+    );
+  }
+
+  function effCostBox(row) {
+    const p = H.scoring.active();
+    const e = H.scoring.effectiveCost(row, p);
+    return el(
+      "details",
+      { class: "h-checklist", style: "margin:0 0 10px" },
+      el("summary", {}, el("strong", { text: `Efektif aylık maliyet: ${H.money(e.total)}` }), " ", el("span", { class: "h-muted h-small", text: `(puanlama profili: ${p.name})` })),
+      el("table", { class: "h-breakdown" }, e.lines.map(([l, v]) => el("tr", {}, el("td", { text: l }), el("td", { class: "num", text: H.money(Math.round(v)) }))))
     );
   }
 
@@ -438,7 +457,8 @@
       form.append(
         el("div", { class: "h-form-row" }, el("label", {}, "Durum ", status), el("label", { class: "h-check" }, favBox, "Favori ★")),
         el("div", { class: "h-form-row" }, el("span", { text: "Puan" }), stars),
-        el("div", { class: "h-form-row" }, el("label", {}, "Gezme tarihi ", visited))
+        el("div", { class: "h-form-row" }, el("label", {}, "Gezme tarihi ", visited)),
+        extraBox(n)
       );
       form.append(editList("Artılar", "pro", n.pros, row ? row.auto_pros : [], (list) => save({ pros: list })));
       form.append(editList("Eksiler", "con", n.cons, row ? row.auto_cons : [], (list) => save({ cons: list })));
@@ -477,6 +497,45 @@
     redrawNotes = draw;
     draw();
     return p;
+  }
+
+  /** Facts learned on a visit; the scoring page uses them (pets, furnishing, renovation…). */
+  function extraBox(n) {
+    const x = n.extra;
+    const setX = (k, v) => {
+      const e = { ...H.notes(id).extra };
+      if (v === "" || v == null) delete e[k];
+      else e[k] = v;
+      H.patchNotes(id, { extra: e });
+    };
+    const select = (k, label, opts) => {
+      const s = el("select", { class: "h-input", "aria-label": label });
+      for (const [v, t] of opts) s.append(el("option", { value: v, text: t, selected: (x[k] ?? "") === v }));
+      s.addEventListener("change", () => setX(k, s.value));
+      return el("label", {}, label + " ", s);
+    };
+    const num = (k, label, min, max, ph) => {
+      const i = el("input", { type: "number", class: "h-input h-num-input", min, max, step: 1, value: x[k] ?? "", placeholder: ph, "aria-label": label });
+      i.addEventListener("change", () => setX(k, i.value === "" ? null : Number(i.value)));
+      return el("label", {}, label + " ", i);
+    };
+    const stars = [["", "–"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"]];
+    const det = el("details", { class: "h-checklist", open: Object.keys(x).length ? true : null });
+    det.append(
+      el("summary", {}, el("strong", { text: "Puanlama bilgilerim" }), " ", el("span", { class: "h-muted h-small", text: "(gezince öğrendiklerin; puanlamada kullanılır)" })),
+      el("div", { class: "h-form-row", style: "margin-top:8px" },
+        select("pets", "Evcil hayvan", [["", "bilinmiyor"], ["yes", "kabul ediliyor"], ["no", "kabul edilmiyor"]]),
+        select("furnishing", "Eşya", [["", "ilandaki bilgiye göre"], ["none", "eşyasız"], ["partial", "kısmi / eski"], ["furnished", "eşyalı"], ["good", "eşyalı, iyi"], ["new", "eşyalı, sıfır / yeni"]])
+      ),
+      el("div", { class: "h-form-row" },
+        num("interior_age", "İç mekân yaşı (son tadilattan beri, yıl)", 0, 100, "bina yaşı"),
+      ),
+      el("div", { class: "h-form-row" },
+        el("label", {}, "Çevre ", (() => { const s = el("select", { class: "h-input", "aria-label": "Çevre puanı" }); for (const [v, t] of stars) s.append(el("option", { value: v, text: t, selected: String(x.env ?? "") === v })); s.addEventListener("change", () => setX("env", s.value === "" ? null : Number(s.value))); return s; })(), " /5"),
+        el("label", {}, "Güvenlik ", (() => { const s = el("select", { class: "h-input", "aria-label": "Güvenlik puanı" }); for (const [v, t] of stars) s.append(el("option", { value: v, text: t, selected: String(x.security ?? "") === v })); s.addEventListener("change", () => setX("security", s.value === "" ? null : Number(s.value))); return s; })(), " /5")
+      )
+    );
+    return det;
   }
 
   function checklistBox(n) {
