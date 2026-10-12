@@ -146,6 +146,7 @@
         H.notesFile = notesFile && typeof notesFile === "object" ? notesFile : { ads: {} };
         if (!H.notesFile.ads || typeof H.notesFile.ads !== "object") H.notesFile.ads = {};
         H.pruneLocalNotes();
+        H.updateFavBadge();
         return index;
       });
     }
@@ -258,6 +259,12 @@
     H.setCompare(ids);
     return true;
   };
+  H.favCount = () => (H.index ? H.index.ads.filter((a) => H.notes(a.id).favorite).length : 0);
+  H.updateFavBadge = function () {
+    const n = H.favCount();
+    document.querySelectorAll("[data-fav-count]").forEach((b) => (b.textContent = n));
+  };
+  document.addEventListener("house:notes", () => H.updateFavBadge());
   H.updateCompareBadge = function () {
     const n = H.getCompare().length;
     document.querySelectorAll("[data-compare-count]").forEach((b) => (b.textContent = n));

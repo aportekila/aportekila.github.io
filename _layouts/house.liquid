@@ -36,7 +36,8 @@
     <header class="h-top">
       <a class="h-brand" href="{{ '/house-renting/' | relative_url }}">🏠 Kiralık 2+1 · Ankara</a>
       <nav class="h-nav" aria-label="Bölümler">
-        <a href="{{ '/house-renting/' | relative_url }}" {% if page.house_page == 'list' %}aria-current="page"{% endif %}>İlanlar</a>
+        <a href="{{ '/house-renting/' | relative_url }}" data-nav="list" {% if page.house_page == 'list' %}aria-current="page"{% endif %}>İlanlar</a>
+        <a href="{{ '/house-renting/' | relative_url }}?fav=1" data-nav="fav">★ Favoriler <span class="h-badge" data-fav-count>0</span></a>
         <a href="{{ '/house-renting/compare/' | relative_url }}" {% if page.house_page == 'compare' %}aria-current="page"{% endif %}>Karşılaştır <span class="h-badge" data-compare-count>0</span></a>
         <a href="{{ '/house-renting/notes/' | relative_url }}" {% if page.house_page == 'notes' %}aria-current="page"{% endif %}>Notlarım</a>
       </nav>

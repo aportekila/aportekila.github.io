@@ -104,38 +104,79 @@
 
   // ---------- photos ----------
   function photosPanel(ad) {
-    const photos = ad.photos || [];
-    const first = photos.find((p) => p.large) || photos[0];
+    const photos = (ad.photos || []).filter((p) => p.thumbnail || p.large);
+    if (!photos.length) return panel(null, el("p", { class: "h-muted", text: "Fotoğraf yok." }));
+    let current = Math.max(0, photos.findIndex((p) => p.large));
+
     const hero = el("img", { class: "h-hero", alt: "İlan fotoğrafı", referrerpolicy: "no-referrer" });
+    const counter = el("span", { class: "h-gallery-count", "aria-live": "polite" });
     const note = el("div", { class: "h-hint", hidden: true, text: "Büyük fotoğraf yüklenemedi (ilan kalkmış olabilir); küçük önizleme gösteriliyor." });
     const strip = el("div", { class: "h-thumbs" });
-    const show = (p, btn) => {
+    const bigUrl = (p) => (p.large ? H.photoUrl(ad.id, p.large) : p.remote_url && /^https:\/\//.test(p.remote_url) ? p.remote_url : null);
+    const preload = (i) => {
+      const url = bigUrl(photos[(i + photos.length) % photos.length]);
+      if (url) Object.assign(new Image(), { referrerPolicy: "no-referrer", src: url });
+    };
+
+    const show = (i) => {
+      current = (i + photos.length) % photos.length;
+      const p = photos[current];
+      const url = bigUrl(p);
       note.hidden = true;
-      hero.style.objectFit = "contain";
+      hero.classList.remove("small");
       hero.onerror = null;
-      if (p.large) hero.src = H.photoUrl(ad.id, p.large);
-      else if (p.remote_url && /^https:\/\//.test(p.remote_url)) {
+      if (url && !p.large) {
         hero.onerror = () => {
           hero.onerror = null;
-          hero.style.objectFit = "none";
+          hero.classList.add("small");
           hero.src = H.photoUrl(ad.id, p.thumbnail);
           note.hidden = false;
         };
-        hero.src = p.remote_url;
-      } else {
-        hero.style.objectFit = "none";
+      }
+      if (url) hero.src = url;
+      else {
+        hero.classList.add("small");
         hero.src = H.photoUrl(ad.id, p.thumbnail);
       }
-      strip.querySelectorAll("button").forEach((b) => b.setAttribute("aria-current", b === btn));
+      hero.alt = `İlan fotoğrafı ${current + 1} / ${photos.length}`;
+      counter.textContent = `${current + 1} / ${photos.length}`;
+      strip.querySelectorAll("button").forEach((b, j) => {
+        b.setAttribute("aria-current", j === current);
+        if (j === current) b.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      });
+      preload(current + 1);
+      preload(current - 1);
     };
+
     photos.forEach((p, i) => {
-      if (!p.thumbnail && !p.large) return;
       const btn = el("button", { type: "button", "aria-label": `Fotoğraf ${i + 1}` }, el("img", { src: H.photoUrl(ad.id, p.thumbnail || p.large), alt: "", loading: "lazy", width: 100, height: 75 }));
-      btn.addEventListener("click", () => show(p, btn));
+      btn.addEventListener("click", () => show(i));
       strip.append(btn);
     });
-    if (first) show(first, strip.querySelector("button"));
-    return panel(null, hero, note, strip, el("div", { class: "h-hint", text: `${photos.length} fotoğraf · küçük resme tıkla` }));
+
+    const arrow = (dir, label, text) => el("button", { type: "button", class: "h-gallery-nav " + dir, "aria-label": label, title: label + " (← →)", text, onclick: () => show(current + (dir === "next" ? 1 : -1)) });
+    const stage = el("div", { class: "h-gallery" }, hero, photos.length > 1 ? [arrow("prev", "Önceki fotoğraf", "‹"), arrow("next", "Sonraki fotoğraf", "›")] : null, counter);
+
+    // Keyboard: arrow keys anywhere on the page, except while typing.
+    document.addEventListener("keydown", (e) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement && document.activeElement.tagName)) return;
+      if (e.key === "ArrowLeft") show(current - 1);
+      else if (e.key === "ArrowRight") show(current + 1);
+      else return;
+      e.preventDefault();
+    });
+    // Touch: swipe left / right on the photo.
+    let x0 = null;
+    stage.addEventListener("touchstart", (e) => (x0 = e.touches[0].clientX), { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (x0 == null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+    });
+
+    show(current);
+    return panel(null, stage, note, strip, el("div", { class: "h-hint", text: `${photos.length} fotoğraf · oklar, ← → tuşları veya kaydırarak gez` }));
   }
 
   // ---------- price ----------

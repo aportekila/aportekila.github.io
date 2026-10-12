@@ -640,7 +640,10 @@
       frag.append(card);
     }
     clear(container).append(frag);
-    if (!visible.length) container.append(el("p", { class: "h-empty", text: "Filtrelere uyan ilan yok." }));
+    if (!visible.length) {
+      const msg = state.fav && !H.favCount() ? "Henüz favori yok. Kartlardaki ☆ düğmesiyle ekleyebilirsin." : "Filtrelere uyan ilan yok.";
+      container.append(el("p", { class: "h-empty", text: msg }));
+    }
 
     document.getElementById("map").hidden = state.view !== "map";
     container.hidden = state.view === "map";
@@ -652,6 +655,12 @@
     document.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.mode === state.mode));
     document.querySelectorAll("[data-view]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.view === state.view));
     document.getElementById("sort").value = state.sort;
+    document.getElementById("fav-toggle").setAttribute("aria-pressed", state.fav);
+    // The header has separate "İlanlar" and "Favoriler" entries for this same page.
+    document.querySelectorAll("[data-nav=list], [data-nav=fav]").forEach((a) => {
+      if ((a.dataset.nav === "fav") === state.fav) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
     const dirBtn = document.getElementById("sort-dir");
     dirBtn.textContent = sortDir() === "asc" ? "↑ artan" : "↓ azalan";
     activeChips();
@@ -716,6 +725,20 @@
     document.getElementById("open-filters").addEventListener("click", () => filters.classList.add("open"));
     document.getElementById("close-filters").addEventListener("click", () => filters.classList.remove("open"));
     document.getElementById("compare-clear").addEventListener("click", () => H.setCompare([]));
+    const toggleFav = () => {
+      state.fav = !state.fav;
+      buildPanel();
+      apply(true);
+    };
+    document.getElementById("fav-toggle").addEventListener("click", toggleFav);
+    // Header links point at this page; switch in place instead of reloading.
+    document.querySelectorAll("[data-nav=list], [data-nav=fav]").forEach((a) =>
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        if ((a.dataset.nav === "fav") !== state.fav) toggleFav();
+        window.scrollTo({ top: 0 });
+      })
+    );
     document.addEventListener("house:compare", updateCompareBar);
     document.addEventListener("house:notes", (e) => {
       if (e.detail && e.detail.id) cardCache.delete(e.detail.id);
