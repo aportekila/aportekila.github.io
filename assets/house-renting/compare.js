@@ -10,6 +10,11 @@
   const SKIP = new Set(["id", "title", "price_currency", "price_raw", "city", "latitude", "longitude", "rooms", "living_rooms", "building_age_max", "is_top_floor", "seller_name", "photo_count", "features_all", "auto_pros", "auto_cons", "ad_json", "listing_date"]);
 
   let onlyDiff = H.store.get("house.compareOnlyDiff", false);
+  // Groups collapsed by default: long and rarely decisive.
+  const collapsed = new Set(H.store.get("house.compareCollapsed", ["Çevre (ilan beyanı)", "Satıcı", "Artı / Eksi", "Diğer", "Otomatik artı / eksi"]) || []);
+  // Keep the sticky column header just below the site header (its height changes on phones).
+  const setTop = () => document.documentElement.style.setProperty("--sticky-top", (document.querySelector(".h-top") || { offsetHeight: 60 }).offsetHeight + "px");
+  window.addEventListener("resize", setTop);
 
   const fromUrl = (new URLSearchParams(location.search).get("ids") || "").split(",").filter(H.validId);
   if (fromUrl.length) {
@@ -57,42 +62,81 @@
       el("p", { class: "h-hint", text: "Yeşil = o satırdaki en iyi değer. ✓ var · – yok (işaretli değil) · ? bilinmiyor." })
     );
 
-    const table = el("table", { class: "h-table" });
-    const head = el("tr", {}, el("th", { text: "" }));
-    for (const ad of ads) {
+    setTop();
+    const table = el("table", { class: "h-table h-cmp", style: `--n:${ads.length}` });
+    const head = el("tr", {}, el("th", { class: "h-cmp-corner", scope: "col" }, el("span", { class: "h-muted h-small", text: `${ads.length} ilan` })));
+    ads.forEach((ad, i) => {
       const photo = H.cardPhoto(ad);
       const n = H.notes(ad.id);
+      const sr = H.scoring.scoreOf(ad.id);
       head.append(
         el(
           "th",
           { class: "h-cmp-col", scope: "col" },
-          photo ? el("a", { href: H.adPage(ad.id), tabindex: -1 }, el("img", { src: photo, alt: "" })) : null,
-          el("a", { href: H.adPage(ad.id), text: ad.title }),
-          el("div", { class: "h-tags", style: "margin:4px 0" }, n.favorite ? el("span", { class: "h-tag", text: "★ Favori" }) : null, H.statusTag(n.status)),
-          el("button", { type: "button", class: "h-btn h-btn-small", text: "Kaldır", onclick: () => H.setCompare(H.getCompare().filter((x) => x !== ad.id)) })
+          el("div", { class: "h-cmp-head" },
+            el("a", { class: "h-cmp-thumb", href: H.adPage(ad.id), tabindex: -1, "aria-hidden": "true" }, photo ? el("img", { src: photo, alt: "" }) : null, el("span", { class: "h-cmp-idx", text: i + 1 })),
+            el("div", { class: "h-cmp-meta" },
+              el("a", { class: "h-cmp-title", href: H.adPage(ad.id), text: ad.title }),
+              el("div", { class: "h-cmp-sub" },
+                el("b", { text: H.money(ad.price_value) }),
+                sr && !sr.excluded.length ? el("span", { class: "h-tag score", text: `🏆 ${H.num(Math.round(sr.total))}` }) : null,
+                n.favorite ? el("span", { class: "h-cmp-fav", title: "Favori", text: "★" }) : null
+              )
+            ),
+            el("button", { type: "button", class: "h-icon-btn h-cmp-remove", title: "Karşılaştırmadan çıkar", "aria-label": `${ad.title} karşılaştırmadan çıkar`, text: "✕", onclick: () => H.setCompare(H.getCompare().filter((x) => x !== ad.id)) })
+          )
         )
       );
-    }
+    });
     table.append(el("thead", {}, head));
     const body = el("tbody");
     table.append(body);
 
-    const group = (title) => body.append(el("tr", { class: "h-group" }, el("th", { colspan: ads.length + 1, scope: "rowgroup", text: title })));
+    let curGroup = null;
+    const group = (title) => {
+      curGroup = title;
+      const closed = collapsed.has(title);
+      const btn = el("button", { type: "button", class: "h-group-btn", "aria-expanded": !closed }, title, el("span", { class: "h-group-count" }));
+      btn.addEventListener("click", () => {
+        const open = collapsed.has(title);
+        open ? collapsed.delete(title) : collapsed.add(title);
+        H.store.set("house.compareCollapsed", [...collapsed]);
+        btn.setAttribute("aria-expanded", open);
+        body.querySelectorAll(`tr[data-group="${CSS.escape(title)}"]`).forEach((r) => (r.hidden = !open));
+      });
+      body.append(el("tr", { class: "h-group" }, el("th", { colspan: ads.length + 1, scope: "rowgroup" }, btn)));
+    };
     const row = (label, cells, opts = {}) => {
       if (onlyDiff && !opts.always && new Set(cells.map((c) => c.key)).size <= 1) return false;
-      const tr = el("tr", {}, el("th", { scope: "row", text: label }));
+      const tr = el("tr", { dataset: { group: curGroup || "" }, hidden: collapsed.has(curGroup) }, el("th", { scope: "row", text: label }));
       for (const c of cells) tr.append(el("td", { class: (c.best ? "best " : "") + (c.num ? "num" : "") }, c.node));
       body.append(tr);
       return true;
     };
 
-    // Notes first: they are the user's own verdict.
-    group("Notlarım");
+    // Summary: the rows that usually decide.
+    group("Özet");
     const notes = ads.map((a) => H.notes(a.id));
     const sc = ads.map((a) => H.scoring.scoreOf(a.id));
     const okTotals = sc.filter((r) => r && !r.excluded.length).map((r) => r.total);
     const bestTotal = okTotals.length > 1 ? Math.max(...okTotals) : null;
-    row(`🏆 Puanlama (${H.scoring.active().name})`, sc.map((r) => ({ key: r && r.total, node: !r ? "–" : r.excluded.length ? "elendi" : `${H.num(Math.round(r.total))} · ${r.rank}.`, best: r && !r.excluded.length && r.total === bestTotal, num: true })), { always: true });
+    row("🏆 Puan", sc.map((r) => ({ key: r && r.total, node: !r ? "–" : r.excluded.length ? "elendi" : `${H.num(Math.round(r.total))} · ${r.rank}. sıra`, best: r && !r.excluded.length && r.total === bestTotal, num: true })), { always: true });
+    const profile = H.scoring.active();
+    const summaryNum = (label, vals, fmt, better) => {
+      const ok = vals.filter((v) => typeof v === "number");
+      const best = ok.length > 1 && new Set(ok).size > 1 ? (better === "low" ? Math.min(...ok) : Math.max(...ok)) : null;
+      row(label, vals.map((v) => ({ key: v, node: v == null ? "–" : fmt(v), best: best != null && v === best, num: true })), { always: true });
+    };
+    summaryNum("Kira", ads.map((a) => a.price_value), H.money, "low");
+    summaryNum("Efektif aylık", ads.map((a) => H.scoring.effectiveCost(a, profile).total), H.money, "low");
+    summaryNum("🚌 Kapıdan kapıya", ads.map((a) => a._d2d_transit), H.mins, "low");
+    summaryNum("🚗 Kapıdan kapıya", ads.map((a) => a._d2d_drive), H.mins, "low");
+    summaryNum("Net m²", ads.map((a) => a.area_net_m2), (v) => v + " m²", "high");
+    row("Kat", ads.map((a) => ({ key: a.floor + "/" + a.floor_count, node: `${H.scoring.value(a, "_floor_type", profile)} · ${a.floor}/${a.floor_count}` })), { always: true });
+    summaryNum("Bina yaşı", ads.map((a) => a.building_age_min), (v) => v + " yaş", "low");
+    row("En yakın istasyon", ads.map((a) => ({ key: a._station_m, node: H.stationText(a) || "–" })), { always: true });
+
+    group("Notlarım");
     row("Puanım", notes.map((n) => ({ key: n.rating, node: n.rating ? "★".repeat(n.rating) : "–", best: false })));
     row("Artılar", notes.map((n) => ({ key: JSON.stringify(n.pros), node: n.pros.length ? H.tagList(n.pros, "pro", 3) : "–" })), { always: true });
     row("Eksiler", notes.map((n) => ({ key: JSON.stringify(n.cons), node: n.cons.length ? H.tagList(n.cons, "con", 3) : "–" })), { always: true });
