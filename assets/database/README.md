@@ -684,6 +684,23 @@ Formatting:
   fetched again.
 - Then the user copies `database/` over `assets/database/` in the site repo.
   `assets/notes.json` is not touched by this.
+- **This is automated by `guncelle.bat` / `guncelle.ps1`** in the data
+  project. It runs `extract_ads.py`, then copies to `<site>/assets/database/`:
+  - by default **only ad folders not yet on the site**, plus `index.json`,
+    `index.csv`, `notes_template.json` and `README.md`;
+  - it deletes site ad folders that are no longer in the database;
+  - existing ad folders are left untouched, so an older ad's `ad.json` may
+    lack a field added later. Code defensively (`?.`, defaults);
+  - with `-Full` it mirrors everything (robocopy /MIR, without
+    `commute_cache.json`).
+
+  It creates `assets/notes.json` only if it doesn't exist. It then runs
+  **the site's `bin/strip_contacts.py`** on that copy (falling back to its
+  own `strip_contact.py` if the site has none). With `-Push` it commits only
+  `assets/database` and `assets/notes.json`, then pushes.
+  - Keep `bin/strip_contacts.py` at that path and runnable as
+    `python bin/strip_contacts.py <database-dir>`.
+  - Design the site so that data refreshes need no code changes.
 - `extracted_at` and `generated_at` change on every run, so git diffs will
   show them changing even when nothing else did.
 - If you add post-processing for the site (e.g. stripping contact data,
