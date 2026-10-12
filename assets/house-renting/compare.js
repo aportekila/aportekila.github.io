@@ -124,6 +124,13 @@
       row(info.label, cells, { always: true });
     }
 
+    group("Bölge ve tekrar eden ilanlar");
+    const diffs = ads.map((a) => (a._area ? a._area.diff : null));
+    const known = diffs.filter((d) => d != null);
+    const bestDiff = known.length > 1 && new Set(known).size > 1 ? Math.min(...known) : null;
+    row("m² kirası bölgeye göre", ads.map((a, i) => ({ key: diffs[i], node: a._area ? `${H.areaText(a._area)} (${a._area.scope})` : "–", best: bestDiff != null && diffs[i] === bestDiff })), { always: true });
+    row("Muhtemelen aynı daire", ads.map((a) => ({ key: JSON.stringify(a._dup), node: a._dup ? `${a._dup.length} ilan` + (a._dup[0] === a.id ? " · en ucuzu bu" : "") : "–" })), { always: true });
+
     group("Otomatik artı / eksi");
     row("Artılar (ilk 3)", ads.map((a) => ({ key: JSON.stringify(a.auto_pros), node: H.tagList(a.auto_pros || [], "pro", 3) })), { always: true });
     row("Eksiler (ilk 3)", ads.map((a) => ({ key: JSON.stringify(a.auto_cons), node: (a.auto_cons || []).length ? H.tagList(a.auto_cons, "con", 3) : "–" })), { always: true });

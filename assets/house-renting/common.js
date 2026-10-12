@@ -146,6 +146,7 @@
         H.notesFile = notesFile && typeof notesFile === "object" ? notesFile : { ads: {} };
         if (!H.notesFile.ads || typeof H.notesFile.ads !== "object") H.notesFile.ads = {};
         H.pruneLocalNotes();
+        H.enrich(index);
         H.updateFavBadge();
         return index;
       });
@@ -173,6 +174,7 @@
       pros: ad ? [...(ad.auto_pros || [])] : [],
       cons: ad ? [...(ad.auto_cons || [])] : [],
       note: "",
+      checklist: {},
     };
   };
   function normalize(id, n) {
@@ -183,8 +185,38 @@
     out.favorite = !!out.favorite;
     out.rating = Number.isInteger(out.rating) && out.rating >= 1 && out.rating <= 5 ? out.rating : null;
     out.note = typeof out.note === "string" ? out.note : "";
+    // Visit checklist: { itemKey: true } for ticked items only, sorted for stable comparison.
+    const cl = out.checklist && typeof out.checklist === "object" ? out.checklist : {};
+    out.checklist = Object.fromEntries(Object.keys(cl).filter((k) => cl[k] === true && /^[a-z_]+$/.test(k)).sort().map((k) => [k, true]));
     return out;
   }
+  /** Things to check / ask during a visit; keys are stored in notes.checklist. */
+  H.VISIT_CHECKLIST = [
+    ["Masraflar ve sözleşme", [
+      ["heating_bill", "Kışın ortalama doğalgaz / ısınma faturası soruldu"],
+      ["dues_cover", "Aidata neler dahil (ısınma, su, otopark) öğrenildi"],
+      ["deposit_terms", "Depozito iadesi şartları netleşti"],
+      ["commission", "Emlak komisyonu (genelde 1 kira + KDV) konuşuldu"],
+      ["contract", "Sözleşme süresi ve yıllık artış oranı soruldu"],
+      ["move_in", "Ne zaman boşalacağı / taşınma tarihi netleşti"],
+    ]],
+    ["Daire", [
+      ["damp", "Nem / küf yok (köşeler, dolap arkaları, banyo tavanı)"],
+      ["water", "Su basıncı ve sıcak su denendi"],
+      ["windows", "Pencereler kapanıyor, hava almıyor"],
+      ["sunlight", "Gün ışığı yeterli (hangi saatte güneş alıyor)"],
+      ["noise", "Gürültü kontrol edildi (yol, komşu, asansör)"],
+      ["signal", "Telefon çekimi ve internet altyapısı (fiber?) kontrol edildi"],
+      ["appliances", "Mutfak / banyo / beyaz eşyaların durumu iyi"],
+    ]],
+    ["Bina ve çevre", [
+      ["parking", "Otopark yeri var ve kullanılabilir"],
+      ["elevator", "Asansör ve ortak alanlar bakımlı"],
+      ["stop_walk", "Durak / metroya yürüme süresi denendi"],
+      ["shops", "Market ve günlük ihtiyaçlar yakında"],
+      ["evening", "Akşam saatinde çevre ve sokak güvenliği hissi iyi"],
+    ]],
+  ];
   H.fileNotes = (id) => normalize(id, H.notesFile.ads[id]);
   H.localNotes = () => H.store.get(NOTES_KEY, {}) || {};
   H.notes = function (id) {
@@ -273,6 +305,226 @@
   window.addEventListener("storage", (e) => {
     if (e.key === CMP_KEY) H.updateCompareBadge();
   });
+
+  // ---------- derived data: duplicates, area price level, score ----------
+  H.distanceM = function (a, b) {
+    const R = 6371000, rad = Math.PI / 180;
+    const dp = (b.latitude - a.latitude) * rad, dl = (b.longitude - a.longitude) * rad;
+    const h = Math.sin(dp / 2) ** 2 + Math.cos(a.latitude * rad) * Math.cos(b.latitude * rad) * Math.sin(dl / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  };
+  const normName = (s) => lcTr(s).replace(/[^\p{L}\p{N}]/gu, "");
+  function lcTr(s) {
+    return String(s || "").toLocaleLowerCase("tr-TR");
+  }
+  /** Same building / complex and similar flat. sameFloor=true means "probably the same flat". */
+  H.similarFlat = function (a, b, sameFloor) {
+    if (a.id === b.id || a.latitude == null || b.latitude == null) return false;
+    const ca = normName(a.complex_name), cb = normName(b.complex_name);
+    if (ca && cb && ca !== cb) return false;
+    if (!((ca && ca === cb) || H.distanceM(a, b) <= 350)) return false;
+    if (a.floor_count !== b.floor_count || Math.abs(a.area_net_m2 - b.area_net_m2) > 5) return false;
+    if (sameFloor && a.floor !== b.floor) return false;
+    return Math.abs(a.price_value - b.price_value) / Math.min(a.price_value, b.price_value) <= 0.15;
+  };
+  const median = (xs) => {
+    const s = [...xs].sort((x, y) => x - y), m = s.length >> 1;
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  };
+  /**
+   * Adds to every ad: _dup (ids of ads that are probably the same flat, incl. itself,
+   * cheapest first; null if none) and _area (rent per m² vs the neighbourhood median,
+   * or the district median when the neighbourhood has fewer than 3 ads).
+   */
+  H.enrich = function (index) {
+    const ads = index.ads;
+    const parent = new Map(ads.map((a) => [a.id, a.id]));
+    const find = (x) => (parent.get(x) === x ? x : (parent.set(x, find(parent.get(x))), parent.get(x)));
+    for (let i = 0; i < ads.length; i++)
+      for (let j = i + 1; j < ads.length; j++) if (H.similarFlat(ads[i], ads[j], true)) parent.set(find(ads[i].id), find(ads[j].id));
+    const groups = new Map();
+    for (const a of ads) {
+      const r = find(a.id);
+      if (!groups.has(r)) groups.set(r, []);
+      groups.get(r).push(a);
+    }
+    for (const g of groups.values()) {
+      const ids = g.length > 1 ? g.sort((x, y) => x.price_value - y.price_value || x.id.localeCompare(y.id)).map((a) => a.id) : null;
+      for (const a of g) a._dup = ids;
+    }
+    const by = (key) => {
+      const m = new Map();
+      for (const a of ads) if (a.price_per_m2_net != null) (m.get(a[key]) || m.set(a[key], []).get(a[key])).push(a.price_per_m2_net);
+      return m;
+    };
+    const hood = by("neighborhood"), dist = by("district");
+    for (const a of ads) {
+      if (a.price_per_m2_net == null) {
+        a._area = null;
+        continue;
+      }
+      const useHood = (hood.get(a.neighborhood) || []).length >= 3;
+      const list = useHood ? hood.get(a.neighborhood) : dist.get(a.district) || [];
+      const med = median(list);
+      a._area = { scope: useHood ? a.neighborhood : a.district + " (ilçe)", n: list.length, median: med, diff: (a.price_per_m2_net - med) / med };
+    }
+  };
+  H.areaText = (area) => {
+    if (!area) return null;
+    const pct = Math.round(Math.abs(area.diff) * 100);
+    return pct < 3 ? "bölge ortalamasında" : `bölgeye göre %${pct} ${area.diff < 0 ? "ucuz" : "pahalı"}`;
+  };
+
+  /** Fit score 0–100 from commute (current mode), monthly cost and net m², with weights. */
+  H.DEFAULT_WEIGHTS = { c: 5, m: 3, a: 2 };
+  H.score = function (ad, mode, w, FI) {
+    const norm = (f, v, lowerIsBetter) => {
+      const i = FI[f];
+      if (v == null || !i || i.max === i.min) return 0.5;
+      const t = (v - i.min) / (i.max - i.min);
+      return lowerIsBetter ? 1 - t : t;
+    };
+    const daily = H.MODES[mode].daily;
+    const parts = [[w.c, norm(daily, ad[daily], true)], [w.m, norm("monthly_cost", ad.monthly_cost, true)], [w.a, norm("area_net_m2", ad.area_net_m2, false)]];
+    const total = parts.reduce((s, [wt]) => s + wt, 0);
+    return total ? Math.round((100 * parts.reduce((s, [wt, v]) => s + wt * v, 0)) / total) : 0;
+  };
+
+  // ---------- rail lines (assets/house-renting/rail.json, from OpenStreetMap) ----------
+  let railPromise = null;
+  /** Adds metro / Ankaray / Başkentray lines and stations as a toggleable overlay. */
+  H.addRailLayer = function (map, opts) {
+    if (!window.L) return;
+    opts = opts || {};
+    const group = L.layerGroup();
+    if (!railPromise) railPromise = fetch(CFG.rail).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    railPromise.then((rail) => {
+      if (!rail) return;
+      for (const line of rail.lines) {
+        L.polyline(line.paths, { color: line.color, weight: 4, opacity: 0.75, interactive: true }).bindTooltip(line.name, { sticky: true }).addTo(group);
+      }
+      for (const st of rail.stations) {
+        L.circleMarker([st.lat, st.lon], { radius: 3.5, color: "#222", weight: 1.5, fillColor: "#fff", fillOpacity: 1 })
+          .bindTooltip(`${st.name} (${st.lines.join(", ")})`)
+          .addTo(group);
+      }
+      group.addTo(map);
+      group.eachLayer((l) => l.bringToBack && l.bringToBack());
+      if (opts.control !== false) L.control.layers(null, { "🚇 Raylı sistem": group }, { position: "topright", collapsed: false }).addTo(map);
+    });
+    return group;
+  };
+
+  // ---------- sharing ----------
+  function toast(text) {
+    const t = H.el("div", { class: "h-toast", role: "status", text });
+    document.body.append(t);
+    setTimeout(() => t.classList.add("show"), 10);
+    setTimeout(() => {
+      t.classList.remove("show");
+      setTimeout(() => t.remove(), 300);
+    }, 2600);
+  }
+  H.toast = toast;
+  /** Native share sheet on phones, clipboard elsewhere. */
+  H.share = async function (title, url, text) {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, text, url });
+        return;
+      } catch (e) {
+        if (e && e.name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast("Link kopyalandı");
+    } catch (e) {
+      prompt("Linki kopyala:", url);
+    }
+  };
+
+  // Friends' favourite lists, received through ?list=<name>&ids=<id,id,…> links.
+  const LISTS_KEY = "house.sharedLists";
+  H.myName = () => H.store.get("house.myName", "");
+  /** Turkish genitive with apostrophe: Ayşe → Ayşe'nin, Mehmet → Mehmet'in, Can → Can'ın. */
+  H.genitive = function (name) {
+    const vowels = [...lcTr(name)].filter((ch) => "aeıioöuü".includes(ch));
+    const last = vowels[vowels.length - 1] || "e";
+    const v = { a: "ı", ı: "ı", e: "i", i: "i", o: "u", u: "u", ö: "ü", ü: "ü" }[last];
+    const endsWithVowel = "aeıioöuü".includes(lcTr(name).slice(-1));
+    return `${name}'${endsWithVowel ? "n" : ""}${v}n`;
+  };
+  H.sharedLists = () => H.store.get(LISTS_KEY, {}) || {};
+  H.saveSharedList = function (name, ids) {
+    const all = H.sharedLists();
+    all[name] = ids.filter(H.validId);
+    H.store.set(LISTS_KEY, all);
+  };
+  H.removeSharedList = function (name) {
+    const all = H.sharedLists();
+    delete all[name];
+    H.store.set(LISTS_KEY, all);
+  };
+  /** Names of friends whose shared list contains this ad. */
+  H.friendsFor = (id) => Object.entries(H.sharedLists()).filter(([, ids]) => ids.includes(id)).map(([n]) => n);
+  /** Ask for a name once, then share a link to my favourites. */
+  H.shareFavorites = function () {
+    const ids = H.index.ads.filter((a) => H.notes(a.id).favorite).map((a) => a.id);
+    if (!ids.length) {
+      alert("Henüz favorin yok. Kartlardaki ☆ ile ekleyebilirsin.");
+      return;
+    }
+    let name = H.myName();
+    if (!name) {
+      name = (prompt("Listen hangi isimle görünsün? (ör. Ayşe)") || "").trim().slice(0, 30);
+      if (!name) return;
+      H.store.set("house.myName", name);
+    }
+    const url = new URL(CFG.root, location.href);
+    url.search = new URLSearchParams({ list: name, ids: ids.join(",") }).toString();
+    H.share(`${H.genitive(name)} favori evleri`, url.toString(), `${H.genitive(name)} favori ${ids.length} ilanı`);
+  };
+
+  // ---------- offline ----------
+  function offlineBanner() {
+    let b = document.getElementById("h-offline");
+    if (navigator.onLine) {
+      if (b) b.remove();
+      return;
+    }
+    if (!b) {
+      b = H.el("div", { id: "h-offline", class: "h-offline", role: "status", text: "Çevrimdışısın: en son kaydedilen veriler gösteriliyor; değişikliklerin bu cihazda saklanır." });
+      document.body.prepend(b);
+    }
+  }
+  window.addEventListener("online", offlineBanner);
+  window.addEventListener("offline", offlineBanner);
+  document.addEventListener("DOMContentLoaded", offlineBanner);
+
+  /** Fetch every ad's details and card photo so the service worker keeps them for offline use. */
+  H.downloadForOffline = async function (onProgress) {
+    const urls = [];
+    for (const a of H.index.ads) {
+      urls.push(`${CFG.db}/${encodeURIComponent(a.id)}/ad.json`);
+      if (a._photo) urls.push(H.cardPhoto(a));
+    }
+    let done = 0, failed = 0;
+    const worker = async () => {
+      while (urls.length) {
+        const u = urls.shift();
+        try {
+          const r = await fetch(u);
+          if (!r.ok) failed++;
+        } catch (e) {
+          failed++;
+        }
+        onProgress(++done, done + urls.length);
+      }
+    };
+    await Promise.all([worker(), worker(), worker(), worker()]);
+    return failed;
+  };
 
   // ---------- shared widgets ----------
   H.favButton = function (id, onChange) {

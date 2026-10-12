@@ -24,6 +24,7 @@ sitemap: false
         <button type="button" data-mode="drive">🚗 Araç</button>
       </div>
       <button type="button" class="h-btn h-fav-toggle" id="fav-toggle" aria-pressed="false" title="Sadece favorileri göster">★ Favoriler <span class="h-badge" data-fav-count>0</span></button>
+      <button type="button" class="h-btn" id="triage-btn" title="Listedeki yeni ilanları tek tek hızlıca ayıkla">⚡ Hızlı eleme</button>
       <label class="h-sort">Sırala
         <select id="sort" class="h-input"></select>
       </label>
@@ -33,6 +34,7 @@ sitemap: false
         <button type="button" data-view="map">Harita</button>
       </div>
     </div>
+    <div class="h-banner" id="list-banner" hidden></div>
     <p class="h-count" id="count" aria-live="polite"></p>
     <div id="active-chips" class="h-active-chips"></div>
     <div id="map" class="h-map" hidden></div>

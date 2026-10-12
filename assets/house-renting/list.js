@@ -12,6 +12,7 @@
   const AVOID = new Set(["is_ground_floor", "has_squat_toilet", "tenant_inside"]);
   const SORTS = [
     { key: "price_value", label: "Kira", dir: "asc" },
+    { key: "_score", label: "Uygunluk puanı", dir: "desc" },
     { key: "monthly_cost", label: "Aylık toplam (kira + aidat)", dir: "asc" },
     { key: "c_daily", label: "Günlük yolculuk (seçili tip)", dir: "asc" },
     { key: "daily_transit_min", label: "Günlük toplu taşıma", dir: "asc" },
@@ -34,7 +35,7 @@
 
   // ---------- state ----------
   function emptyState() {
-    return { mode: H.getMode(), q: "", sort: DEFAULT_SORT, dir: null, view: "list", hideUnknown: false, fav: false, hideRejected: false, statuses: [], ranges: {}, bools: {}, multi: {}, feats: {} };
+    return { mode: H.getMode(), q: "", sort: DEFAULT_SORT, dir: null, view: "list", hideUnknown: false, fav: false, hideRejected: false, statuses: [], ranges: {}, bools: {}, multi: {}, feats: {}, w: { ...H.DEFAULT_WEIGHTS }, dedupe: false, shared: null };
   }
   const sortDef = (k) => SORTS.find((s) => s.key === k) || SORTS[0];
   const sortDir = () => state.dir || sortDef(state.sort).dir;
@@ -51,6 +52,10 @@
     s.fav = p.get("fav") === "1";
     s.hideRejected = p.get("hr") === "1";
     s.statuses = p.getAll("st").filter((x) => x in H.STATUS);
+    s.dedupe = p.get("dd") === "1";
+    s.shared = p.get("sl") || null;
+    const w = (p.get("w") || "").split("_").map(Number);
+    if (w.length === 3 && w.every((x) => Number.isInteger(x) && x >= 0 && x <= 10)) s.w = { c: w[0], m: w[1], a: w[2] };
     for (const [k, v] of p) {
       if (k.startsWith("r_")) {
         const [lo, hi] = v.split("_").map(Number);
@@ -73,6 +78,10 @@
     if (state.fav) p.set("fav", "1");
     if (state.hideRejected) p.set("hr", "1");
     state.statuses.forEach((x) => p.append("st", x));
+    if (state.dedupe) p.set("dd", "1");
+    if (state.shared) p.set("sl", state.shared);
+    const { c, m, a } = state.w, d = H.DEFAULT_WEIGHTS;
+    if (c !== d.c || m !== d.m || a !== d.a) p.set("w", `${c}_${m}_${a}`);
     for (const [k, [lo, hi]] of Object.entries(state.ranges)) p.set("r_" + k, lo + "_" + hi);
     for (const [k, v] of Object.entries(state.bools)) p.set("b_" + k, v > 0 ? "y" : "n");
     for (const [k, vs] of Object.entries(state.multi)) vs.forEach((v) => p.append("x_" + k, v));
@@ -92,6 +101,7 @@
   }
   function value(ad, key) {
     if (key === "_rating") return H.notes(ad.id).rating;
+    if (key === "_score") return H.score(ad, state.mode, state.w, FI);
     const f = fieldOf(key);
     const v = ad[f];
     return TIME_RANGE[f] ? H.hhmmToMin(v) : v;
@@ -136,6 +146,7 @@
     }
     const n = H.notes(ad.id);
     if (state.fav && !n.favorite) fails.push("fav");
+    if (state.shared && !(H.sharedLists()[state.shared] || []).includes(ad.id)) fails.push("sl");
     if (state.hideRejected && n.status === "rejected") fails.push("hr");
     if (state.statuses.length && !state.statuses.includes(n.status)) fails.push("st");
     for (const [key, [lo, hi]] of Object.entries(state.ranges)) {
@@ -347,12 +358,50 @@
           apply(true);
         });
         b.append(el("label", { class: "h-check" }, hu, "Bilinmeyenleri gizle"));
+        const dd = el("input", { type: "checkbox", checked: state.dedupe });
+        dd.addEventListener("change", () => {
+          state.dedupe = dd.checked;
+          apply(true);
+        });
+        const dupCount = ADS.filter((a) => a._dup && a._dup[0] !== a.id).length;
+        b.append(el("label", { class: "h-check" }, dd, `Muhtemel aynı daireleri tek göster (${dupCount} ilan gizlenir)`));
         b.append(el("div", { class: "h-hint", text: "Kapalıyken, bilgisi olmayan ilanlar filtrede kalır ve “?” rozetiyle gösterilir." }));
       })
     );
 
+    // Fit score weights
+    const wChanged = ["c", "m", "a"].some((k) => state.w[k] !== H.DEFAULT_WEIGHTS[k]);
+    panel.append(
+      section("_score", "Uygunluk puanı", wChanged ? 1 : 0, (b) => {
+        b.append(el("div", { class: "h-hint", text: "Her ilana 0–100 arası puan: yolculuk (seçili tip), aylık toplam ve net m², bu ağırlıklarla. “Uygunluk puanı” sıralamasında kullanılır." }));
+        const labels = { c: "Yolculuk", m: "Aylık maliyet", a: "Net m²" };
+        for (const k of ["c", "m", "a"]) {
+          const out = el("output", { text: state.w[k] });
+          const input = el("input", { type: "range", min: 0, max: 10, step: 1, value: state.w[k], "aria-label": labels[k] + " ağırlığı", class: "h-single" });
+          input.addEventListener("input", () => {
+            state.w = { ...state.w, [k]: Number(input.value) };
+            out.textContent = input.value;
+            scheduleApply();
+          });
+          b.append(el("div", { class: "h-range active" }, el("label", {}, el("span", { text: labels[k] }), out), input));
+        }
+        if (state.sort !== "_score")
+          b.append(
+            el("button", {
+              type: "button", class: "h-btn h-btn-small", text: "Puana göre sırala",
+              onclick: () => {
+                state.sort = "_score";
+                state.dir = null;
+                buildPanel();
+                apply(true);
+              },
+            })
+          );
+      })
+    );
+
     // Notes
-    const noteActive = (state.fav ? 1 : 0) + (state.hideRejected ? 1 : 0) + (state.statuses.length ? 1 : 0);
+    const noteActive = (state.fav ? 1 : 0) + (state.hideRejected ? 1 : 0) + (state.statuses.length ? 1 : 0) + (state.shared ? 1 : 0);
     panel.append(
       section("_notes", "Notlarım", noteActive, (b) => {
         const fav = el("input", { type: "checkbox", checked: state.fav });
@@ -385,6 +434,35 @@
           chips.append(chip);
         }
         b.append(el("div", { class: "h-sub", text: "Durum" }), chips);
+        const lists = H.sharedLists();
+        const names = Object.keys(lists);
+        b.append(el("div", { class: "h-sub", text: "Arkadaş listeleri" }));
+        if (!names.length) b.append(el("div", { class: "h-hint", text: "Bir arkadaşın “Favorilerimi paylaş” linkini açınca listesi burada görünür." }));
+        else {
+          const fchips = el("div", { class: "h-chips" });
+          for (const name of names) {
+            const chip = el("button", { type: "button", class: "h-chip", "aria-pressed": state.shared === name }, `★ ${name}`, " ", el("small", { text: lists[name].length }));
+            chip.addEventListener("click", () => {
+              state.shared = state.shared === name ? null : name;
+              buildPanel();
+              apply(true);
+            });
+            const del = el("button", {
+              type: "button", class: "h-chip", title: `${name} listesini sil`, "aria-label": `${name} listesini sil`, text: "✕",
+              onclick: () => {
+                if (!confirm(`${name} listesi bu tarayıcıdan silinsin mi?`)) return;
+                H.removeSharedList(name);
+                if (state.shared === name) state.shared = null;
+                cardCache.clear();
+                buildPanel();
+                apply(true);
+              },
+            });
+            fchips.append(el("span", { class: "h-chip-pair" }, chip, del));
+          }
+          b.append(fchips);
+        }
+        b.append(el("button", { type: "button", class: "h-btn h-btn-small", text: "⤴ Favorilerimi paylaş", onclick: () => H.shareFavorites() }));
       })
     );
 
@@ -445,6 +523,7 @@
     for (const [f, vs] of Object.entries(state.multi)) add(`${FI[f].label}: ${vs.map((v) => H.fmtField(f, v, FI[f])).join(", ")}`, () => delete state.multi[f]);
     for (const [n, v] of Object.entries(state.feats)) add(`${n}: ${v > 0 ? "olsun" : "olmasın"}`, () => delete state.feats[n]);
     if (state.fav) add("Favoriler", () => (state.fav = false));
+    if (state.shared) add(`★ ${state.shared} listesi`, () => (state.shared = null));
     if (state.hideRejected) add("Elenenler gizli", () => (state.hideRejected = false));
     if (state.statuses.length) add("Durum: " + state.statuses.map((s) => H.STATUS[s]).join(", "), () => (state.statuses = []));
     if (state.hideUnknown) add("Bilinmeyenler gizli", () => (state.hideUnknown = false));
@@ -458,7 +537,7 @@
     const link = H.adPage(ad.id);
     const dailyInfo = FI[mode.daily];
     const heat = H.heat((ad[mode.daily] - dailyInfo.min) / (dailyInfo.max - dailyInfo.min || 1));
-    const card = el("article", { class: "h-card" + (n.status === "rejected" ? " rejected" : "") });
+    const card = el("article", { class: "h-card" + (n.status === "rejected" ? " rejected" : ""), dataset: { id: ad.id } });
 
     const badges = el("div", { class: "h-photo-badges" });
     if (n.status !== "new") badges.append(H.statusTag(n.status));
@@ -516,6 +595,28 @@
 
     const tags = el("div", { class: "h-tags" });
     if (n.rating) tags.append(el("span", { class: "h-tag rating", text: "★".repeat(n.rating) }));
+    for (const name of H.friendsFor(ad.id)) tags.append(el("span", { class: "h-tag friend", title: `${name} favorilerine eklemiş`, text: `★ ${name}` }));
+    const scoreTag = el("span", { class: "h-tag score", hidden: true, title: "Uygunluk puanı (ağırlıklar filtre panelinde)" });
+    tags.append(scoreTag);
+    if (ad._dup)
+      tags.append(
+        el("a", {
+          class: "h-tag dup",
+          href: `${H.cfg.root}compare/?ids=${ad._dup.join(",")}`,
+          title: "Aynı bina, kat ve m²; farklı ilanlar. Karşılaştırmak için tıkla.",
+          text: `≈ aynı daire, ${ad._dup.length} ilan` + (ad._dup[0] === ad.id ? " · en ucuzu" : ""),
+        })
+      );
+    if (ad._area && Math.abs(ad._area.diff) >= 0.08) {
+      const t = H.areaText(ad._area);
+      tags.append(
+        el("span", {
+          class: "h-tag " + (ad._area.diff < 0 ? "pro" : "con"),
+          title: `m² kirası ${H.num(ad.price_per_m2_net)} ₺; ${ad._area.scope} ortancası ${H.num(Math.round(ad._area.median))} ₺ (${ad._area.n} ilan)`,
+          text: t[0].toLocaleUpperCase("tr-TR") + t.slice(1),
+        })
+      );
+    }
     if (H.CHECKLIST_WARN[ad.checklist_quality]) tags.append(el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[ad.checklist_quality] }));
     const unk = el("span", { class: "h-tag unk", hidden: true });
     tags.append(unk);
@@ -528,6 +629,7 @@
     );
     card.append(body);
     card._unk = unk;
+    card._score = scoreTag;
     return card;
   }
   function cardFor(ad) {
@@ -543,6 +645,7 @@
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
+    H.addRailLayer(map);
     const work = [39.8966714, 32.7736614];
     L.marker(work, { icon: L.divIcon({ className: "", html: '<div style="font-size:28px;line-height:1">🏢</div>', iconSize: [30, 30], iconAnchor: [15, 15] }), zIndexOffset: 1000 })
       .addTo(map)
@@ -626,10 +729,22 @@
     const facet = makeFacet(evals);
     for (const fn of facetUpdaters) fn(facet);
     results.sort((a, b) => compare(a[0], b[0]));
+    if (state.dedupe) {
+      // Keep only the cheapest visible ad of each "probably the same flat" group.
+      const shown = new Set(results.map((r) => r[0].id));
+      for (let i = results.length - 1; i >= 0; i--) {
+        const ad = results[i][0];
+        if (ad._dup && ad._dup.find((id) => shown.has(id)) !== ad.id) {
+          shown.delete(ad.id);
+          results.splice(i, 1);
+        }
+      }
+    }
     const visible = results.map((r) => r[0]);
 
     const count = document.getElementById("count");
     count.textContent = `${visible.length} / ${ADS.length} ilan`;
+    renderBanner();
     const container = document.getElementById("cards");
     const frag = document.createDocumentFragment();
     for (const [ad, r] of results) {
@@ -637,6 +752,8 @@
       card._unk.hidden = !r.unknown.length;
       card._unk.textContent = "? " + r.unknown.join(", ");
       card._unk.title = "Bu ilanda bilinmiyor: " + r.unknown.join(", ");
+      card._score.hidden = state.sort !== "_score";
+      if (state.sort === "_score") card._score.textContent = `Puan ${H.score(ad, state.mode, state.w, FI)}`;
       frag.append(card);
     }
     clear(container).append(frag);
@@ -666,6 +783,36 @@
     activeChips();
     updateCompareBar();
     if (writeUrl) saveUrl();
+  }
+
+  function renderBanner() {
+    const box = clear(document.getElementById("list-banner"));
+    box.hidden = !state.shared && !state.fav;
+    if (state.shared) {
+      const ids = (H.sharedLists()[state.shared] || []).filter((id) => H.byId.has(id));
+      box.append(
+        el("strong", { text: `★ ${H.genitive(state.shared)} favorileri` }),
+        el("span", { class: "h-muted", text: ` · ${ids.length} ilan` }),
+        el("span", { class: "h-banner-actions" },
+          el("button", {
+            type: "button", class: "h-btn h-btn-small", text: "Hepsini favorilerime ekle",
+            onclick: () => {
+              ids.forEach((id) => H.patchNotes(id, { favorite: true }));
+              H.toast(`${ids.length} ilan favorilerine eklendi`);
+              cardCache.clear();
+              apply(false);
+            },
+          }),
+          ids.length >= 2 ? el("a", { class: "h-btn h-btn-small", href: `${H.cfg.root}compare/?ids=${ids.slice(0, H.MAX_COMPARE).join(",")}`, text: "Karşılaştır" }) : null,
+          el("button", { type: "button", class: "h-btn h-btn-small", text: "Kapat", onclick: () => { state.shared = null; buildPanel(); apply(true); } })
+        )
+      );
+    } else if (state.fav) {
+      box.append(
+        el("strong", { text: "★ Favorilerim" }),
+        el("span", { class: "h-banner-actions" }, el("button", { type: "button", class: "h-btn h-btn-small", text: "⤴ Listemi paylaş", onclick: () => H.shareFavorites() }))
+      );
+    }
   }
 
   function updateCompareBar() {
@@ -725,6 +872,15 @@
     document.getElementById("open-filters").addEventListener("click", () => filters.classList.add("open"));
     document.getElementById("close-filters").addEventListener("click", () => filters.classList.remove("open"));
     document.getElementById("compare-clear").addEventListener("click", () => H.setCompare([]));
+    document.getElementById("triage-btn").addEventListener("click", () => {
+      // Hand the current filtered + sorted list to the triage page.
+      try {
+        sessionStorage.setItem("house.triage", JSON.stringify([...document.querySelectorAll("#cards article")].map((c) => c.dataset.id)));
+      } catch (e) {
+        /* ignore */
+      }
+      location.href = H.cfg.root + "triage/?from=list";
+    });
     const toggleFav = () => {
       state.fav = !state.fav;
       buildPanel();
@@ -764,8 +920,18 @@
         const vals = ADS.map((a) => H.hhmmToMin(a[f])).filter((v) => v != null);
         if (vals.length) TIME_RANGE[f] = { min: Math.floor(Math.min(...vals) / 5) * 5, max: Math.ceil(Math.max(...vals) / 5) * 5 };
       }
-      const qs = location.search.slice(1) || H.store.get("house.lastQuery", "") || "";
-      state = fromQuery(qs);
+      // A friend's shared list: ?list=<name>&ids=<id,id,…>
+      const incoming = new URLSearchParams(location.search);
+      if (incoming.get("list") && incoming.get("ids")) {
+        const name = incoming.get("list").trim().slice(0, 30) || "Arkadaş";
+        const ids = incoming.get("ids").split(",").filter(H.validId);
+        H.saveSharedList(name, ids);
+        state = emptyState();
+        state.shared = name;
+      } else {
+        const qs = location.search.slice(1) || H.store.get("house.lastQuery", "") || "";
+        state = fromQuery(qs);
+      }
       // Drop URL entries that point at fields that no longer exist.
       for (const k of Object.keys(state.bools)) if (!FI[k]) delete state.bools[k];
       for (const k of Object.keys(state.multi)) if (!FI[k]) delete state.multi[k];

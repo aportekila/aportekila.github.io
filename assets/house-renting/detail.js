@@ -12,6 +12,14 @@
     return;
   }
 
+  // Printing = a visit sheet: expand the checklist (closed <details> would print empty).
+  let closedForPrint = [];
+  window.addEventListener("beforeprint", () => {
+    closedForPrint = [...document.querySelectorAll("details:not([open])")];
+    closedForPrint.forEach((d) => (d.open = true));
+  });
+  window.addEventListener("afterprint", () => closedForPrint.forEach((d) => (d.open = false)));
+
   Promise.all([H.loadIndex(), H.loadAd(id)])
     .then(([index, ad]) => render(index, H.byId.get(id), ad))
     .catch((err) => H.fail(root, err));
@@ -61,7 +69,7 @@
           { style: "min-width:0;flex:1 1 420px" },
           el("h1", { text: ad.title }),
           el("div", { class: "h-muted" }, [loc.district, loc.neighborhood, row && row.complex_name].filter(Boolean).join(" · "), " · İlan no ", ad.id, row ? " · " + H.date(row.listing_date) : ""),
-          el("div", { class: "h-tags", style: "margin-top:6px" }, statusSlot, row && row.is_owner ? el("span", { class: "h-tag pro", text: "Sahibinden (emlakçısız)" }) : null, row && H.CHECKLIST_WARN[row.checklist_quality] ? el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[row.checklist_quality] }) : null, row && row.tenant_inside ? el("span", { class: "h-tag warn", text: "Şu an kiracılı" }) : null)
+          el("div", { class: "h-tags", style: "margin-top:6px" }, statusSlot, row && row.is_owner ? el("span", { class: "h-tag pro", text: "Sahibinden (emlakçısız)" }) : null, row && H.CHECKLIST_WARN[row.checklist_quality] ? el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[row.checklist_quality] }) : null, row && row.tenant_inside ? el("span", { class: "h-tag warn", text: "Şu an kiracılı" }) : null, H.friendsFor(id).map((n) => el("span", { class: "h-tag friend", text: `★ ${n}` })))
         ),
         el(
           "div",
@@ -79,9 +87,25 @@
         fav,
         el("span", { class: "h-btn" }, H.compareToggle(id)),
         linkBtn(ad.source_url, "İlanı aç ↗", true),
-        linkBtn(md.directions_url, "Yol tarifi ↗"),
-        linkBtn(md.street_view_url, "Sokak görünümü ↗"),
-        linkBtn(ad.contact && ad.contact.message_url, "İlan sahibine mesaj ↗")
+        loc.latitude != null && loc.longitude != null
+          ? linkBtn(`https://www.google.com/maps/dir/?api=1&destination=${loc.latitude},${loc.longitude}`, "Yol tarifi ↗")
+          : linkBtn(md.directions_url, "Yol tarifi ↗"),
+        // The ad's street_view_url uses Google's legacy format, which now opens a black screen;
+        // the documented Maps URL (map_action=pano) snaps to the nearest panorama instead.
+        loc.latitude != null && loc.longitude != null
+          ? linkBtn(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${loc.latitude},${loc.longitude}`, "Sokak görünümü ↗")
+          : null,
+        linkBtn(ad.contact && ad.contact.message_url, "İlan sahibine mesaj ↗"),
+        el("button", {
+          type: "button", class: "h-btn", text: "⤴ Paylaş",
+          onclick: () => {
+            const url = new URL(location.href);
+            url.hash = "";
+            const price = H.money(ad.price && ad.price.value);
+            H.share(ad.title, url.toString(), `${price} · ${[loc.district, loc.neighborhood].filter(Boolean).join(", ")}`);
+          },
+        }),
+        el("button", { type: "button", class: "h-btn", text: "🖨 Yazdır", title: "Gezmeye giderken yanına al", onclick: () => window.print() })
       )
     );
 
@@ -91,6 +115,8 @@
 
     left.append(photosPanel(ad));
     if (row) left.append(pricePanel(row, FI));
+    const sim = row && similarPanel(row);
+    if (sim) left.append(sim);
     left.append(commutePanel(ad));
     const desc = ad.classified_detail && ad.classified_detail.description;
     if (desc) left.append(panel("Açıklama", el("div", { class: "h-desc", text: desc })));
@@ -191,9 +217,40 @@
         stat("Aylık toplam", H.money(row.monthly_cost)),
         stat(row.deposit == null ? "Depozito" : `Depozito · ${H.num(row.deposit_months)} ay`, row.deposit == null ? "belirtilmemiş" : H.money(row.deposit)),
         stat("Taşınma maliyeti", row.move_in_cost == null ? "?" : H.money(row.move_in_cost), FI.move_in_cost.label + "; emlakçı komisyonu dahil değil"),
-        stat("Net m² başına", H.num(row.price_per_m2_net) + " ₺")
-      )
+        stat("Net m² başına", H.num(row.price_per_m2_net) + " ₺"),
+        row._area ? stat(`${row._area.scope} ortancası`, H.num(Math.round(row._area.median)) + " ₺/m²", `${row._area.n} ilanın net m² kirası ortancası`) : null
+      ),
+      row._area ? el("div", { class: "h-note" }, "Bu ilan ", el("b", { text: H.areaText(row._area) }), ` (m² kirası ${H.num(row.price_per_m2_net)} ₺, ${row._area.scope} ortancası ${H.num(Math.round(row._area.median))} ₺, ${row._area.n} ilan). Pazarlıkta işine yarayabilir.`) : null
     );
+  }
+
+  // ---------- same flat / similar flats ----------
+  function similarPanel(row) {
+    const same = (row._dup || []).filter((x) => x !== row.id).map((x) => H.byId.get(x)).filter(Boolean);
+    const sameSet = new Set(same.map((a) => a.id));
+    const similar = H.index.ads.filter((a) => !sameSet.has(a.id) && H.similarFlat(row, a, false)).sort((a, b) => a.price_value - b.price_value);
+    if (!same.length && !similar.length) return null;
+    const item = (a) =>
+      el(
+        "li",
+        {},
+        el("a", { href: H.adPage(a.id), text: a.title }),
+        el("div", { class: "h-muted h-small" }, [H.money(a.price_value), `${a.area_net_m2} m²`, `kat ${a.floor}/${a.floor_count}`, a.seller_name || (a.is_owner ? "Sahibinden" : null)].filter(Boolean).join(" · "),
+          a.price_value < row.price_value ? el("span", { class: "h-tag pro", style: "margin-left:6px", text: `${H.money(row.price_value - a.price_value)} daha ucuz` }) : null)
+      );
+    const p = panel("Aynı daire / benzer ilanlar");
+    if (same.length) {
+      p.append(
+        el("h3", { text: "≈ Muhtemelen aynı daire" }),
+        el("p", { class: "h-hint", text: "Aynı bina, aynı kat, benzer m²: büyük ihtimalle aynı ev farklı ilanlarla yayında. En ucuz ilandan ilerlemek mantıklı." }),
+        el("ul", { class: "h-simlist" }, same.map(item)),
+        el("a", { class: "h-btn h-btn-small", href: `${H.cfg.root}compare/?ids=${[row.id, ...same.map((a) => a.id)].slice(0, H.MAX_COMPARE).join(",")}`, text: "Yan yana karşılaştır" })
+      );
+    }
+    if (similar.length) {
+      p.append(el("h3", { style: "margin-top:12px", text: "Aynı sitede / binada benzer daireler" }), el("ul", { class: "h-simlist" }, similar.slice(0, 6).map(item)));
+    }
+    return p;
   }
 
   // ---------- commute ----------
@@ -339,6 +396,7 @@
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(m);
+      H.addRailLayer(m);
       L.circleMarker([lat, lon], { radius: 9, color: "#222", weight: 2, fillColor: "#2563a6", fillOpacity: 0.9 }).addTo(m).bindTooltip("Ev");
       L.marker(WORK, { icon: L.divIcon({ className: "", html: '<div style="font-size:24px;line-height:1">🏢</div>', iconSize: [26, 26], iconAnchor: [13, 13] }) })
         .addTo(m)
@@ -378,6 +436,8 @@
       form.append(editList("Artılar", "pro", n.pros, row ? row.auto_pros : [], (list) => save({ pros: list })));
       form.append(editList("Eksiler", "con", n.cons, row ? row.auto_cons : [], (list) => save({ cons: list })));
 
+      form.append(checklistBox(n));
+
       const note = el("textarea", { class: "h-input", placeholder: "Notlar: kiminle konuşuldu, gezme izlenimleri…", "aria-label": "Not" });
       note.value = n.note;
       let t;
@@ -410,6 +470,29 @@
     redrawNotes = draw;
     draw();
     return p;
+  }
+
+  function checklistBox(n) {
+    const total = H.VISIT_CHECKLIST.reduce((s, [, items]) => s + items.length, 0);
+    const done = Object.keys(n.checklist).length;
+    const det = el("details", { class: "h-checklist", open: H.store.get("house.checklistOpen", false) || null });
+    det.addEventListener("toggle", () => H.store.set("house.checklistOpen", det.open));
+    det.append(el("summary", {}, el("strong", { text: "Gezme kontrol listesi" }), " ", el("span", { class: "h-tag" + (done === total ? " pro" : ""), text: `${done}/${total}` })));
+    for (const [group, items] of H.VISIT_CHECKLIST) {
+      det.append(el("div", { class: "h-sub", text: group }));
+      for (const [key, label] of items) {
+        const box = el("input", { type: "checkbox", checked: !!n.checklist[key] });
+        box.addEventListener("change", () => {
+          const cl = { ...H.notes(id).checklist };
+          if (box.checked) cl[key] = true;
+          else delete cl[key];
+          H.patchNotes(id, { checklist: cl });
+          redrawNotes();
+        });
+        det.append(el("label", { class: "h-check h-checkitem" }, box, label));
+      }
+    }
+    return det;
   }
 
   function editList(title, cls, list, auto, onChange) {

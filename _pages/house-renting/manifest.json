@@ -1,0 +1,20 @@
+---
+permalink: /house-renting/manifest.webmanifest
+sitemap: false
+---
+{
+  "name": "Kiralık 2+1 · Ankara",
+  "short_name": "Kiralık 2+1",
+  "description": "Kiralık ilanları filtrele, karşılaştır, not al.",
+  "lang": "tr",
+  "start_url": "{{ '/house-renting/' | relative_url }}",
+  "scope": "{{ '/house-renting/' | relative_url }}",
+  "display": "standalone",
+  "background_color": "#f4f3ef",
+  "theme_color": "#3156d3",
+  "icons": [
+    { "src": "{{ '/assets/house-renting/icons/icon-192.png' | relative_url }}", "sizes": "192x192", "type": "image/png" },
+    { "src": "{{ '/assets/house-renting/icons/icon-512.png' | relative_url }}", "sizes": "512x512", "type": "image/png" },
+    { "src": "{{ '/assets/house-renting/icons/maskable-512.png' | relative_url }}", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
