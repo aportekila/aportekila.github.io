@@ -5,16 +5,24 @@
 
   // Fields shown at the top of the panel; they are left out of the per-group sections.
   const QUICK_BOOLS = ["is_owner", "in_complex", "has_pool", "has_gym", "near_gym", "furnished", "separate_kitchen", "has_closed_parking", "elevator", "transit_uses_rail"];
-  const COMMUTE = { c_am: "Sabah (eve → işe, 08:50'de varış)", c_pm: "Akşam (18:00'de çıkış → ev)", c_daily: "Günlük toplam (sabah + akşam)" };
-  const COMMUTE_KEY = { c_am: "am", c_pm: "pm", c_daily: "daily" };
-  const SKIP_IN_GROUPS = new Set(["price_value", ...QUICK_BOOLS, "am_transit_min", "pm_transit_min", "daily_transit_min", "am_drive_min", "pm_drive_min", "daily_drive_min"]);
+  const COMMUTE = {
+    c_d2d: "Kapıdan kapıya günlük (beklemeler dahil)",
+    c_am: "Sabah yolculuk (eve → işe, 08:50'de varış)",
+    c_pm: "Akşam yolculuk (18:00'de çıkış → ev)",
+    c_daily: "Günlük yolculuk (sabah + akşam, beklemesiz)",
+  };
+  const COMMUTE_KEY = { c_am: "am", c_pm: "pm", c_daily: "daily", c_d2d: "d2d" };
+  const SKIP_IN_GROUPS = new Set(["price_value", ...QUICK_BOOLS, "am_transit_min", "pm_transit_min", "daily_transit_min", "am_drive_min", "pm_drive_min", "daily_drive_min", "_d2d_transit", "_d2d_drive", "_station_m"]);
   const TIME_HINT = { am_leave_transit: "Evden çıkış saati aralığı", am_leave_drive: "Evden çıkış saati aralığı", pm_arrive_transit: "Eve varış saati aralığı", pm_arrive_drive: "Eve varış saati aralığı" };
   const AVOID = new Set(["is_ground_floor", "has_squat_toilet", "tenant_inside"]);
   const SORTS = [
     { key: "price_value", label: "Kira", dir: "asc" },
     { key: "_score", label: "Uygunluk puanı", dir: "desc" },
     { key: "monthly_cost", label: "Aylık toplam (kira + aidat)", dir: "asc" },
+    { key: "c_d2d", label: "Kapıdan kapıya (seçili tip)", dir: "asc" },
     { key: "c_daily", label: "Günlük yolculuk (seçili tip)", dir: "asc" },
+    { key: "_total", label: "Ulaşım dahil aylık maliyet", dir: "asc" },
+    { key: "_station_m", label: "Raylı sisteme yakınlık", dir: "asc" },
     { key: "daily_transit_min", label: "Günlük toplu taşıma", dir: "asc" },
     { key: "daily_drive_min", label: "Günlük araç", dir: "asc" },
     { key: "c_am", label: "Sabah yolculuk (seçili tip)", dir: "asc" },
@@ -28,6 +36,7 @@
   const DEFAULT_SORT = "price_value";
 
   let FI, ADS, CATALOG, TIME_RANGE = {};
+  let costs = H.costSettings();
   let state;
   const openSections = new Set(["_quick"]);
   const cardCache = new Map();
@@ -102,6 +111,7 @@
   function value(ad, key) {
     if (key === "_rating") return H.notes(ad.id).rating;
     if (key === "_score") return H.score(ad, state.mode, state.w, FI);
+    if (key === "_total") return H.totalCost(ad, state.mode, costs);
     const f = fieldOf(key);
     const v = ad[f];
     return TIME_RANGE[f] ? H.hhmmToMin(v) : v;
@@ -112,6 +122,7 @@
     if (TIME_RANGE[f]) return { ...TIME_RANGE[f], step: 5, fmt: H.minToHhmm, label: info.label };
     let step = 1;
     if (info.unit === "TL") step = info.max - info.min >= 10000 ? 500 : 50;
+    else if (info.unit === "m") step = 50;
     else if (!Number.isInteger(info.min) || !Number.isInteger(info.max)) step = 0.1;
     const round = (x) => Math.round(x * 1000) / 1000;
     return {
@@ -344,12 +355,57 @@
     facetUpdaters = [];
     const countIn = (keys) => keys.filter((k) => k in state.ranges || k in state.bools || (state.multi[k] || []).length).length;
 
+    // Saved searches
+    const saved = H.store.get("house.savedSearches", []) || [];
+    panel.append(
+      section("_saved", "Kayıtlı aramalarım", 0, (b) => {
+        if (!saved.length) b.append(el("div", { class: "h-hint", text: "Filtreleri ayarla, sonra buradan isim vererek kaydet; tek tıkla geri dönersin." }));
+        const chips = el("div", { class: "h-chips" });
+        const current = toQuery();
+        saved.forEach((sv, i) => {
+          const open = el("button", { type: "button", class: "h-chip", "aria-pressed": sv.q === current, title: "Bu aramayı aç", text: sv.name });
+          open.addEventListener("click", () => {
+            state = fromQuery(sv.q);
+            document.getElementById("search").value = state.q;
+            cardCache.clear();
+            buildPanel();
+            apply(true);
+          });
+          const del = el("button", {
+            type: "button", class: "h-chip", title: `“${sv.name}” aramasını sil`, "aria-label": `${sv.name} aramasını sil`, text: "✕",
+            onclick: () => {
+              H.store.set("house.savedSearches", saved.filter((_, j) => j !== i));
+              buildPanel();
+            },
+          });
+          chips.append(el("span", { class: "h-chip-pair" }, open, del));
+        });
+        if (saved.length) b.append(chips);
+        b.append(
+          el("button", {
+            type: "button", class: "h-btn h-btn-small", text: "💾 Bu aramayı kaydet",
+            onclick: () => {
+              const name = (prompt("Bu aramaya bir isim ver (ör. Metroya yakın, 35 bin altı)") || "").trim().slice(0, 40);
+              if (!name) return;
+              const list = (H.store.get("house.savedSearches", []) || []).filter((x) => x.name !== name);
+              list.push({ name, q: toQuery() });
+              H.store.set("house.savedSearches", list);
+              openSections.add("_saved");
+              buildPanel();
+              H.toast(`“${name}” kaydedildi`);
+            },
+          })
+        );
+      })
+    );
+
     // Quick filters
     panel.append(
-      section("_quick", "Hızlı filtreler", countIn(["price_value", ...Object.keys(COMMUTE), ...QUICK_BOOLS]) + (state.hideUnknown ? 1 : 0), (b) => {
+      section("_quick", "Hızlı filtreler", countIn(["price_value", ...Object.keys(COMMUTE), ...QUICK_BOOLS, "_station_m"]) + (state.hideUnknown ? 1 : 0), (b) => {
         b.append(rangeControl("price_value"));
         b.append(el("div", { class: "h-sub", text: `${H.MODES[state.mode].icon} ${H.MODES[state.mode].label} süreleri` }));
         for (const k of Object.keys(COMMUTE)) b.append(rangeControl(k));
+        if (FI._station_m) b.append(rangeControl("_station_m"));
         b.append(el("div", { class: "h-sub", text: "Olmazsa olmazlar" }));
         for (const f of QUICK_BOOLS) if (FI[f]) b.append(triControl(f));
         const hu = el("input", { type: "checkbox", checked: state.hideUnknown });
@@ -366,6 +422,31 @@
         const dupCount = ADS.filter((a) => a._dup && a._dup[0] !== a.id).length;
         b.append(el("label", { class: "h-check" }, dd, `Muhtemel aynı daireleri tek göster (${dupCount} ilan gizlenir)`));
         b.append(el("div", { class: "h-hint", text: "Kapalıyken, bilgisi olmayan ilanlar filtrede kalır ve “?” rozetiyle gösterilir." }));
+      })
+    );
+
+    // Transport cost assumptions
+    panel.append(
+      section("_costs", "Ulaşım maliyeti varsayımları", 0, (b) => {
+        b.append(el("div", { class: "h-hint", text: "“Ulaşım dahil aylık maliyet” = kira + aidat + ulaşım. Fiyatlar değişir; kendi bildiğin değerlerle güncelle." }));
+        const fields = [
+          ["transitMonthly", "Toplu taşıma, aylık (₺)", 10],
+          ["perKm", "Araç, km başı yakıt + yıpranma (₺)", 0.1],
+          ["workDays", "Ayda iş günü", 1],
+        ];
+        for (const [k, label, step] of fields) {
+          const input = el("input", { type: "number", class: "h-input h-num-input", min: 0, step, value: costs[k], "aria-label": label });
+          input.addEventListener("change", () => {
+            const v = Number(input.value);
+            if (!Number.isFinite(v) || v < 0) return;
+            costs = { ...costs, [k]: v };
+            H.setCostSettings(costs);
+            cardCache.clear();
+            apply(false);
+          });
+          b.append(el("label", { class: "h-num-row" }, el("span", { text: label }), input));
+        }
+        b.append(el("div", { class: "h-hint", text: `Araç: sabah rota km × 2 × iş günü × km başı. Varsayılan: toplu taşıma ${H.money(H.COST_DEFAULTS.transitMonthly)}/ay, araç ${H.num(H.COST_DEFAULTS.perKm)} ₺/km.` }));
       })
     );
 
@@ -535,8 +616,9 @@
     const mode = H.MODES[state.mode];
     const photo = H.cardPhoto(ad);
     const link = H.adPage(ad.id);
-    const dailyInfo = FI[mode.daily];
-    const heat = H.heat((ad[mode.daily] - dailyInfo.min) / (dailyInfo.max - dailyInfo.min || 1));
+    const dailyInfo = FI[mode.d2d];
+    const heat = H.heat((ad[mode.d2d] - dailyInfo.min) / (dailyInfo.max - dailyInfo.min || 1));
+    const total = H.totalCost(ad, state.mode, costs);
     const card = el("article", { class: "h-card" + (n.status === "rejected" ? " rejected" : ""), dataset: { id: ad.id } });
 
     const badges = el("div", { class: "h-photo-badges" });
@@ -553,7 +635,7 @@
           "div",
           { class: "h-photo-price" },
           el("b", { text: H.money(ad.price_value) }),
-          el("span", { text: ad.dues_known ? `aylık toplam ${H.money(ad.monthly_cost)}` : "aidat belirtilmemiş" })
+          el("span", { text: (ad.dues_known ? `aylık toplam ${H.money(ad.monthly_cost)}` : "aidat belirtilmemiş") + (total != null ? ` · ulaşımla ${H.money(total)}` : "") })
         )
       )
     );
@@ -566,10 +648,13 @@
     body.append(
       el(
         "div",
-        { class: "h-commute", title: `${mode.label}: sabah evden çıkış ${ad[mode.leave] || "?"}, akşam eve varış ${ad[mode.arrive] || "?"}` },
+        {
+          class: "h-commute",
+          title: `${mode.label}: sabah evden ${ad[mode.leave] || "?"}'de çık, akşam ${ad[mode.arrive] || "?"}'de evde. Yolda ${H.mins(ad[mode.daily])}; kapıdan kapıya ${H.mins(ad[mode.d2d])} (beklemeler dahil).`,
+        },
         el("div", {}, el("span", { text: "Sabah" }), el("b", { text: H.mins(ad[mode.am]) })),
         el("div", {}, el("span", { text: "Akşam" }), el("b", { text: H.mins(ad[mode.pm]) })),
-        el("div", { class: "daily", style: `--heat:${heat}` }, el("span", { text: mode.icon + " Günlük" }), el("b", { text: H.mins(ad[mode.daily]) }))
+        el("div", { class: "daily", style: `--heat:${heat}` }, el("span", { text: mode.icon + " Kapıdan kapıya" }), el("b", { text: H.mins(ad[mode.d2d]) }))
       )
     );
     const age = ad.building_age_max == null ? `${ad.building_age_min}+ yaş` : ad.building_age_min === ad.building_age_max ? `${ad.building_age_min} yaş` : `${ad.building_age_min}–${ad.building_age_max} yaş`;
@@ -590,12 +675,15 @@
         state.mode === "transit"
           ? `🚏 ${ad.am_transit_lines || "?"} · ${ad.am_leave_transit || "?"}'de çık`
           : `🚦 trafik +${H.mins(ad.am_drive_traffic_min)} · ${ad.am_leave_drive || "?"}'de çık`
-      )
+      ),
+      ad._station ? el("div", { class: "h-route h-muted", text: `🚇 ${H.stationText(ad)}` }) : null
     );
 
     const tags = el("div", { class: "h-tags" });
     if (n.rating) tags.append(el("span", { class: "h-tag rating", text: "★".repeat(n.rating) }));
     for (const name of H.friendsFor(ad.id)) tags.append(el("span", { class: "h-tag friend", title: `${name} favorilerine eklemiş`, text: `★ ${name}` }));
+    if (ad._loc_warn) tags.append(el("span", { class: "h-tag warn", title: ad._loc_warn, text: "📍 Konum şüpheli" }));
+    if (ad._timing && state.mode === "transit") tags.append(el("span", { class: "h-tag warn", title: "Bir otobüsü kaçırmak süreyi ciddi uzatabilir: " + ad._timing.join("; "), text: "⏱ Sefer saatine hassas" }));
     const scoreTag = el("span", { class: "h-tag score", hidden: true, title: "Uygunluk puanı (ağırlıklar filtre panelinde)" });
     tags.append(scoreTag);
     if (ad._dup)
@@ -663,8 +751,8 @@
     map._legend = legend;
   }
   function markerColor(ad) {
-    const info = FI[H.MODES[state.mode].daily];
-    return H.heat((ad[H.MODES[state.mode].daily] - info.min) / (info.max - info.min || 1));
+    const info = FI[H.MODES[state.mode].d2d];
+    return H.heat((ad[H.MODES[state.mode].d2d] - info.min) / (info.max - info.min || 1));
   }
   function popupFor(ad) {
     const mode = H.MODES[state.mode];
@@ -689,7 +777,7 @@
       if (!m) {
         m = L.circleMarker([ad.latitude, ad.longitude], { radius: 8, weight: 1.5, color: "#222", fillOpacity: 0.9 });
         m.bindPopup(() => popupFor(ad));
-        m.bindTooltip(() => `${H.money(ad.price_value)} · ${H.mins(ad[H.MODES[state.mode].daily])}`);
+        m.bindTooltip(() => `${H.money(ad.price_value)} · kapıdan kapıya ${H.mins(ad[H.MODES[state.mode].d2d])}`);
         markers.set(ad.id, m);
       }
       const fav = H.notes(ad.id).favorite;
@@ -698,10 +786,10 @@
       if (ids.has(ad.id)) m.addTo(map);
       else m.remove();
     }
-    const info = FI[H.MODES[state.mode].daily];
+    const info = FI[H.MODES[state.mode].d2d];
     const d = map._legend._div;
     clear(d).append(
-      el("div", { text: `Günlük ${H.MODES[state.mode].label.toLowerCase()}` }),
+      el("div", { text: `Kapıdan kapıya, ${H.MODES[state.mode].label.toLowerCase()}` }),
       el("div", { class: "h-legend-bar" }),
       el("div", { style: "display:flex;justify-content:space-between" }, el("span", { text: H.mins(info.min) }), el("span", { text: H.mins(info.max) })),
       el("div", { text: "Büyük daire = favori" })

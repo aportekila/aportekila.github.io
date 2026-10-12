@@ -76,6 +76,9 @@
     if (ad._dup) tags.append(el("span", { class: "h-tag dup", text: `≈ aynı daire, ${ad._dup.length} ilan` + (ad._dup[0] === ad.id ? " · en ucuzu" : "") }));
     if (ad._area && Math.abs(ad._area.diff) >= 0.08) tags.append(el("span", { class: "h-tag " + (ad._area.diff < 0 ? "pro" : "con"), text: H.areaText(ad._area) }));
     for (const f of H.friendsFor(ad.id)) tags.append(el("span", { class: "h-tag friend", text: `★ ${f}` }));
+    if (ad._loc_warn) tags.append(el("span", { class: "h-tag warn", title: ad._loc_warn, text: "📍 Konum şüpheli" }));
+    if (ad._timing) tags.append(el("span", { class: "h-tag warn", title: ad._timing.join("; "), text: "⏱ Sefer saatine hassas" }));
+    if (ad._station) tags.append(el("span", { class: "h-tag", text: `🚇 ${H.stationText(ad)}` }));
     if (H.CHECKLIST_WARN[ad.checklist_quality]) tags.append(el("span", { class: "h-tag warn", text: H.CHECKLIST_WARN[ad.checklist_quality] }));
     return el(
       "article",
@@ -95,9 +98,9 @@
         el(
           "div",
           { class: "h-commute h-commute-2" },
-          el("div", {}, el("span", { text: "🚌 Günlük" }), el("b", { text: H.mins(ad[t.daily]) })),
+          el("div", {}, el("span", { text: "🚌 Kapıdan kapıya" }), el("b", { text: H.mins(ad[t.d2d]) })),
           el("div", {}, el("span", { text: "🚌 Sabah / akşam" }), el("b", { text: `${H.mins(ad[t.am])} / ${H.mins(ad[t.pm])}` })),
-          el("div", {}, el("span", { text: "🚗 Günlük" }), el("b", { text: H.mins(ad[d.daily]) }))
+          el("div", {}, el("span", { text: "🚗 Kapıdan kapıya" }), el("b", { text: H.mins(ad[d.d2d]) }))
         ),
         el("ul", { class: "h-specs" }, el("li", { text: `${ad.area_net_m2} m²` }), el("li", { text: `Kat ${ad.floor}/${ad.floor_count}` }), el("li", { text: `${ad.building_age_min}${ad.building_age_max == null ? "+" : ad.building_age_max !== ad.building_age_min ? "–" + ad.building_age_max : ""} yaş` }), el("li", { text: ad.heating || "Isıtma ?" })),
         tags,

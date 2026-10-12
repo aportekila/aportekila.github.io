@@ -117,7 +117,7 @@
     if (row) left.append(pricePanel(row, FI));
     const sim = row && similarPanel(row);
     if (sim) left.append(sim);
-    left.append(commutePanel(ad));
+    left.append(commutePanel(ad, row));
     const desc = ad.classified_detail && ad.classified_detail.description;
     if (desc) left.append(panel("Açıklama", el("div", { class: "h-desc", text: desc })));
     left.append(featuresPanel(ad));
@@ -313,7 +313,7 @@
       el("div", { class: "h-small h-muted", text: [`${H.mins(d.duration_min)}`, d.duration_without_traffic_min != null ? `trafiksiz ${H.mins(d.duration_without_traffic_min)}` : null, traffic != null ? `trafik +${H.mins(traffic)}` : null, d.distance_km != null ? `${H.num(d.distance_km)} km` : null].filter(Boolean).join(" · ") })
     );
   }
-  function commutePanel(ad) {
+  function commutePanel(ad, row) {
     const c = ad.commute || {};
     const am = c.morning || {}, pm = c.evening || {};
     const daily = c.daily_total_min || {};
@@ -326,11 +326,18 @@
         stat("Sabah", H.mins(am.transit && am.transit.duration_min)),
         stat("Akşam", H.mins(pm.transit && pm.transit.duration_min)),
         stat("Günlük", H.mins(daily.transit)),
+        stat("Kapıdan kapıya", H.mins(row && row._d2d_transit), "Evden çıkıştan 08:50'ye + 18:00'den eve varışa; işte erken varıp beklemek ve akşam ilk araca beklemek dahil"),
         el("div", { class: "h-stats-label", text: "🚗 Araç" }),
         stat("Sabah", H.mins(am.drive && am.drive.duration_min)),
         stat("Akşam", H.mins(pm.drive && pm.drive.duration_min)),
-        stat("Günlük", H.mins(daily.drive))
+        stat("Günlük", H.mins(daily.drive)),
+        stat("Kapıdan kapıya", H.mins(row && row._d2d_drive))
       ),
+      row && (row._loc_warn || row._timing)
+        ? el("div", { class: "h-note h-note-warn" }, row._loc_warn ? el("div", { text: "📍 " + row._loc_warn }) : null, row._timing ? el("div", { text: "⏱ Sefer saatine hassas: " + row._timing.join("; ") + "." }) : null)
+        : null,
+      row && row._station ? el("div", { class: "h-hint", text: `🚇 En yakın raylı sistem durağı: ${H.stationText(row)} (kuş uçuşu)` }) : null,
+      row ? el("div", { class: "h-hint", text: `💸 Ulaşım dahil aylık: toplu taşımayla ${H.money(H.totalCost(row, "transit"))}, araçla ${H.money(H.totalCost(row, "drive"))} (varsayımlar İlanlar sayfasındaki filtre panelinde).` }) : null,
       el("div", { class: "h-hint", style: "margin:-4px 0 12px", text: `Kuş uçuşu ${ad.distance_to_work && ad.distance_to_work.straight_line_km != null ? H.num(ad.distance_to_work.straight_line_km) + " km" : "?"}` }),
       el("h3", { text: "🚌 Toplu taşıma" }),
       transitTrip("Sabah", am.transit, am.transit_route, false),
@@ -343,7 +350,7 @@
         { class: "h-note" },
         "Varsayımlar: ODTÜ ring (A2 Metro Kapısı ↔ Teknokent) sabit ~15 dk sayıldı; ring saatleri dönemden döneme değişir ve Google verisinde yok. ",
         `Süreler tek bir hafta içi günü (${(am.transit_route && am.transit_route.computed_for) || "2026-10-12"}) için Google Maps'ten alındı. `,
-        "Yolculuk süresi ilk araç için beklemeyi içermez; saatler gerçek sefer saatlerine göredir."
+        "“Günlük” yalnızca yolda geçen süredir; “kapıdan kapıya” beklemeleri de içerir. Saatler gerçek sefer saatlerine göredir."
       )
     );
     return p;

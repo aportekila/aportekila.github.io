@@ -5,7 +5,7 @@
   const root = document.getElementById("compare");
 
   // Which direction is better for numeric rows (others are not highlighted).
-  const LOWER = new Set(["price_value", "monthly_cost", "dues", "deposit", "price_per_m2_net", "deposit_months", "move_in_cost", "am_transit_min", "pm_transit_min", "daily_transit_min", "am_drive_min", "pm_drive_min", "daily_drive_min", "am_transit_transfers", "pm_transit_transfers", "am_transit_walk_min", "pm_transit_walk_min", "am_transit_first_walk_min", "am_drive_traffic_min", "pm_transit_wait_min", "distance_to_work_km", "drive_km", "transit_km", "building_age_min", "cons_count", "pm_arrive_transit", "pm_arrive_drive"]);
+  const LOWER = new Set(["_d2d_transit", "_d2d_drive", "_station_m", "price_value", "monthly_cost", "dues", "deposit", "price_per_m2_net", "deposit_months", "move_in_cost", "am_transit_min", "pm_transit_min", "daily_transit_min", "am_drive_min", "pm_drive_min", "daily_drive_min", "am_transit_transfers", "pm_transit_transfers", "am_transit_walk_min", "pm_transit_walk_min", "am_transit_first_walk_min", "am_drive_traffic_min", "pm_transit_wait_min", "distance_to_work_km", "drive_km", "transit_km", "building_age_min", "cons_count", "pm_arrive_transit", "pm_arrive_drive"]);
   const HIGHER = new Set(["area_net_m2", "area_gross_m2", "bathrooms", "pros_count", "am_leave_transit", "am_leave_drive"]);
   const SKIP = new Set(["id", "title", "price_currency", "price_raw", "city", "latitude", "longitude", "rooms", "living_rooms", "building_age_max", "is_top_floor", "seller_name", "photo_count", "features_all", "auto_pros", "auto_cons", "ad_json", "listing_date"]);
 
@@ -96,7 +96,10 @@
 
     let currentGroup = null;
     let pendingGroup = null;
-    for (const [f, info] of Object.entries(FI)) {
+    // Keep each group together (derived fields are appended to field_info at the end).
+    const groupOrder = [...new Set(Object.values(FI).map((i) => i.group))];
+    const entries = Object.entries(FI).sort((x, y) => groupOrder.indexOf(x[1].group) - groupOrder.indexOf(y[1].group));
+    for (const [f, info] of entries) {
       if (SKIP.has(f) || ["none", "list", "features"].includes(info.filter)) continue;
       if (info.filter === "boolean" && !info.true_count && !info.unknown) continue;
       if (info.group !== currentGroup) {
@@ -123,6 +126,15 @@
       }
       row(info.label, cells, { always: true });
     }
+
+    group("Ulaşım dahil aylık maliyet");
+    for (const mode of ["transit", "drive"]) {
+      const vals = ads.map((a) => H.totalCost(a, mode));
+      const ok = vals.filter((v) => v != null);
+      const best = ok.length > 1 && new Set(ok).size > 1 ? Math.min(...ok) : null;
+      row(`${H.MODES[mode].icon} ${H.MODES[mode].label} ile`, ads.map((a, i) => ({ key: vals[i], node: H.money(vals[i]), best: best != null && vals[i] === best, num: true })), { always: true });
+    }
+    row("En yakın raylı sistem durağı", ads.map((a) => ({ key: a._station_m, node: H.stationText(a) || "–" })));
 
     group("Bölge ve tekrar eden ilanlar");
     const diffs = ads.map((a) => (a._area ? a._area.diff : null));

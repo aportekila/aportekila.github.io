@@ -104,8 +104,8 @@
 
   // ---------- commute mode ----------
   H.MODES = {
-    transit: { label: "Toplu taşıma", icon: "🚌", am: "am_transit_min", pm: "pm_transit_min", daily: "daily_transit_min", leave: "am_leave_transit", arrive: "pm_arrive_transit" },
-    drive: { label: "Araç", icon: "🚗", am: "am_drive_min", pm: "pm_drive_min", daily: "daily_drive_min", leave: "am_leave_drive", arrive: "pm_arrive_drive" },
+    transit: { label: "Toplu taşıma", icon: "🚌", am: "am_transit_min", pm: "pm_transit_min", daily: "daily_transit_min", d2d: "_d2d_transit", leave: "am_leave_transit", arrive: "pm_arrive_transit" },
+    drive: { label: "Araç", icon: "🚗", am: "am_drive_min", pm: "pm_drive_min", daily: "daily_drive_min", d2d: "_d2d_drive", leave: "am_leave_drive", arrive: "pm_arrive_drive" },
   };
   H.getMode = () => (H.store.get("house.mode", "transit") === "drive" ? "drive" : "transit");
   H.setMode = (m) => H.store.set("house.mode", m);
@@ -126,6 +126,7 @@
 
   // ---------- data loading ----------
   let indexPromise = null;
+  let railPromise = null; // rail.json: loaded with the index, reused by the map layer
   H.loadIndex = function () {
     if (!indexPromise) {
       indexPromise = Promise.all([
@@ -139,8 +140,10 @@
         fetch(CFG.photos)
           .then((r) => (r.ok ? r.json() : {}))
           .catch(() => ({})),
-      ]).then(([index, notesFile, photos]) => {
+        (railPromise = fetch(CFG.rail).then((r) => (r.ok ? r.json() : null)).catch(() => null)),
+      ]).then(([index, notesFile, photos, rail]) => {
         for (const ad of index.ads) ad._photo = photos[ad.id] || null;
+        H.rail = rail;
         H.index = index;
         H.byId = new Map(index.ads.map((a) => [a.id, a]));
         H.notesFile = notesFile && typeof notesFile === "object" ? notesFile : { ads: {} };
@@ -368,6 +371,110 @@
       const med = median(list);
       a._area = { scope: useHood ? a.neighborhood : a.district + " (ilçe)", n: list.length, median: med, diff: (a.price_per_m2_net - med) / med };
     }
+    enrichCommute(index);
+  };
+
+  /**
+   * Door-to-door day: from leaving home until 08:50 (incl. waiting at work because the bus
+   * that makes it arrives early) plus from 18:00 until home (incl. waiting for the first
+   * vehicle). Also: nearest rail station, suspicious map pins, timetable-sensitive commutes.
+   * The new fields get field_info entries so filters, sorting and compare pick them up.
+   */
+  const WORK_START = 8 * 60 + 50, WORK_END = 18 * 60;
+  function enrichCommute(index) {
+    const ads = index.ads, FI = index.field_info;
+    const span = (ad, leave, arrive) => {
+      const l = H.hhmmToMin(ad[leave]), r = H.hhmmToMin(ad[arrive]);
+      return l == null || r == null ? null : WORK_START - l + (r - WORK_END);
+    };
+    for (const a of ads) {
+      a._d2d_transit = span(a, "am_leave_transit", "pm_arrive_transit");
+      a._d2d_drive = span(a, "am_leave_drive", "pm_arrive_drive");
+      const leave = H.hhmmToMin(a.am_leave_transit);
+      a._idle_am = leave == null ? null : WORK_START - leave - a.am_transit_min;
+    }
+
+    // Nearest rail station (straight line).
+    const stations = (H.rail && H.rail.stations) || [];
+    for (const a of ads) {
+      a._station = null;
+      a._station_m = null;
+      if (a.latitude == null) continue;
+      for (const s of stations) {
+        const d = H.distanceM(a, { latitude: s.lat, longitude: s.lon });
+        if (a._station_m == null || d < a._station_m) {
+          a._station_m = Math.round(d / 10) * 10;
+          a._station = s;
+        }
+      }
+    }
+
+    // Pins far from their neighbourhood / complex.
+    const groupBy = (keyFn) => {
+      const m = new Map();
+      for (const a of ads) {
+        const k = keyFn(a);
+        if (k && a.latitude != null) (m.get(k) || m.set(k, []).get(k)).push(a);
+      }
+      return m;
+    };
+    for (const a of ads) a._loc_warn = null;
+    for (const [hoodName, xs] of groupBy((a) => a.neighborhood)) {
+      if (xs.length < 3) continue;
+      const c = { latitude: median(xs.map((x) => x.latitude)), longitude: median(xs.map((x) => x.longitude)) };
+      for (const x of xs) {
+        const d = H.distanceM(x, c);
+        if (d > 2000) x._loc_warn = `Haritadaki iğne ${hoodName} ilanlarının ortasından ${H.num(Math.round(d / 100) / 10)} km uzakta; konum (ve ulaşım süreleri) yanlış olabilir.`;
+      }
+    }
+    for (const [, xs] of groupBy((a) => normName(a.complex_name))) {
+      for (const x of xs) {
+        const far = Math.max(...xs.map((y) => H.distanceM(x, y)));
+        if (far > 1000 && !x._loc_warn) x._loc_warn = `Aynı sitenin (${x.complex_name}) diğer ilanlarından ${H.num(Math.round(far / 100) / 10)} km uzakta işaretlenmiş; konumu kontrol et.`;
+      }
+    }
+
+    // Timetable-sensitive transit: missing one bus likely costs a lot.
+    for (const a of ads) {
+      const r = [];
+      const near = ads.filter((b) => b !== a && b.latitude != null && a.latitude != null && H.distanceM(a, b) <= 300);
+      const worst = near.reduce((m, b) => Math.max(m, Math.abs(b.daily_transit_min - a.daily_transit_min)), 0);
+      if (worst >= 20) r.push(`300 m içindeki başka bir ilanla günlük süre farkı ${worst} dk (hangi otobüse yetişildiğine çok bağlı)`);
+      if (a.pm_transit_wait_min >= 25) r.push(`akşam ilk araç için ${a.pm_transit_wait_min} dk bekleme`);
+      if (a._idle_am >= 15 && a.pm_transit_wait_min >= 15) r.push(`sefer seyrek: sabah ${a._idle_am} dk erken varış, akşam ${a.pm_transit_wait_min} dk bekleme`);
+      a._timing = r.length ? r : null;
+    }
+
+    const range = (f) => {
+      const v = ads.map((a) => a[f]).filter((x) => x != null);
+      return { min: Math.min(...v), max: Math.max(...v), missing: ads.length - v.length };
+    };
+    const add = (f, info) => (FI[f] = { unit: null, ...info });
+    add("_d2d_transit", { label: "Kapıdan kapıya günlük, toplu taşıma (beklemeler dahil)", group: "Yolculuk", filter: "range", unit: "dk", ...range("_d2d_transit") });
+    add("_d2d_drive", { label: "Kapıdan kapıya günlük, araç", group: "Yolculuk", filter: "range", unit: "dk", ...range("_d2d_drive") });
+    add("_timing_sensitive", { label: "Sefer saatine hassas (toplu taşıma)", group: "Yolculuk", filter: "boolean", true_count: ads.filter((a) => a._timing).length, unknown: 0 });
+    if (stations.length) add("_station_m", { label: "En yakın raylı sistem durağı (kuş uçuşu)", group: "Konum", filter: "range", unit: "m", ...range("_station_m") });
+    add("_loc_suspect", { label: "Konumu şüpheli", group: "Konum", filter: "boolean", true_count: ads.filter((a) => a._loc_warn).length, unknown: 0 });
+    for (const a of ads) {
+      a._timing_sensitive = !!a._timing;
+      a._loc_suspect = !!a._loc_warn;
+    }
+  }
+  H.stationText = (ad) => (ad._station ? `${ad._station.name} (${ad._station.lines.join(", ")}) ${ad._station_m >= 1000 ? H.num(Math.round(ad._station_m / 100) / 10) + " km" : ad._station_m + " m"}` : null);
+
+  // ---------- transport-inclusive monthly cost ----------
+  // Assumptions are editable in the filter panel (prices change; check EGO / fuel prices).
+  H.COST_DEFAULTS = { transitMonthly: 1320, perKm: 3.5, workDays: 22 };
+  H.costSettings = () => ({ ...H.COST_DEFAULTS, ...(H.store.get("house.costSettings", {}) || {}) });
+  H.setCostSettings = (s) => H.store.set("house.costSettings", s);
+  H.transportCost = function (ad, mode, s) {
+    s = s || H.costSettings();
+    if (mode === "drive") return ad.drive_km == null ? null : Math.round(ad.drive_km * 2 * s.workDays * s.perKm);
+    return Math.round(s.transitMonthly);
+  };
+  H.totalCost = (ad, mode, s) => {
+    const t = H.transportCost(ad, mode, s);
+    return ad.monthly_cost == null || t == null ? null : ad.monthly_cost + t;
   };
   H.areaText = (area) => {
     if (!area) return null;
@@ -384,14 +491,13 @@
       const t = (v - i.min) / (i.max - i.min);
       return lowerIsBetter ? 1 - t : t;
     };
-    const daily = H.MODES[mode].daily;
+    const daily = H.MODES[mode].d2d; // door-to-door, waits included
     const parts = [[w.c, norm(daily, ad[daily], true)], [w.m, norm("monthly_cost", ad.monthly_cost, true)], [w.a, norm("area_net_m2", ad.area_net_m2, false)]];
     const total = parts.reduce((s, [wt]) => s + wt, 0);
     return total ? Math.round((100 * parts.reduce((s, [wt, v]) => s + wt * v, 0)) / total) : 0;
   };
 
   // ---------- rail lines (assets/house-renting/rail.json, from OpenStreetMap) ----------
-  let railPromise = null;
   /** Adds metro / Ankaray / Başkentray lines and stations as a toggleable overlay. */
   H.addRailLayer = function (map, opts) {
     if (!window.L) return;
