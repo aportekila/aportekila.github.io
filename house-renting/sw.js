@@ -3,7 +3,7 @@
  * - data (index / notes / ad.json …): network first, cached copy offline
  * - scripts, styles, icons, photos, CDN files: cache first
  * - map tiles: cached as you browse, capped */
-const VERSION = "1791893956";
+const VERSION = "1791896858";
 const SHELL = "house-shell-" + VERSION;
 const DATA = "house-data";
 const STATIC = "house-static";
@@ -15,9 +15,9 @@ const DB = "/assets/database/";
 const V = "?v=" + VERSION;
 
 const PRECACHE = [
-  ROOT, ROOT + "ad/", ROOT + "compare/", ROOT + "notes/", ROOT + "triage/", ROOT + "score/",
+  ROOT, ROOT + "ad/", ROOT + "compare/", ROOT + "notes/", ROOT + "triage/", ROOT + "score/", ROOT + "route/",
   ASSETS + "house.css" + V, ASSETS + "common.js" + V,
-  ASSETS + "list.js" + V, ASSETS + "detail.js" + V, ASSETS + "compare.js" + V, ASSETS + "notes.js" + V, ASSETS + "triage.js" + V, ASSETS + "score.js" + V, ASSETS + "score-engine.js" + V,
+  ASSETS + "list.js" + V, ASSETS + "detail.js" + V, ASSETS + "compare.js" + V, ASSETS + "notes.js" + V, ASSETS + "triage.js" + V, ASSETS + "score.js" + V, ASSETS + "score-engine.js" + V, ASSETS + "route.js" + V,
   ASSETS + "photos.json" + V, ASSETS + "rail.json" + V,
   DB + "index.json", "/assets/notes.json",
 ];
