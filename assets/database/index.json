@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-13T08:21:56+00:00",
-  "count": 108,
+  "generated_at": "2026-10-13T09:04:13+00:00",
+  "count": 110,
   "fields": [
     "id",
     "title",
@@ -139,7 +139,7 @@
       "filter": "range",
       "unit": "TL",
       "min": 28000,
-      "max": 50000,
+      "max": 52000,
       "missing": 0
     },
     "monthly_cost": {
@@ -158,14 +158,14 @@
       "unit": "TL",
       "min": 200,
       "max": 4000,
-      "missing": 43
+      "missing": 44
     },
     "dues_known": {
       "label": "Aidat belirtilmiş",
       "group": "Fiyat",
       "filter": "boolean",
       "unit": null,
-      "true_count": 65,
+      "true_count": 66,
       "unknown": 0
     },
     "deposit": {
@@ -175,7 +175,7 @@
       "unit": "TL",
       "min": 25000,
       "max": 100000,
-      "missing": 20
+      "missing": 21
     },
     "price_per_m2_net": {
       "label": "Net m² başına kira",
@@ -193,7 +193,7 @@
       "unit": "ay",
       "min": 0.8,
       "max": 2.1,
-      "missing": 20
+      "missing": 21
     },
     "move_in_cost": {
       "label": "Taşınma maliyeti (ilk kira + depozito)",
@@ -202,7 +202,7 @@
       "unit": "TL",
       "min": 55500,
       "max": 147500,
-      "missing": 20
+      "missing": 21
     },
     "price_currency": {
       "label": "Para birimi",
@@ -221,7 +221,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "dk",
-      "min": 41,
+      "min": 38,
       "max": 84,
       "missing": 0
     },
@@ -230,7 +230,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "dk",
-      "min": 40,
+      "min": 32,
       "max": 84,
       "missing": 0
     },
@@ -239,7 +239,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "dk",
-      "min": 81,
+      "min": 77,
       "max": 161,
       "missing": 0
     },
@@ -248,7 +248,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "dk",
-      "min": 17,
+      "min": 14,
       "max": 43,
       "missing": 0
     },
@@ -257,7 +257,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "dk",
-      "min": 20,
+      "min": 15,
       "max": 48,
       "missing": 0
     },
@@ -266,7 +266,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "dk",
-      "min": 38,
+      "min": 30,
       "max": 86,
       "missing": 0
     },
@@ -338,7 +338,7 @@
       "group": "Yolculuk",
       "filter": "boolean",
       "unit": null,
-      "true_count": 72,
+      "true_count": 74,
       "unknown": 0
     },
     "am_transit_lines": {
@@ -382,7 +382,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "km",
-      "min": 5.16,
+      "min": 4.23,
       "max": 17.74,
       "missing": 0
     },
@@ -391,7 +391,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "km",
-      "min": 8.92,
+      "min": 8.13,
       "max": 26.64,
       "missing": 0
     },
@@ -400,7 +400,7 @@
       "group": "Yolculuk",
       "filter": "range",
       "unit": "km",
-      "min": 7.3,
+      "min": 6.05,
       "max": 33.9,
       "missing": 0
     },
@@ -436,6 +436,7 @@
         "Devlet Mh.",
         "Göksu Mh.",
         "Kentkoop Mah.",
+        "Emek Mah.",
         "Tunahan Mah.",
         "İlkadım Mh.",
         "Batı Sitesi Mh.",
@@ -443,7 +444,6 @@
         "Yuvaköy Mh.",
         "İlkbahar Mh.",
         "Bahçelievler Mh.",
-        "Emek Mah.",
         "Ergazi Mah.",
         "Eryaman Mah.",
         "Uğur Mumcu Mh.",
@@ -479,7 +479,7 @@
       "group": "Daire",
       "filter": "range",
       "unit": "m²",
-      "min": 76,
+      "min": 75,
       "max": 218,
       "missing": 0
     },
@@ -527,7 +527,7 @@
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 7,
+      "true_count": 8,
       "unknown": 0
     },
     "is_top_floor": {
@@ -562,7 +562,8 @@
         "Merkezi (Pay Ölçer)",
         "Merkezi",
         "Kombi (Doğalgaz)",
-        "Yerden Isıtma"
+        "Yerden Isıtma",
+        "Doğalgaz Sobası"
       ]
     },
     "furnished": {
@@ -570,7 +571,7 @@
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 26,
+      "true_count": 27,
       "unknown": 1
     },
     "separate_kitchen": {
@@ -578,7 +579,7 @@
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 30,
+      "true_count": 31,
       "unknown": 0
     },
     "balcony": {
@@ -586,7 +587,7 @@
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 99,
+      "true_count": 101,
       "unknown": 0
     },
     "has_closed_balcony": {
@@ -595,7 +596,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 26,
-      "unknown": 31
+      "unknown": 32
     },
     "has_ensuite": {
       "label": "Ebeveyn banyosu",
@@ -603,7 +604,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 24,
-      "unknown": 31
+      "unknown": 32
     },
     "has_white_goods": {
       "label": "Beyaz eşya (en az biri)",
@@ -611,7 +612,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 17,
-      "unknown": 31
+      "unknown": 32
     },
     "has_dishwasher": {
       "label": "Bulaşık makinesi",
@@ -619,7 +620,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 15,
-      "unknown": 31
+      "unknown": 32
     },
     "has_washing_machine": {
       "label": "Çamaşır makinesi",
@@ -627,7 +628,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 10,
-      "unknown": 31
+      "unknown": 32
     },
     "has_built_in_kitchen": {
       "label": "Ankastre mutfak / fırın",
@@ -635,7 +636,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 57,
-      "unknown": 31
+      "unknown": 32
     },
     "has_ac": {
       "label": "Klima",
@@ -643,7 +644,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 2,
-      "unknown": 31
+      "unknown": 32
     },
     "has_built_in_wardrobe": {
       "label": "Gömme dolap",
@@ -651,7 +652,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 30,
-      "unknown": 31
+      "unknown": 32
     },
     "has_dressing_room": {
       "label": "Giyinme odası",
@@ -659,7 +660,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 7,
-      "unknown": 31
+      "unknown": 32
     },
     "has_fiber": {
       "label": "Fiber internet",
@@ -667,7 +668,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 46,
-      "unknown": 31
+      "unknown": 32
     },
     "has_smart_home": {
       "label": "Akıllı ev",
@@ -675,23 +676,23 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 7,
-      "unknown": 31
+      "unknown": 32
     },
     "has_double_glazing": {
       "label": "Isıcam / PVC doğrama",
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 61,
-      "unknown": 31
+      "true_count": 62,
+      "unknown": 32
     },
     "has_steel_door": {
       "label": "Çelik kapı",
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 67,
-      "unknown": 31
+      "true_count": 68,
+      "unknown": 32
     },
     "has_video_intercom": {
       "label": "Görüntülü diyafon",
@@ -699,7 +700,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 53,
-      "unknown": 31
+      "unknown": 32
     },
     "has_squat_toilet": {
       "label": "Alaturka tuvalet var",
@@ -707,14 +708,14 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 8,
-      "unknown": 31
+      "unknown": 32
     },
     "south_facing": {
       "label": "Güney cephe",
       "group": "Daire",
       "filter": "boolean",
       "unit": null,
-      "true_count": 47,
+      "true_count": 49,
       "unknown": 20
     },
     "facing": {
@@ -769,7 +770,7 @@
       "group": "Bina & Site",
       "filter": "boolean",
       "unit": null,
-      "true_count": 94,
+      "true_count": 95,
       "unknown": 1
     },
     "has_parking": {
@@ -777,7 +778,7 @@
       "group": "Bina & Site",
       "filter": "boolean",
       "unit": null,
-      "true_count": 107,
+      "true_count": 109,
       "unknown": 0
     },
     "has_closed_parking": {
@@ -785,7 +786,7 @@
       "group": "Bina & Site",
       "filter": "boolean",
       "unit": null,
-      "true_count": 57,
+      "true_count": 58,
       "unknown": 0
     },
     "has_pool": {
@@ -794,7 +795,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 13,
-      "unknown": 33
+      "unknown": 34
     },
     "has_indoor_pool": {
       "label": "Kapalı havuz",
@@ -802,7 +803,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 12,
-      "unknown": 33
+      "unknown": 34
     },
     "has_gym": {
       "label": "Spor alanı / fitness (site içi)",
@@ -810,7 +811,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 31,
-      "unknown": 33
+      "unknown": 34
     },
     "has_sauna": {
       "label": "Sauna / hamam / buhar odası",
@@ -818,7 +819,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 12,
-      "unknown": 33
+      "unknown": 34
     },
     "has_security": {
       "label": "24 saat güvenlik",
@@ -826,7 +827,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 36,
-      "unknown": 33
+      "unknown": 34
     },
     "has_camera": {
       "label": "Kamera sistemi",
@@ -834,15 +835,15 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 56,
-      "unknown": 33
+      "unknown": 34
     },
     "has_concierge": {
       "label": "Kapıcı / apartman görevlisi",
       "group": "Bina & Site",
       "filter": "boolean",
       "unit": null,
-      "true_count": 68,
-      "unknown": 33
+      "true_count": 69,
+      "unknown": 34
     },
     "has_generator": {
       "label": "Jeneratör",
@@ -850,7 +851,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 52,
-      "unknown": 33
+      "unknown": 34
     },
     "has_playground": {
       "label": "Çocuk oyun parkı",
@@ -858,7 +859,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 53,
-      "unknown": 33
+      "unknown": 34
     },
     "has_ev_charger": {
       "label": "Elektrikli araç şarjı",
@@ -866,7 +867,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 26,
-      "unknown": 33
+      "unknown": 34
     },
     "has_tennis": {
       "label": "Tenis kortu",
@@ -874,7 +875,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 4,
-      "unknown": 33
+      "unknown": 34
     },
     "has_insulation": {
       "label": "Isı yalıtımı",
@@ -882,7 +883,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 57,
-      "unknown": 33
+      "unknown": 34
     },
     "has_sound_insulation": {
       "label": "Ses yalıtımı",
@@ -890,95 +891,95 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 36,
-      "unknown": 33
+      "unknown": 34
     },
     "has_water_tank": {
       "label": "Su deposu / hidrofor",
       "group": "Bina & Site",
       "filter": "boolean",
       "unit": null,
-      "true_count": 55,
-      "unknown": 33
+      "true_count": 56,
+      "unknown": 34
     },
     "metro_nearby": {
       "label": "Metro yakın",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 53,
-      "unknown": 31
+      "true_count": 54,
+      "unknown": 32
     },
     "train_nearby": {
       "label": "Tren istasyonu yakın",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 11,
-      "unknown": 31
+      "true_count": 12,
+      "unknown": 32
     },
     "bus_stop_nearby": {
       "label": "Otobüs durağı yakın",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 70,
-      "unknown": 31
+      "true_count": 71,
+      "unknown": 32
     },
     "near_market": {
       "label": "Market",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 72,
-      "unknown": 31
+      "true_count": 73,
+      "unknown": 32
     },
     "near_mall": {
       "label": "Alışveriş merkezi",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 71,
-      "unknown": 31
+      "true_count": 72,
+      "unknown": 32
     },
     "near_bazaar": {
       "label": "Semt pazarı",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 62,
-      "unknown": 31
+      "true_count": 63,
+      "unknown": 32
     },
     "near_gym": {
       "label": "Spor salonu (çevrede)",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 53,
-      "unknown": 31
+      "true_count": 54,
+      "unknown": 32
     },
     "near_park": {
       "label": "Park",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 70,
-      "unknown": 31
+      "true_count": 71,
+      "unknown": 32
     },
     "near_hospital": {
       "label": "Hastane",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 56,
-      "unknown": 31
+      "true_count": 57,
+      "unknown": 32
     },
     "near_school": {
       "label": "Okul (ilk/orta/lise)",
       "group": "Çevre (ilan beyanı)",
       "filter": "boolean",
       "unit": null,
-      "true_count": 72,
-      "unknown": 31
+      "true_count": 73,
+      "unknown": 32
     },
     "view_city": {
       "label": "Şehir manzarası",
@@ -986,7 +987,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 56,
-      "unknown": 37
+      "unknown": 39
     },
     "view_nature": {
       "label": "Doğa / yeşil alan manzarası",
@@ -994,7 +995,7 @@
       "filter": "boolean",
       "unit": null,
       "true_count": 54,
-      "unknown": 37
+      "unknown": 39
     },
     "is_owner": {
       "label": "Sahibinden (emlakçısız)",
@@ -1090,21 +1091,21 @@
     "Cephe": [
       {
         "name": "Batı",
-        "count": 29,
+        "count": 30,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Doğu",
-        "count": 53,
+        "count": 55,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Güney",
-        "count": 47,
+        "count": 49,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1239,14 +1240,14 @@
       },
       {
         "name": "Çelik Kapı",
-        "count": 68,
+        "count": 69,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Duşakabin",
-        "count": 70,
+        "count": 71,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1316,7 +1317,7 @@
       },
       {
         "name": "Isıcam",
-        "count": 49,
+        "count": 50,
         "important": true,
         "negative": false,
         "relevant": true
@@ -1414,14 +1415,14 @@
       },
       {
         "name": "Parke Zemin",
-        "count": 31,
+        "count": 32,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "PVC Doğrama",
-        "count": 46,
+        "count": 47,
         "important": true,
         "negative": false,
         "relevant": true
@@ -1514,7 +1515,7 @@
       },
       {
         "name": "Apartman Görevlisi",
-        "count": 69,
+        "count": 70,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1542,7 +1543,7 @@
       },
       {
         "name": "Hidrofor",
-        "count": 47,
+        "count": 48,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1563,7 +1564,7 @@
       },
       {
         "name": "Kablo TV",
-        "count": 41,
+        "count": 42,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1640,7 +1641,7 @@
       },
       {
         "name": "Uydu",
-        "count": 54,
+        "count": 55,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1670,14 +1671,14 @@
     "Muhit": [
       {
         "name": "Alışveriş Merkezi",
-        "count": 72,
+        "count": 73,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Belediye",
-        "count": 38,
+        "count": 39,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1705,14 +1706,14 @@
       },
       {
         "name": "Eczane",
-        "count": 68,
+        "count": 69,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Eğlence Merkezi",
-        "count": 42,
+        "count": 43,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1733,7 +1734,7 @@
       },
       {
         "name": "Hastane",
-        "count": 57,
+        "count": 58,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1747,7 +1748,7 @@
       },
       {
         "name": "İlkokul-Ortaokul",
-        "count": 71,
+        "count": 72,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1768,21 +1769,21 @@
       },
       {
         "name": "Lise",
-        "count": 58,
+        "count": 59,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Market",
-        "count": 73,
+        "count": 74,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Park",
-        "count": 71,
+        "count": 72,
         "important": true,
         "negative": false,
         "relevant": true
@@ -1796,42 +1797,42 @@
       },
       {
         "name": "Polis Merkezi",
-        "count": 42,
+        "count": 43,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Sağlık Ocağı",
-        "count": 67,
+        "count": 68,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Semt Pazarı",
-        "count": 63,
+        "count": 64,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Spor Salonu",
-        "count": 54,
+        "count": 55,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Şehir Merkezi",
-        "count": 53,
+        "count": 54,
         "important": false,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Üniversite",
-        "count": 27,
+        "count": 28,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1840,7 +1841,7 @@
     "Ulaşım": [
       {
         "name": "Anayol",
-        "count": 68,
+        "count": 69,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1861,7 +1862,7 @@
       },
       {
         "name": "Cadde",
-        "count": 59,
+        "count": 60,
         "important": false,
         "negative": false,
         "relevant": true
@@ -1875,7 +1876,7 @@
       },
       {
         "name": "Dolmuş",
-        "count": 61,
+        "count": 62,
         "important": true,
         "negative": false,
         "relevant": true
@@ -1910,7 +1911,7 @@
       },
       {
         "name": "Metro",
-        "count": 54,
+        "count": 55,
         "important": true,
         "negative": false,
         "relevant": true
@@ -1924,14 +1925,14 @@
       },
       {
         "name": "Minibüs",
-        "count": 48,
+        "count": 49,
         "important": true,
         "negative": false,
         "relevant": true
       },
       {
         "name": "Otobüs Durağı",
-        "count": 71,
+        "count": 72,
         "important": true,
         "negative": false,
         "relevant": true
@@ -1959,7 +1960,7 @@
       },
       {
         "name": "Tren İstasyonu",
-        "count": 12,
+        "count": 13,
         "important": true,
         "negative": false,
         "relevant": true
@@ -5436,6 +5437,191 @@
       "pros_count": 0,
       "cons_count": 3,
       "ad_json": "1284510262/ad.json"
+    },
+    {
+      "id": "1338223893",
+      "title": "EMEKTE KİRALIK KATTA ÖN CEPHE METRO YAKINI 2+1 ADER'DEN",
+      "price_value": 34000,
+      "monthly_cost": 35500,
+      "dues": 1500,
+      "dues_known": true,
+      "deposit": null,
+      "price_per_m2_net": 486,
+      "deposit_months": null,
+      "move_in_cost": null,
+      "price_currency": "TRY",
+      "price_raw": "34.000 TL",
+      "am_transit_min": 48,
+      "pm_transit_min": 32,
+      "daily_transit_min": 80,
+      "am_drive_min": 15,
+      "pm_drive_min": 15,
+      "daily_drive_min": 30,
+      "am_transit_transfers": 1,
+      "pm_transit_transfers": 0,
+      "am_transit_walk_min": 5,
+      "pm_transit_walk_min": 8,
+      "am_transit_first_walk_min": 4,
+      "am_drive_traffic_min": 2,
+      "pm_transit_wait_min": 7,
+      "transit_uses_rail": true,
+      "am_transit_lines": "A1 → M1-2-3 → Ring",
+      "pm_transit_lines": "Ring → 450",
+      "am_leave_transit": "08:01",
+      "am_leave_drive": "08:35",
+      "pm_arrive_transit": "18:39",
+      "pm_arrive_drive": "18:15",
+      "distance_to_work_km": 4.23,
+      "drive_km": 8.39,
+      "transit_km": 14.35,
+      "city": "Ankara",
+      "district": "Çankaya",
+      "neighborhood": "Emek Mah.",
+      "latitude": 39.91691774409507,
+      "longitude": 32.81562025672797,
+      "area_net_m2": 70,
+      "area_gross_m2": 75,
+      "rooms": 2,
+      "living_rooms": 1,
+      "bathrooms": 1,
+      "floor": 1,
+      "floor_count": 4,
+      "is_ground_floor": false,
+      "is_top_floor": false,
+      "building_age_min": 31,
+      "building_age_max": null,
+      "heating": "Merkezi",
+      "furnished": false,
+      "separate_kitchen": true,
+      "balcony": true,
+      "has_closed_balcony": false,
+      "has_ensuite": false,
+      "has_white_goods": false,
+      "has_dishwasher": false,
+      "has_washing_machine": false,
+      "has_built_in_kitchen": false,
+      "has_ac": false,
+      "has_built_in_wardrobe": false,
+      "has_dressing_room": false,
+      "has_fiber": false,
+      "has_smart_home": false,
+      "has_double_glazing": true,
+      "has_steel_door": true,
+      "has_video_intercom": false,
+      "has_squat_toilet": false,
+      "south_facing": true,
+      "facing": [
+        "Doğu",
+        "Güney"
+      ],
+      "energy_class": null,
+      "tenant_inside": false,
+      "in_complex": false,
+      "complex_name": null,
+      "elevator": false,
+      "has_parking": true,
+      "has_closed_parking": false,
+      "has_pool": false,
+      "has_indoor_pool": false,
+      "has_gym": false,
+      "has_sauna": false,
+      "has_security": false,
+      "has_camera": false,
+      "has_concierge": true,
+      "has_generator": false,
+      "has_playground": false,
+      "has_ev_charger": false,
+      "has_tennis": false,
+      "has_insulation": false,
+      "has_sound_insulation": false,
+      "has_water_tank": true,
+      "metro_nearby": true,
+      "train_nearby": true,
+      "bus_stop_nearby": true,
+      "near_market": true,
+      "near_mall": true,
+      "near_bazaar": true,
+      "near_gym": true,
+      "near_park": true,
+      "near_hospital": true,
+      "near_school": true,
+      "view_city": null,
+      "view_nature": null,
+      "is_owner": false,
+      "seller_type": "corporate",
+      "seller_name": "ADER GAYRİMENKUL",
+      "listing_date": "2026-10-13",
+      "photo_count": 21,
+      "features_all": [
+        "Alışveriş Merkezi",
+        "Anayol",
+        "Apartman Görevlisi",
+        "Belediye",
+        "Cadde",
+        "Dolmuş",
+        "Doğu",
+        "Duşakabin",
+        "Eczane",
+        "Eğlence Merkezi",
+        "Güney",
+        "Hastane",
+        "Hidrofor",
+        "Isıcam",
+        "Kablo TV",
+        "Lise",
+        "Market",
+        "Metro",
+        "Minibüs",
+        "Otobüs Durağı",
+        "PVC Doğrama",
+        "Park",
+        "Parke Zemin",
+        "Polis Merkezi",
+        "Sağlık Ocağı",
+        "Semt Pazarı",
+        "Spor Salonu",
+        "Tren İstasyonu",
+        "Uydu",
+        "Çelik Kapı",
+        "Üniversite",
+        "İlkokul-Ortaokul",
+        "Şehir Merkezi"
+      ],
+      "checklist_quality": "filled",
+      "auto_pros": [
+        "Isıcam",
+        "PVC Doğrama",
+        "Çelik Kapı",
+        "Market",
+        "Eczane",
+        "Sağlık Ocağı",
+        "Alışveriş Merkezi",
+        "Semt Pazarı",
+        "Park",
+        "Metro",
+        "Tren İstasyonu",
+        "Otobüs Durağı",
+        "Dolmuş",
+        "Minibüs",
+        "Duşakabin",
+        "Parke Zemin",
+        "Eğlence Merkezi",
+        "Hastane",
+        "İlkokul-Ortaokul",
+        "Lise",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "auto_cons": [
+        "İnternet altyapısı (fiber / ADSL) işaretli değil",
+        "Fırın (ankastre veya normal) işaretli değil",
+        "Gömme dolap / vestiyer işaretli değil",
+        "Görüntülü diyafon / intercom işaretli değil"
+      ],
+      "pros_count": 23,
+      "cons_count": 4,
+      "ad_json": "1338223893/ad.json"
     },
     {
       "id": "1340887952",
@@ -21715,6 +21901,137 @@
       "pros_count": 38,
       "cons_count": 1,
       "ad_json": "1338757986/ad.json"
+    },
+    {
+      "id": "1345580988",
+      "title": "Cretive'den Emek'de 2+1 Full Yeni Eşyalı Daire",
+      "price_value": 52000,
+      "monthly_cost": 52000,
+      "dues": null,
+      "dues_known": false,
+      "deposit": 50000,
+      "price_per_m2_net": 547,
+      "deposit_months": 1.0,
+      "move_in_cost": 102000,
+      "price_currency": "TRY",
+      "price_raw": "52.000 TL",
+      "am_transit_min": 38,
+      "pm_transit_min": 39,
+      "daily_transit_min": 77,
+      "am_drive_min": 14,
+      "pm_drive_min": 19,
+      "daily_drive_min": 33,
+      "am_transit_transfers": 0,
+      "pm_transit_transfers": 0,
+      "am_transit_walk_min": 14,
+      "pm_transit_walk_min": 16,
+      "am_transit_first_walk_min": 8,
+      "am_drive_traffic_min": 2,
+      "pm_transit_wait_min": 1,
+      "transit_uses_rail": true,
+      "am_transit_lines": "112 → Ring",
+      "pm_transit_lines": "Ring → M1-2-3",
+      "am_leave_transit": "08:07",
+      "am_leave_drive": "08:35",
+      "pm_arrive_transit": "18:40",
+      "pm_arrive_drive": "18:18",
+      "distance_to_work_km": 4.65,
+      "drive_km": 8.13,
+      "transit_km": 6.05,
+      "city": "Ankara",
+      "district": "Çankaya",
+      "neighborhood": "Emek Mah.",
+      "latitude": 39.91895955516426,
+      "longitude": 32.81985630899697,
+      "area_net_m2": 95,
+      "area_gross_m2": 110,
+      "rooms": 2,
+      "living_rooms": 1,
+      "bathrooms": 1,
+      "floor": 0,
+      "floor_count": 3,
+      "is_ground_floor": true,
+      "is_top_floor": false,
+      "building_age_min": 3,
+      "building_age_max": 3,
+      "heating": "Doğalgaz Sobası",
+      "furnished": true,
+      "separate_kitchen": false,
+      "balcony": true,
+      "has_closed_balcony": null,
+      "has_ensuite": null,
+      "has_white_goods": null,
+      "has_dishwasher": null,
+      "has_washing_machine": null,
+      "has_built_in_kitchen": null,
+      "has_ac": null,
+      "has_built_in_wardrobe": null,
+      "has_dressing_room": null,
+      "has_fiber": null,
+      "has_smart_home": null,
+      "has_double_glazing": null,
+      "has_steel_door": null,
+      "has_video_intercom": null,
+      "has_squat_toilet": null,
+      "south_facing": true,
+      "facing": [
+        "Batı",
+        "Doğu",
+        "Güney"
+      ],
+      "energy_class": "A",
+      "tenant_inside": false,
+      "in_complex": false,
+      "complex_name": null,
+      "elevator": true,
+      "has_parking": true,
+      "has_closed_parking": true,
+      "has_pool": null,
+      "has_indoor_pool": null,
+      "has_gym": null,
+      "has_sauna": null,
+      "has_security": null,
+      "has_camera": null,
+      "has_concierge": null,
+      "has_generator": null,
+      "has_playground": null,
+      "has_ev_charger": null,
+      "has_tennis": null,
+      "has_insulation": null,
+      "has_sound_insulation": null,
+      "has_water_tank": null,
+      "metro_nearby": null,
+      "train_nearby": null,
+      "bus_stop_nearby": null,
+      "near_market": null,
+      "near_mall": null,
+      "near_bazaar": null,
+      "near_gym": null,
+      "near_park": null,
+      "near_hospital": null,
+      "near_school": null,
+      "view_city": null,
+      "view_nature": null,
+      "is_owner": false,
+      "seller_type": "corporate",
+      "seller_name": "Creative Gayrimenkul",
+      "listing_date": "2026-10-13",
+      "photo_count": 35,
+      "features_all": [
+        "Batı",
+        "Doğu",
+        "Güney"
+      ],
+      "checklist_quality": "empty",
+      "auto_pros": [],
+      "auto_cons": [
+        "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+        "Muhit listesi doldurulmamış (bilinmiyor)",
+        "Ulaşım listesi doldurulmamış (bilinmiyor)"
+      ],
+      "pros_count": 0,
+      "cons_count": 3,
+      "ad_json": "1345580988/ad.json"
     }
   ]
 }

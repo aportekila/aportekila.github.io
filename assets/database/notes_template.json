@@ -1366,6 +1366,44 @@
       ],
       "note": ""
     },
+    "1338223893": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [
+        "Isıcam",
+        "PVC Doğrama",
+        "Çelik Kapı",
+        "Market",
+        "Eczane",
+        "Sağlık Ocağı",
+        "Alışveriş Merkezi",
+        "Semt Pazarı",
+        "Park",
+        "Metro",
+        "Tren İstasyonu",
+        "Otobüs Durağı",
+        "Dolmuş",
+        "Minibüs",
+        "Duşakabin",
+        "Parke Zemin",
+        "Eğlence Merkezi",
+        "Hastane",
+        "İlkokul-Ortaokul",
+        "Lise",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "cons": [
+        "İnternet altyapısı (fiber / ADSL) işaretli değil",
+        "Fırın (ankastre veya normal) işaretli değil",
+        "Gömme dolap / vestiyer işaretli değil",
+        "Görüntülü diyafon / intercom işaretli değil"
+      ],
+      "note": ""
+    },
     "1338457801": {
       "status": "new",
       "favorite": false,
@@ -3612,6 +3650,19 @@
       "note": ""
     },
     "1345485188": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [],
+      "cons": [
+        "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+        "Muhit listesi doldurulmamış (bilinmiyor)",
+        "Ulaşım listesi doldurulmamış (bilinmiyor)"
+      ],
+      "note": ""
+    },
+    "1345580988": {
       "status": "new",
       "favorite": false,
       "rating": null,
