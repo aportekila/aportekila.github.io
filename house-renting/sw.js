@@ -3,7 +3,7 @@
  * - data (index / notes / ad.json …): network first, cached copy offline
  * - scripts, styles, icons, photos, CDN files: cache first
  * - map tiles: cached as you browse, capped */
-const VERSION = "1791892258";
+const VERSION = "1791893497";
 const SHELL = "house-shell-" + VERSION;
 const DATA = "house-data";
 const STATIC = "house-static";
