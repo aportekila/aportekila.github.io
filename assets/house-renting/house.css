@@ -716,3 +716,4 @@ input.h-single { width: 100%; margin: 4px 0 0; }
   .h-cmp-title { -webkit-line-clamp: 1; }
   .h-cmp thead th { padding: 6px 5px; }
 }
+.h-hood-district { font-size: 0.8em; font-weight: 600; color: var(--text-2); margin: 8px 0 4px; }

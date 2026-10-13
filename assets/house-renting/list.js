@@ -12,7 +12,7 @@
     c_daily: "Günlük yolculuk (sabah + akşam, beklemesiz)",
   };
   const COMMUTE_KEY = { c_am: "am", c_pm: "pm", c_daily: "daily", c_d2d: "d2d" };
-  const SKIP_IN_GROUPS = new Set(["price_value", ...QUICK_BOOLS, "am_transit_min", "pm_transit_min", "daily_transit_min", "am_drive_min", "pm_drive_min", "daily_drive_min", "_d2d_transit", "_d2d_drive", "_station_m"]);
+  const SKIP_IN_GROUPS = new Set(["price_value", ...QUICK_BOOLS, "am_transit_min", "pm_transit_min", "daily_transit_min", "am_drive_min", "pm_drive_min", "daily_drive_min", "_d2d_transit", "_d2d_drive", "_station_m", "district"]);
   const TIME_HINT = { am_leave_transit: "Evden çıkış saati aralığı", am_leave_drive: "Evden çıkış saati aralığı", pm_arrive_transit: "Eve varış saati aralığı", pm_arrive_drive: "Eve varış saati aralığı" };
   const AVOID = new Set(["is_ground_floor", "has_squat_toilet", "tenant_inside"]);
   const SORTS = [
@@ -296,9 +296,9 @@
     return row;
   }
 
-  function multiControl(f, options, labelFor) {
+  function multiControl(f, options, labelFor, opts = {}) {
     const info = FI[f];
-    const box = el("div", {}, el("div", { class: "h-sub", text: info.label }));
+    const box = el("div", {}, opts.title === null ? null : el("div", { class: "h-sub", text: opts.title || info.label }));
     const chips = el("div", { class: "h-chips" });
     for (const opt of options) {
       const count = el("small");
@@ -315,12 +315,38 @@
         if (cur.size) state.multi[f] = [...cur];
         else delete state.multi[f];
         sync();
+        if (opts.onToggle) opts.onToggle();
         apply(true);
       });
       sync();
       chips.append(chip);
     }
     box.append(chips);
+    return box;
+  }
+
+  // ---------- district → neighbourhood ----------
+  let HOOD_DISTRICT = new Map(); // neighbourhood -> district
+  function districtChanged() {
+    // Drop selected neighbourhoods that belong to a district that is no longer selected.
+    const ds = state.multi.district || [];
+    if (ds.length && state.multi.neighborhood) {
+      state.multi.neighborhood = state.multi.neighborhood.filter((n) => ds.includes(HOOD_DISTRICT.get(n)));
+      if (!state.multi.neighborhood.length) delete state.multi.neighborhood;
+    }
+    buildPanel();
+  }
+  /** Neighbourhood chips grouped by district; only the selected districts' when any is selected. */
+  function neighborhoodControl() {
+    const ds = state.multi.district && state.multi.district.length ? state.multi.district : FI.district.options;
+    const box = el("div", {}, el("div", { class: "h-sub", text: FI.neighborhood.label + (state.multi.district ? ` (${ds.join(", ")})` : "") }));
+    for (const d of ds) {
+      const hoods = FI.neighborhood.options.filter((n) => HOOD_DISTRICT.get(n) === d);
+      if (!hoods.length) continue;
+      const counts = new Map(hoods.map((n) => [n, ADS.filter((a) => a.neighborhood === n).length]));
+      hoods.sort((a, b) => counts.get(b) - counts.get(a) || a.localeCompare(b, "tr"));
+      box.append(el("div", { class: "h-hood-district", text: d }), multiControl("neighborhood", hoods, null, { title: null }));
+    }
     return box;
   }
 
@@ -401,7 +427,8 @@
 
     // Quick filters
     panel.append(
-      section("_quick", "Hızlı filtreler", countIn(["price_value", ...Object.keys(COMMUTE), ...QUICK_BOOLS, "_station_m"]) + (state.hideUnknown ? 1 : 0), (b) => {
+      section("_quick", "Hızlı filtreler", countIn(["district", "price_value", ...Object.keys(COMMUTE), ...QUICK_BOOLS, "_station_m"]) + (state.hideUnknown ? 1 : 0), (b) => {
+        b.append(multiControl("district", FI.district.options, null, { title: "İlçe", onToggle: districtChanged }));
         b.append(rangeControl("price_value"));
         b.append(el("div", { class: "h-sub", text: `${H.MODES[state.mode].icon} ${H.MODES[state.mode].label} süreleri` }));
         for (const k of Object.keys(COMMUTE)) b.append(rangeControl(k));
@@ -562,6 +589,7 @@
           for (const f of fields) {
             const info = FI[f];
             if (info.filter === "range" || info.filter === "time") b.append(rangeControl(f));
+            else if (f === "neighborhood") b.append(neighborhoodControl());
             else if (info.filter === "multi") b.append(multiControl(f, info.options, f === "seller_type" ? (v) => H.SELLER_TYPE[v] || v : f === "checklist_quality" ? (v) => H.CHECKLIST[v] || v : null));
           }
           const bools = fields.filter((f) => FI[f].filter === "boolean");
@@ -1005,6 +1033,7 @@
       FI = index.field_info;
       ADS = index.ads;
       CATALOG = index.feature_catalog;
+      HOOD_DISTRICT = new Map(ADS.map((a) => [a.neighborhood, a.district]));
       for (const [f, info] of Object.entries(FI)) {
         if (info.filter !== "time") continue;
         const vals = ADS.map((a) => H.hhmmToMin(a[f])).filter((v) => v != null);
