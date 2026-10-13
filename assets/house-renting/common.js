@@ -47,8 +47,10 @@
     }
     return node;
   };
+  // replaceChildren() is atomic: removing a focused input fires "blur"/"change", and a handler
+  // that re-renders the same container mid-loop would otherwise make removeChild throw.
   H.clear = (node) => {
-    while (node.firstChild) node.removeChild(node.firstChild);
+    node.replaceChildren();
     return node;
   };
 
@@ -599,6 +601,20 @@
     url.search = new URLSearchParams({ list: name, ids: ids.join(",") }).toString();
     H.share(`${H.genitive(name)} favori evleri`, url.toString(), `${H.genitive(name)} favori ${ids.length} ilanı`);
   };
+
+  // ---------- contacts (assets/house-renting/contacts.json, written by bin/export_contacts.py) ----------
+  let contactsPromise = null;
+  /** Map id → {name, office, type, phones:[{label, number, tel}], message_url}; empty if the file is absent. */
+  H.loadContacts = function () {
+    if (!contactsPromise)
+      contactsPromise = fetch(CFG.contacts, { cache: "no-cache" })
+        .then((r) => (r.ok ? r.json() : { contacts: {} }))
+        .then((j) => new Map(Object.entries((j && j.contacts) || {})))
+        .catch(() => new Map());
+    return contactsPromise;
+  };
+  /** WhatsApp link for Turkish mobile numbers (+905…), with an optional pre-filled message. */
+  H.whatsapp = (telNo, text) => (telNo && /^\+905\d{9}$/.test(telNo) ? `https://wa.me/${telNo.slice(1)}${text ? "?text=" + encodeURIComponent(text) : ""}` : null);
 
   // ---------- offline ----------
   function offlineBanner() {

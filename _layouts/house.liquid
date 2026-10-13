@@ -32,6 +32,7 @@
         notes: "{{ '/assets/notes.json' | relative_url }}",
         photos: "{{ '/assets/house-renting/photos.json' | relative_url }}?v={{ v }}",
         rail: "{{ '/assets/house-renting/rail.json' | relative_url }}?v={{ v }}",
+        contacts: "{{ '/assets/house-renting/contacts.json' | relative_url }}",
         root: "{{ '/house-renting/' | relative_url }}",
       };
       // Offline support / "add to home screen" (scope: /house-renting/ only).
@@ -52,6 +53,7 @@
         <a href="{{ '/house-renting/' | relative_url }}?fav=1" data-nav="fav">★ Favoriler <span class="h-badge" data-fav-count>0</span></a>
         <a href="{{ '/house-renting/compare/' | relative_url }}" {% if page.house_page == 'compare' %}aria-current="page"{% endif %}>Karşılaştır <span class="h-badge" data-compare-count>0</span></a>
         <a href="{{ '/house-renting/score/' | relative_url }}" {% if page.house_page == 'score' %}aria-current="page"{% endif %}>🏆 Puanlama</a>
+        <a href="{{ '/house-renting/route/' | relative_url }}" {% if page.house_page == 'route' %}aria-current="page"{% endif %}>🗺 Rota</a>
         <a href="{{ '/house-renting/triage/' | relative_url }}" {% if page.house_page == 'triage' %}aria-current="page"{% endif %}>⚡ Eleme</a>
         <a href="{{ '/house-renting/notes/' | relative_url }}" {% if page.house_page == 'notes' %}aria-current="page"{% endif %}>Notlarım</a>
       </nav>

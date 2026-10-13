@@ -403,8 +403,22 @@
     add("Ofis", c.office_name);
     add("Yetki belge no", c.license_no);
     add("Üyelik", c.member_since);
-    // Names and phone numbers are intentionally never shown (and stripped from the published data).
-    return panel("Satıcı", dl, el("div", { class: "h-hint", style: "margin-top:8px", text: "İletişim bilgileri yayından kaldırıldı; iletişim için “İlanı aç” veya “mesaj” bağlantısını kullan." }));
+    // Names / phones are not in the ad data; they come from contacts.json when it was exported.
+    const hint = el("div", { class: "h-hint", style: "margin-top:8px", text: "İletişim için “İlanı aç” veya “mesaj” bağlantısını kullan." });
+    const actions = el("div", { class: "h-actions", style: "margin-top:8px" });
+    H.loadContacts().then((map) => {
+      const x = map.get(ad.id);
+      if (!x) return;
+      if (x.name) dl.prepend(el("dt", { text: "Kişi" }), el("dd", { text: x.name }));
+      for (const p of x.phones || []) {
+        if (!p.tel) continue;
+        actions.append(el("a", { class: "h-btn h-btn-small", href: "tel:" + p.tel }, `📞 ${p.label ? p.label + ": " : ""}${p.number}`));
+        const wa = H.whatsapp(p.tel, `Merhaba, sahibinden.com'daki ${ad.id} numaralı ilanınız için yazıyorum. Daireyi görmek isterim; ne zaman uygun olur?`);
+        if (wa) actions.append(el("a", { class: "h-btn h-btn-small h-wa", href: wa, target: "_blank", rel: "noopener noreferrer", text: "WhatsApp" }));
+      }
+      if ((x.phones || []).length) hint.remove();
+    });
+    return panel("Satıcı", dl, actions, hint);
   }
 
   // ---------- map ----------

@@ -717,3 +717,33 @@ input.h-single { width: 100%; margin: 4px 0 0; }
   .h-cmp thead th { padding: 6px 5px; }
 }
 .h-hood-district { font-size: 0.8em; font-weight: 600; color: var(--text-2); margin: 8px 0 4px; }
+
+/* ---------- route planner ---------- */
+.h-route-controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: flex-end; }
+.h-route-field { display: grid; gap: 3px; font-size: 0.82em; color: var(--muted); }
+.h-route-field .h-input { color: var(--text); font-size: 1.1em; }
+.h-route-summary { margin-bottom: 10px; }
+.h-route-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.h-route-sticky { position: sticky; top: calc(var(--sticky-top, 60px) + 12px); }
+.h-route-map { height: calc(100vh - 140px); min-height: 360px; }
+@media (max-width: 960px) { .h-route-sticky { position: static; } .h-route-map { height: 360px; } .h-route-grid > div:last-child { order: -1; } }
+.h-calls { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.h-calls li { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; display: grid; gap: 6px; }
+.h-call-who { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.h-call-stops { display: flex; flex-wrap: wrap; gap: 4px; }
+.h-call { font-variant-numeric: tabular-nums; }
+.h-wa { background: #25d366; border-color: #25d366; color: #fff; }
+.h-wa:hover { background: #1ebe5a; }
+.h-route-day { border-top: 4px solid var(--day); }
+.h-route-day-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 8px; }
+.h-route-day-head h2 { margin: 0; color: var(--day); }
+.h-route-day-head .h-btn { margin-left: auto; }
+.h-route-stops { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.h-route-area { font-size: 0.8em; font-weight: 600; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.h-route-stop { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 10px; border: 1px solid var(--border); border-radius: 10px; }
+.h-route-stop .h-pin { background: var(--day); }
+.h-route-body { display: grid; gap: 4px; min-width: 0; }
+.h-route-status { padding: 3px 6px; font-size: 0.82em; }
+.h-pin-start { background: var(--text) !important; color: var(--bg) !important; }
+@media print { .h-route-controls, .h-route-sticky, .h-calls .h-actions .h-wa { display: none !important; } .h-route-grid { grid-template-columns: 1fr; } }
+@media (max-width: 960px) { .h-route-grid { grid-template-columns: minmax(0, 1fr); } }
