@@ -1117,6 +1117,36 @@
       ],
       "note": ""
     },
+    "1336265653": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [
+        "Market",
+        "Eczane",
+        "Sağlık Ocağı",
+        "Alışveriş Merkezi",
+        "Semt Pazarı",
+        "Park",
+        "Otobüs Durağı",
+        "Dolmuş",
+        "Minibüs",
+        "Eğlence Merkezi",
+        "Hastane",
+        "İlkokul-Ortaokul",
+        "Lise",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite",
+        "Havaalanı"
+      ],
+      "cons": [
+        "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+        "Raylı sistem (metro / tren) işaretli değil"
+      ],
+      "note": ""
+    },
     "1336362186": {
       "status": "new",
       "favorite": false,
@@ -1158,6 +1188,22 @@
         "Şehir Merkezi"
       ],
       "cons": [],
+      "note": ""
+    },
+    "1336770491": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [
+        "Metro",
+        "Otobüs Durağı",
+        "Dolmuş"
+      ],
+      "cons": [
+        "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+        "Muhit listesi doldurulmamış (bilinmiyor)"
+      ],
       "note": ""
     },
     "1336979555": {
@@ -1628,6 +1674,40 @@
         "Hastane"
       ],
       "cons": [],
+      "note": ""
+    },
+    "1339454870": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [
+        "Çelik Kapı",
+        "ADSL",
+        "Vestiyer",
+        "Eczane",
+        "Semt Pazarı",
+        "Park",
+        "Otobüs Durağı",
+        "Beyaz Eşya",
+        "Boyalı",
+        "Bulaşık Makinesi",
+        "Buzdolabı",
+        "Çamaşır Makinesi",
+        "Duşakabin",
+        "Hilton Banyo",
+        "Laminat Zemin",
+        "Mobilya",
+        "Mutfak (Laminat)",
+        "Parke Zemin"
+      ],
+      "cons": [
+        "Isıcam / PVC doğrama işaretli değil",
+        "Fırın (ankastre veya normal) işaretli değil",
+        "Görüntülü diyafon / intercom işaretli değil",
+        "Market işaretli değil",
+        "Raylı sistem (metro / tren) işaretli değil"
+      ],
       "note": ""
     },
     "1339594352": {
@@ -2899,6 +2979,56 @@
       ],
       "note": ""
     },
+    "1343006192": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [
+        "Isıcam",
+        "PVC Doğrama",
+        "Çelik Kapı",
+        "Fiber İnternet",
+        "Fırın",
+        "Gömme Dolap",
+        "Görüntülü Diyafon",
+        "Market",
+        "Eczane",
+        "Sağlık Ocağı",
+        "Alışveriş Merkezi",
+        "Semt Pazarı",
+        "Park",
+        "Metro",
+        "Otobüs Durağı",
+        "Dolmuş",
+        "Minibüs",
+        "Bulaşık Makinesi",
+        "Buzdolabı",
+        "Çamaşır Makinesi",
+        "Duşakabin",
+        "Kartonpiyer",
+        "Laminat Zemin",
+        "Mobilya",
+        "Mutfak (Laminat)",
+        "Mutfak Doğalgazı",
+        "Panjur/Jaluzi",
+        "Parke Zemin",
+        "Seramik Zemin",
+        "Set Üstü Ocak",
+        "Spot Aydınlatma",
+        "Eğlence Merkezi",
+        "Hastane",
+        "İlkokul-Ortaokul",
+        "Lise",
+        "Spor Salonu",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "cons": [
+        "Alaturka tuvalet var"
+      ],
+      "note": ""
+    },
     "1343018041": {
       "status": "new",
       "favorite": false,
@@ -3069,6 +3199,19 @@
       ],
       "note": ""
     },
+    "1344076594": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [],
+      "cons": [
+        "İç Özellikler listesi doldurulmamış (bilinmiyor)",
+        "Muhit listesi doldurulmamış (bilinmiyor)",
+        "Ulaşım listesi doldurulmamış (bilinmiyor)"
+      ],
+      "note": ""
+    },
     "1344155225": {
       "status": "new",
       "favorite": false,
@@ -3079,6 +3222,54 @@
         "İç Özellikler listesi doldurulmamış (bilinmiyor)",
         "Muhit listesi doldurulmamış (bilinmiyor)",
         "Ulaşım listesi doldurulmamış (bilinmiyor)"
+      ],
+      "note": ""
+    },
+    "1344356318": {
+      "status": "new",
+      "favorite": false,
+      "rating": null,
+      "visited_on": null,
+      "pros": [
+        "Isıcam",
+        "PVC Doğrama",
+        "Çelik Kapı",
+        "Fiber İnternet",
+        "Gömme Dolap",
+        "Vestiyer",
+        "Market",
+        "Eczane",
+        "Sağlık Ocağı",
+        "Alışveriş Merkezi",
+        "Semt Pazarı",
+        "Park",
+        "Metro",
+        "Tren İstasyonu",
+        "Otobüs Durağı",
+        "Minibüs",
+        "Amerikan Kapı",
+        "Beyaz Eşya",
+        "Bulaşık Makinesi",
+        "Çamaşır Makinesi",
+        "Duşakabin",
+        "Hilton Banyo",
+        "Kartonpiyer",
+        "Küvet",
+        "Laminat Zemin",
+        "Mobilya",
+        "Mutfak Doğalgazı",
+        "Seramik Zemin",
+        "Eğlence Merkezi",
+        "Hastane",
+        "İlkokul-Ortaokul",
+        "Lise",
+        "Şehir Merkezi",
+        "Üniversite"
+      ],
+      "cons": [
+        "Fırın (ankastre veya normal) işaretli değil",
+        "Görüntülü diyafon / intercom işaretli değil",
+        "Termosifonlu (elektrikli su ısıtıcı)"
       ],
       "note": ""
     },
