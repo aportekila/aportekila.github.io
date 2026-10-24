@@ -22,8 +22,5 @@ permalink: /assets/js/google-analytics-setup.js
     gtag("config", GA_ID);
   };
 
-  // Returning visitor who already granted consent on a previous visit.
-  if (localStorage.getItem("analytics-consent") === "granted") {
-    window.__loadGoogleAnalytics();
-  }
+  window.__loadGoogleAnalytics();
 })();
