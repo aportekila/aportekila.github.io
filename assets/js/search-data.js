@@ -65,6 +65,12 @@ ninja.data = [{
           section: "News",},{id: "news-paper-weighted-sequential-bayesian-inference-for-non-stationary-linear-contextual-bandits-accepted-to-uai-2026-conference-on-uncertainty-in-artificial-intelligence",
           title: 'Paper “Weighted Sequential Bayesian Inference for Non-Stationary Linear Contextual Bandits” accepted to UAI...',
           description: "",
+          section: "News",},{id: "news-paper-iel-hitting-time-isomorphism-for-multi-stage-planning-with-foundation-policies-accepted-to-neurips-2026",
+          title: 'Paper IEL “Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies” accepted to...',
+          description: "",
+          section: "News",},{id: "news-started-as-senior-ai-engineer-at-logethra-working-on-self-supervised-training-of-foundation-models-for-radiological-scans",
+          title: 'Started as Senior AI Engineer at Logethra, working on self-supervised training of foundation...',
+          description: "",
           section: "News",},{id: "projects-bfl-aggregating-variational-bayesian-networks-in-federated-learning",
           title: 'BFL: Aggregating Variational Bayesian Networks in Federated Learning',
           description: "Low-spread aggregation rules match or beat deterministic FedAvg while providing significantly better calibration across clients. First systematic study of aggregation strategies for Variational Bayesian Neural Networks in federated learning. NeurIPS 2022 Workshop.",
@@ -90,6 +96,11 @@ ninja.data = [{
           description: "The only model achieving top-tier performance on calibration, class overlap, and OOD detection simultaneously across five real-world benchmarks. External memory unifies global and local uncertainty in a single principled framework. ICLR 2022.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/etp.html";
+            },},{id: "projects-iel-hitting-time-isomorphism-for-multi-stage-planning",
+          title: 'IEL: Hitting Time Isomorphism for Multi-Stage Planning',
+          description: "The first foundation policy method that is unsupervised, directional, and satisfies the triangle inequality. Beats HILP on all six D4RL AntMaze and Kitchen benchmarks (67.5 vs. 54.6 mean normalized return), with +98% on AntMaze-Ultra-Diverse. NeurIPS 2026.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/iel.html";
             },},{id: "projects-is-ql-bridging-target-free-and-target-based-reinforcement-learning",
           title: 'iS-QL: Bridging Target-free and Target-based Reinforcement Learning',
           description: "Closes the 10–60% performance gap between target-free and target-based RL by sharing all parameters except the final linear head — matching target-based stability at near target-free memory cost across Atari, DMC, and language modeling. ICLR 2026.",
