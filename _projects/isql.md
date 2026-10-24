@@ -3,7 +3,7 @@ layout: project
 title: "iS-QL: Bridging Target-free and Target-based Reinforcement Learning"
 description: "Closes the 10–60% performance gap between target-free and target-based RL by sharing all parameters except the final linear head — matching target-based stability at near target-free memory cost across Atari, DMC, and language modeling. ICLR 2026."
 img: assets/img/projects/isql_algorithm_cards.png
-importance: 6
+importance: 7
 category: Featured Work
 venue: "ICLR"
 year: 2026

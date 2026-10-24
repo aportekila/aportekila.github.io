@@ -3,7 +3,7 @@ layout: project
 title: "Signature Verification for Fraud Detection"
 description: "Siamese CNN trained on handwritten signatures deployed at Vakifbank R&D for cheque fraud detection — 95% accuracy on internal data, 88% on the public CEDAR benchmark."
 img: assets/img/projects/vakifbank.png
-importance: 10
+importance: 11
 category: Industry Experience
 institution: "Vakifbank"
 year: 2020

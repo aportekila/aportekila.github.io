@@ -3,7 +3,7 @@ layout: project
 title: "PAC4SAC: PAC-Bayesian Soft Actor-Critic Learning"
 description: "2-3x sample efficiency improvement on high-dimensional tasks (Ant), best cumulative regret across all four PyBullet environments. First actor-critic using a PAC-Bayesian generalization bound as the critic training objective. AABI 2024."
 img: assets/img/projects/pac4sac_fig1.png
-importance: 7
+importance: 8
 category: Featured Work
 venue: "AABI"
 year: 2024

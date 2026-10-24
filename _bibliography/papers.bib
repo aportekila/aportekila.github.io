@@ -43,20 +43,22 @@
   preview			= {itu.png},
 }
 
-@article{boock2026hittingtime,
-	abbr         = {arXiv},
+@inproceedings{boock2026hittingtime,
+	abbr         = {NeurIPS},
 	title 		 = {Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies},
 	author 		 = {Boock, M. V. and Akg{\"u}l, A. and {\c{C}}elikok, M. M. and Kandemir, M.},
 	year 	     = {2026},
-	journal 	 = arxiv,
+	booktitle 	 = neurips,
 	url 		   = {https://arxiv.org/pdf/2605.06470},
 	html  		 = {https://arxiv.org/pdf/2605.06470},
 	arxiv        = {2605.06470},
-	selected 	 = {false},
+	selected 	 = {true},
 	bibtex_show= {true},
 	code       = {https://github.com/MagnusBoock/IEL/},
-	abstract 	 = {We present a new operator-theoretic representation learning framework for offlinereinforcement learning that recovers the directed temporal geometry of a controlledMarkov process from hitting time observations. While prior art often producessymmetric distances or fails to satisfy the triangle inequality, our framework learns a Hilbert-space displacement geometry where expected hitting times are realized as linear functionals of latent displacements. We prove that this representation exists under latent linear closure and is uniquely identifiable up to a bounded linear isomorphism. For finite-dimensional implementations, we show that global hitting-time error is bounded by one-step transition error amplified by the environment’s transient spectral radius. Furthermore, we provide finite-sample guarantees accounting for approximation, statistical complexity, and trajectory-label mismatch. Derived from this theory, we curate Isomorphic Embedding Learning (IEL) as a new goal-agnostic foundation policy learning algorithm that anchors a HILP-style consistency objective with explicit hitting-time regression to ensure that the learned geometry reflects actual decision-time progress. This asymmetric and compositional structure enables robust graph-based multi-stage planning for long-horizon navigation. Our experiments demonstrate that IEL improves the state of the art of learning foundation policy policies from offline maze locomotion data. Our code can be found at https://github.com/MagnusBoock/IEL},
-	annotation   = {This paper is a preprint.},
+	preview      = {iel.png},
+	project      = {/projects/iel.html},
+	abstract 	 = {We present a new operator-theoretic representation learning framework for offline reinforcement learning that recovers the directed temporal geometry of a controlled Markov process from hitting time observations. While prior art often produces symmetric distances or fails to satisfy the triangle inequality, our framework learns a Hilbert-space displacement geometry where expected hitting times are realized as linear functionals of latent displacements. We prove that this representation exists under latent linear closure and is uniquely identifiable up to a bounded linear isomorphism. For finite-dimensional implementations, we show that global hitting-time error is bounded by one-step transition error amplified by the environment’s transient spectral radius. Furthermore, we provide finite-sample guarantees accounting for approximation, statistical complexity, and trajectory-label mismatch. Motivated by this theory, we introduce Isomorphic Embedding Learning (IEL), a goal-agnostic foundation policy learning algorithm that combines hitting-time regression with a practical directional planning surrogate to ensure that the learned geometry reflects actual decision-time progress. This asymmetric and compositional structure enables robust graph-based multi-stage planning for long-horizon navigation. Our experiments demonstrate that IEL improves the state of the art of learning foundation policies from offline maze navigation and kitchen manipulation data. Our code can be found at https://github.com/MagnusBoock/IEL},
+	annotation   = {This paper is accepted to NeurIPS 2026.},
 	google_scholar_id = {Se3iqnhoufwC},
 }
 

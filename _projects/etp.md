@@ -3,7 +3,7 @@ layout: project
 title: "Evidential Turing Processes"
 description: "The only model achieving top-tier performance on calibration, class overlap, and OOD detection simultaneously across five real-world benchmarks. External memory unifies global and local uncertainty in a single principled framework. ICLR 2022."
 img: assets/img/projects/etp_plate.png
-importance: 5
+importance: 6
 category: Featured Work
 venue: "ICLR"
 year: 2022

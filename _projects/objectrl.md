@@ -3,7 +3,7 @@ layout: project
 title: "ObjectRL: An Object-Oriented Reinforcement Learning Codebase"
 description: "Extending SAC to a new algorithm takes roughly 5 lines: just override the two methods that change. Full OOP codebase where encapsulation, inheritance, and polymorphism map directly to RL algorithm components. arXiv 2025."
 img: assets/img/projects/objectrl_design.png
-importance: 8
+importance: 9
 category: Featured Work
 venue: "arXiv"
 year: 2025

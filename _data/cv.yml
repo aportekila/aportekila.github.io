@@ -54,6 +54,13 @@
 - title: Experience
   type: time_table
   contents:
+    - title: Senior AI Engineer
+      institution: Logethra
+      location: Turkey
+      year: Oct 2026 -<br> Present
+      description:
+        - Developing self-supervised learning (SSL) pipelines to train foundation models for radiological scans (CT, MRI), building on DINOv3-based Vision Transformers.
+        - Running large-scale training on HPC clusters with SLURM.
     - title: Postdoctoral Researcher
       institution: University of Southern Denmark
       department: Department of Mathematics and Computer Science

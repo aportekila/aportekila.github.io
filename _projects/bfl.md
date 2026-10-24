@@ -3,7 +3,7 @@ layout: project
 title: "BFL: Aggregating Variational Bayesian Networks in Federated Learning"
 description: "Low-spread aggregation rules match or beat deterministic FedAvg while providing significantly better calibration across clients. First systematic study of aggregation strategies for Variational Bayesian Neural Networks in federated learning. NeurIPS 2022 Workshop."
 img: assets/img/projects/bfl_fig1.png
-importance: 9
+importance: 10
 category: Featured Work
 venue: "NeurIPS 2022 Workshop"
 year: 2022

@@ -7,7 +7,7 @@ first_name: Abdullah
 middle_name: 
 last_name: Akgül
 contact_note: 
-description: "Abdullah Akgül — researcher working on sample-efficient reinforcement learning and probabilistic machine learning. Publications at NeurIPS, ICML, ICLR, and TMLR."
+description: "Abdullah Akgül — Senior AI Engineer at Logethra working on foundation models for medical imaging, with a research background in sample-efficient reinforcement learning and probabilistic machine learning. Publications at NeurIPS, ICML, ICLR, and TMLR."
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.

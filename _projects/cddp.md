@@ -3,7 +3,7 @@ layout: project
 title: "CDDP: Continual Learning of Multi-modal Dynamics"
 description: "Learns new dynamical modes sequentially without catastrophic forgetting or mode labels, outperforming parameter-transfer baselines on 4 out of 5 datasets. Neural episodic memory with a Dirichlet Process prior for automatic mode discovery. L4DC 2024."
 img: assets/img/projects/cddp.png
-importance: 4
+importance: 5
 category: Featured Work
 venue: "L4DC"
 year: 2024
